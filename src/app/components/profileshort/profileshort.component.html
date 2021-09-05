@@ -1,0 +1,96 @@
+<div *ngIf="isLanguageLoaded" class="profile-box">
+<div class="profile-name"><span>{{firstname}} {{lastname}}</span> <div class="icon"><img *ngIf="gender=='2'" src="../../../assets/images/man.png" class="w-100"/>
+  <img *ngIf="gender=='1'" src="../../../assets/images/woman.png" class="w-100" />
+</div>{{age}}</div>
+<ul>
+
+<li class="widthedit" *ngIf="isEdit">
+  <div class="form-group mb-0 icon-left">
+    <div class="icon"><img src="../../../assets/images/icon-phone-grey.png"  class="w-100"/></div>
+    <input type="text" class="form-control inputphone" placeholder="Phone Number" id="phonenumber" [(ngModel)]="phonenumber" (change)="phoneNumberChange()" [ngModelOptions]="{standalone: true}">
+
+    <div class="profilearea dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown">
+        {{phonecode}} <i class="fas fa-angle-down"></i>
+      </a>
+      <!-- <div class="dropdown-menu" style="height: 300px;overflow-y: auto;">
+        <a class="dropdown-item" target="_self" (click)="selectCode(country.country_dial)" *ngFor="let country of countryCodeList; let i = index;"><span class="pull-left">{{country.country_name}} </span> <span class="pull-right">{{country.country_dial}}</span></a>
+      </div> -->
+
+      <div class="dropdown-menu menu-item-scroll profilesearchbar" style="height: 300px;overflow-y: auto; width: 245px;">
+        <a class="dropdown-item" style="height: 50px;" target="_self"  ><div class="icon insearch"><img src="../../../assets/images/icon-search-red.png"  class="w-100"/></div><input type="text"  (keyup)="checkfield()" (keydown)="checkfield()"  class="form-control" placeholder="Search" id="search"  [(ngModel)]="searchcode" [ngModelOptions]="{standalone: true}" maxlength="6"></a>
+        <a class="dropdown-item" target="_self" (click)="selectCode(country.country_dial)" [hidden]="isMatched(country)" *ngFor="let country of countryCodeList; let i = index;"><span class="pull-left" style="width: 50px;">{{country.country_dial}} </span> <span class="pull-left">{{country.country_name}}</span></a>
+      </div>
+
+
+    </div>
+    <!-- <a class="border-btn" *ngIf="!isPhoneverify" (click)="verifyPhone()">Verify</a> -->
+    <!-- SHOW WHEN VERIFY IS CLICKED -->
+    <!-- <input type="text" *ngIf="!isPhoneverify&&phoneOtpCodeVisible" (change)="PhoneActivate()" [(ngModel)]="phonenumbervcode" [ngModelOptions]="{standalone: true}" class="form-control input_otp" placeholder="Enter OTP"> -->
+  </div>
+</li>
+<li class="widthedit" *ngIf="isEdit">
+  <div class="form-group mb-0 icon-left">
+    <div class="icon"><img src="../../../assets/images/icon-mail-grey.png"  class="w-100"/></div>
+    <input type="text" class="form-control" placeholder="Email" [(ngModel)]="email" readonly>
+  </div>
+
+  <!-- <mat-form-field class="example-form-field pb-0">
+    <input matInput type="text" [(ngModel)]="email">
+    <button mat-button *ngIf="email" matSuffix mat-icon-button aria-label="Clear" (click)="email=''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field> -->
+
+
+</li>
+<li class="widthedit" *ngIf="isEdit">
+  <div class="form-group mb-0 icon-left genderprofileselectsec selectarrow">
+    <div class="icon"><img *ngIf="gender=='2'" src="../../../assets/images/man.png" class="w-100"/><img *ngIf="gender=='1'" src="../../../assets/images/woman.png" class="w-100" /></div>
+    <select class="form-control genderprofileselect selectbox" [(ngModel)]="gender">
+      <option value="0">Select Gender</option>
+      <option value="1">Female</option>
+      <option value="2">Male</option>
+    </select>
+  </div>
+
+  <!-- <mat-form-field appearance="fill" class="pb-0">
+    <select matNativeControl  [(ngModel)]="gender">
+      <option value="0" selected></option>
+      <option value="1">Female</option>
+      <option value="2">Male</option>
+
+    </select>
+  </mat-form-field> -->
+</li>
+<li class="widthedit" *ngIf="isEdit">
+  <mat-form-field appearance="fill" class="pb-0" style="width:1px;visibility:hidden;position: absolute;">
+    <input matInput [matDatepicker]="picker" placeholder="Birthday" [(ngModel)]="birthday" readonly (dateChange)="dateChange(birthday)" [formControl]="date"/>
+
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker ></mat-datepicker>
+  </mat-form-field>
+  <div class="form-group mb-0 icon-left">
+
+
+    <div class="icon" (click)="picker.open()"><i class="fa fa-birthday-cake"></i></div>
+    <input type="text" (click)="picker.open()" class="form-control" placeholder="yyyy-mm-dd" [(ngModel)]="birthday" (dateChange)="dateChange(birthday)" [formControl]="date" readonly>
+
+
+  </div>
+
+
+</li>
+<li *ngIf="!isEdit"><div class="icon"><img src="../../../assets/images/icon-phone-grey.png" class="w-100"/></div> {{phonecode}}{{phonenumber}}</li>
+<li *ngIf="!isEdit"><div class="icon"><img src="../../../assets/images/icon-mail-grey.png" class="w-100"/></div> {{email}}</li>
+<li *ngIf="gender=='2'&&!isEdit">
+  <div class="icon"><img src="../../../assets/images/man.png" class="w-100" /></div> Male</li><li *ngIf="gender=='1'&&!isEdit"><div class="icon"><img src="../../../assets/images/woman.png" class="w-100" /></div> Female</li>
+<!-- Female -->
+<!-- <li><div class="icon"><i class="fa fa-mars" aria-hidden="true"></i></div> Female</li> -->
+<li *ngIf="!isEdit"><div class="icon"><i class="fa fa-birthday-cake"></i></div> {{birthday}}</li>
+</ul>
+<a class="btn edit-btn" *ngIf="!isEdit" (click)="editProfile()">{{LanguageText.txt_profile_editprofile}}</a>
+<div class="text-right">
+  <a class="btn save-btn mt-3" *ngIf="isEdit" (click)="saveProfile()">{{LanguageText.txt_profile_saveprofile}}</a>
+</div>
+</div>

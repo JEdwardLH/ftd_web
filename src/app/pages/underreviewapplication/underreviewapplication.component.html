@@ -1,0 +1,22 @@
+<app-header class="header-show-search"></app-header>
+<main *ngIf="isLanguageLoaded" class="riderbody">
+<section class="main thankyou">
+<div class="container">
+<div class="logo"><img src="../../../assets/images/uderreviewicon.png" class="w-100"/></div>
+<div class="maintitle">{{LanguageText.txt_merchant_wearegoing}} <span>{{LanguageText.txt_merchant_reviewthisapp}}</span></div>
+<p>{{LanguageText.txt_merchant_reviewpar}}!</p>
+<div class="btn-box text-center">
+<a (click)="gotohomepage()">{{LanguageText.txt_merchant_backtohome}}</a>
+</div>
+</div>
+<div class="bike"><img src="../../../assets/images/bigmotorcycle.png" class="w-100"/></div>
+</section>
+<section class="riderfaq">
+  <div class="container">
+  <h2 class="head center mb-0"><div class="bgicon"><img src="../../../assets/images/location.png" class="w-100"></div><div class="name">{{LanguageText.txt_merchant_faqs}}</div></h2>
+  <div class="slider">
+  </div>
+  </div>
+  </section>
+</main>
+<app-footer *ngIf="isLanguageLoaded"></app-footer>

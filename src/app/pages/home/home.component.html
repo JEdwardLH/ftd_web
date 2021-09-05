@@ -1,0 +1,896 @@
+
+<main *ngIf="isLanguageLoadedd" style="background: #faf7ff;">
+  <app-authheader *ngIf="isUserMode()" (parentFun)="parentFun()" [isLanguageLoaded]="isLanguageLoaded" [categorylist]="foodTypes" [LanguageText]="LanguageText" [loadstring]=1 class="header-show-search hometrans"></app-authheader>
+  <app-header *ngIf="!isUserMode()" (parentFun)="parentFun()" [isLanguageLoaded]="isLanguageLoaded" [categorylist]="foodTypes" [LanguageText]="LanguageText" [loadstring]=1 id="home" class="header-show-search hometrans"></app-header>
+  <button id="newaddress" [hidden]="true" data-toggle="modal" data-target="#pinlocationaddress"></button>
+<!-- <div class="homesearch d-table">
+<div class="d-table-cell align-middle">
+<div class="container">
+<h1>
+{{LanguageText.txt_home_headtext1}} <span>{{LanguageText.txt_home_redheadtext}}</span>
+</h1>
+<div class="searchfrom">
+<form>
+<div class="searchicon"><i class="fa fa-search"></i></div>
+<input type="text" placeholder="{{LanguageText.txt_home_searchplchldr}}" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"/>
+<button type="submit" (click)="searchResto(searchText)">{{LanguageText.txt_home_btn_search}}</button>
+</form>
+</div>
+</div>
+</div>
+</div> -->
+
+<div class="searchforma section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-8 col-xl-8 col-sm-12">
+        <div class="searchfrom" *ngIf="screenWidth>575">
+          <!-- WITH FUNCTION -->
+          <form>
+            <div class="searchicon"><i class="fa fa-search"></i></div>
+            <input type="text" placeholder="{{LanguageText.txt_home_searchplchldr}}" (focus)="onFocusEvent($event)" (focusout)="onFocusOutEvent($event)" [(ngModel)]="searchText" (change)="checkfield()" (keyup)="checkfield()" (keydown)="checkfield()" [ngModelOptions]="{standalone: true}"/>
+            <button type="submit" (click)="searchResto(searchText)">Search</button>
+            <div class="filter" ><img src="../../../assets/images/filter.png" class="w-100 active-hide"/>
+              <img src="../../../assets/images/filter-red.png" class="w-100 active-show"/>
+            </div>
+          </form>
+          <div class="searchtype-box" *ngIf="searchresultlist.length != 0">
+            <ul class="searchtypelist">
+              <li (click)="searchResto(textitem.text)" *ngFor="let textitem of searchresultlist">{{textitem.text}}</li>
+            </ul>
+          </div>
+
+          <div class="searchtype-box2" *ngIf="issuggestionshow">
+            <div class="popsearchttl">
+              <h3>Popular Searches</h3>
+            </div>
+            <div class="popsearch_box">
+              <span class="btnpopsearch" style="cursor: pointer;" (mouseenter)="mouseEnter()" (mouseleave)="mouseout()" *ngFor="let item of sugestionlist" (click)="searchResto(item.storename)">{{item.storename}}</span>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOP SECTION -->
+<div class="recent-order lilbannersec section" *ngIf="screenWidth>575&&false">
+  <div class="container">
+    <div class="slider lilslider outside">
+      <owl-carousel [options]="bannerlilOptions" [items]="quicksearchList" [carouselClasses]="['owl-theme bannerslil', 'sliding']">
+        <div class="item" *ngFor="let quicksearch of quicksearchList" (click)=viewquick(quicksearch)>
+          <div class="image-box" *ngIf="quicksearch.viewall_id != 4">
+            <div class="img">
+              <div class="imgsizes">
+                <img class="image_menu_item" src="{{quicksearch.icon_web}}"/>
+              </div>
+            </div>
+            <div class="titlelil">
+              <span>{{quicksearch.name}}</span>
+            </div>
+          </div>
+          <div class="image-box" *ngIf="quicksearch.viewall_id == 4">
+            <div class="img">
+              <div class="imgsizes">
+                <div class="qs_countdown qs_hours">
+                  <p>{{countdowndata2['h1']}}</p>
+                </div>
+                <div class="qs_countdown qs_hours">
+                  <p>{{countdowndata2['h2']}}</p>
+                </div>&nbsp;<div class="qs_time_separator">:</div>
+                <div class="qs_countdown qs_minutes">
+                  <p>{{countdowndata2['m1']}}</p>
+                </div>
+                <div class="qs_countdown qs_minutes">
+                  <p>{{countdowndata2['m2']}}</p>
+                </div>&nbsp;<div class="qs_time_separator">:</div>
+                <div class="qs_countdown qs_seconds">
+                  <p>{{countdowndata2['s1']}}</p>
+                </div>
+                <div class="qs_countdown qs_seconds">
+                  <p>{{countdowndata2['s2']}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="titlelil">
+              <span>{{quicksearch.name}}</span>
+            </div>
+          </div>
+        </div>
+
+      </owl-carousel>
+    </div>
+  </div>
+</div>
+
+<div class="recent-order lilbannersec section"></div>
+
+<div class="homesearch desktop" *ngIf="bannerListWeb.length!=0&&screenWidth>575">
+  <div class="container">
+    <owl-carousel [options]="mobilecarousel" class="onlymobilehome_slide" [items]="bannerListWeb" [carouselClasses]="['owl-theme home-slide' , 'sliding']">
+
+        <div class="slide" *ngFor="let banner of bannerListWeb;let i = index" (click)="seeRestoWeb(banner)" style="cursor: pointer;">
+          <img [lazyLoad]="getCompressurl(banner.url,'banner')">
+          <div class="opensec text-center">
+            <a href="{{getRestoWeb(banner)}}"  style="cursor: pointer;" class="openbanners">{{LanguageText.txt_homepage_orderpromonow}}</a>
+          </div>
+
+        </div>
+    </owl-carousel>
+  </div>
+</div>
+<!-- FOR SKELETON -->
+<div class="homesearch desktop" align="center" *ngIf="bannerListWeb.length==0">
+  <div class="container">
+    <owl-carousel [options]="mobilecarousel" class="onlymobilehome_slide" [items]="[0,1,2,3,4,6,7,8,9]" [carouselClasses]="['owl-theme home-slide' , 'sliding']">
+      <div class="slide"   style="cursor: pointer;">
+        <ngx-skeleton-loader
+        animation="progress"
+          [theme]="{ width: '100%', 'border-radius': '0', height: '600px' }"
+        ></ngx-skeleton-loader>
+      </div>
+    </owl-carousel>
+  </div>
+</div>
+
+<div class="homesearch mobile" *ngIf="screenWidth<=575">
+  <owl-carousel [options]="mobilecarousel" class="onlymobilehome_slide" [items]="bannerList" [carouselClasses]="['owl-theme home-slide', 'sliding']">
+    <div class="slide" *ngFor="let banner of bannerList;let i = index" (click)="seeResto(banner.store_id)" style="cursor: pointer;">
+      <img [lazyLoad]="getCompressurl(banner.url,'banner')">
+      <div class="opensec text-center">
+
+      </div>
+    </div>
+  </owl-carousel>
+</div>
+<div class="recent-order lilbannersec section" *ngIf="screenWidth<=575&&false">
+  <div class="container">
+    <div class="slider lilslider outside">
+      <ul class="ul_quicklinks">
+        <li *ngFor="let quicksearch of quicksearchList" >
+          <div class="item" (click)=viewquick(quicksearch)>
+            <div class="image-box" *ngIf="quicksearch.viewall_id != 4">
+              <div class="img" align="center">
+                <div class="imgsizes">
+                  <img class="image_menu_item" src="{{quicksearch.icon}}"/>
+                </div>
+              </div>
+              <div class="titlelil">
+                <span>{{getQuicksearchname(quicksearch.name)}}</span>
+              </div>
+            </div>
+            <div class="image-box" *ngIf="quicksearch.viewall_id == 4">
+              <div class="img" align="center">
+                <div class="imgsizes fastdealimgszes">
+                  <div class="qs_countdown qs_hours">
+                    <p>{{countdowndata2['h1']}}</p>
+                  </div>
+                  <div class="qs_countdown qs_hours">
+                    <p>{{countdowndata2['h2']}}</p>
+                  </div>&nbsp;<div class="qs_time_separator">:</div>
+                  <div class="qs_countdown qs_minutes">
+                    <p>{{countdowndata2['m1']}}</p>
+                  </div>
+                  <div class="qs_countdown qs_minutes">
+                    <p>{{countdowndata2['m2']}}</p>
+                  </div>&nbsp;<div class="qs_time_separator">:</div>
+                  <div class="qs_countdown qs_seconds">
+                    <p>{{countdowndata2['s1']}}</p>
+                  </div>
+                  <div class="qs_countdown qs_seconds">
+                    <p>{{countdowndata2['s2']}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="titlelil">
+                <span>{{quicksearch.name}}</span>
+              </div>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</div>
+<button id="adsmodal" [hidden]="true" data-toggle="modal" data-target="#advertisemodal"></button>
+<button id="branchmodalbtn" [hidden]="true" data-toggle="modal" data-target="#branchmodal"></button>
+
+<!-- RECENT ORDERS -->
+<div class="recent-order section" *ngIf="isUserMode()&&hasOrder&&showall">
+  <div class="container">
+  <h2 class="head">
+  <div class="name">{{LanguageText.txt_home_recentorders}}</div>
+  <a href="" class="btn_seeall">{{LanguageText.txt_home_seeall}}</a>
+  </h2>
+  <div class="slider outside" align="center">
+  <owl-carousel [options]="recentOptions" [items]="recentProductList" [carouselClasses]="['owl-theme recent-order order_again', 'sliding']"   >
+
+       <div class="item" *ngFor="let product of recentProductList;let i = index">
+       <div class="image-box">
+       <div class="img">
+        <img class="image_menu_item recentimage" [defaultImage]="'https://foodtogodeliveryph.com/public/foodtodineimage/default%20store.png'" [lazyLoad]="product.item_image"/>
+
+      <div class="time">
+        <div class="number"><i class="far fa-clock-o" aria-hidden="true"></i>&nbsp;{{product.stem_deliverytime}} {{LanguageText.txt_home_min}}</div>
+      </div>
+      </div>
+       <div class="recentpart info">
+       <div class="row">
+       <div class="col-12 col-md-12"><div class="title">{{product.item_name}}</div></div>
+         <div class="col-6 col-md-6"><div class="price">{{product.item_currency}}{{product.item_original_price}}</div></div>
+         <div class="col-6 col-md-6"><div class="iconbag"><img src="../../../assets/images/cartorder.png" alt="" class="w-100"></div></div>
+       </div>
+       </div>
+       </div>
+       </div>
+      </owl-carousel>
+  </div>
+  </div>
+  </div>
+
+<!-- TOP LOCAL RESTAURANT -->
+<!-- <div class="top-restaurents section" *ngIf="showall">
+  <div class="container">
+  <h2 class="head">
+  <div class="name">{{LanguageText.txt_home_toprestau}}</div>
+  <a href="/seeall/top_restaurant_list" class="btn_seeall">{{LanguageText.txt_home_seeall}}</a>
+  </h2>
+  <div class="slider outside">
+  <owl-carousel [options]="promotionsOptions" [items]="topRestoList"  [carouselClasses]="['owl-theme recent-order', 'sliding']"   >
+
+       <div class="item" *ngFor="let restaurant of topRestoList;let i = index" (click)="VisitStore(restaurant)">
+       <div class="image-box">
+       <div class="img">
+        <img class="image_menu_item" src="{{getCompressurl(restaurant.restaurant_image,'restaurant')}}"/>
+        <div class="off" *ngIf="restaurant.restaurant_discount!='0'">
+          <div class="number">{{restaurant.restaurant_discount}}% {{LanguageText.txt_home_off}}</div>
+        </div>
+        <div class="time">
+          <div class="number"><i class="far fa-clock-o" aria-hidden="true"></i>&nbsp;{{restaurant.delivery_duration}} {{LanguageText.txt_home_min}}</div>
+        </div>
+       </div>
+       <div class="info">
+       <div class="row">
+       <div class="col-9 col-md-9"><div class="title">{{restaurant.restaurant_name}}</div></div>
+       <div class="rating"><i class="fas fa-star"></i> {{restaurant.restaurant_rate}}</div>
+       </div>
+       <div class="tags">{{restaurant.restaurant_category}}</div>
+
+       <div class="row btn_atbottom">
+       <div class="col-6 col-md-6 pr-0"><div class="free-btn"><div class="icon"><img src="../../../assets/images/motorbike.png" class="w-100"/></div> {{LanguageText.txt_home_freedelivery}}</div></div>
+       <div class="col-6 col-md-6 text-right pl-0"><div class="border-btn"><a href="{{getStoreLink(restaurant)}}">{{LanguageText.txt_home_seemenu}}</a></div></div>
+       </div>
+       </div>
+       </div>
+       <div class="overlay_sec" *ngIf="restaurant.restaurant_status!='Available'">
+        <a class="like-btn active" *ngIf="restaurant.today_wking_time!=''"> <h4  style="position: absolute;margin-top: 100px;color: #FFF110;background-color: #AF231D;text-align: center;padding: 5px;left: 1px;">{{restaurant.today_wking_time}} </h4></a>
+
+        <div class="close_badge">
+          <span>{{LanguageText. txt_homepage_store_closed}}</span>
+        </div>
+      </div>
+       </div>
+      </owl-carousel>
+  </div>
+  </div>
+  </div> -->
+
+<!-- PROMOTIONS -->
+<div class="promotions section" *ngIf="showall&&promoRestoList.length!=0">
+  <div class="container">
+  <h2 class="head">
+  <div class="name">{{LanguageText.txt_home_bestpromotion}}</div>
+  <a href="/seeall/featured_restaurant_list" class="btn_seeall promot">{{LanguageText.txt_home_seeall}}</a>
+  </h2>
+  <div class="slider outside" align="center">
+    <owl-carousel *ngIf="!promoloaded" [options]="promotionsOptions" [items]="[0,1,2,3,4,6,7,8,9]"  [carouselClasses]="['owl-theme recent-order' , 'sliding']"   >
+
+      <div class="item" *ngFor="let restaurant of [0,1,2,3,4,6,7,8,9];let i = index" >
+        <ngx-skeleton-loader
+        animation="pulse"
+          [theme]="{ width: '255px', 'border-radius': '0', height: '267px' }"
+        ></ngx-skeleton-loader>
+      </div>
+     </owl-carousel>
+  <owl-carousel *ngIf="promoRestoList.length!=0&&promoloaded" [options]="promotionsOptions" [items]="promoRestoList"  [carouselClasses]="['owl-theme recent-order', 'sliding']"   >
+
+       <div class="item" *ngFor="let restaurant of promoRestoList;let i = index" (click)="VisitStore(restaurant)">
+        <div class="image-box promotionnonborder">
+          <div class="img">
+            <img class="image_menu_item" [defaultImage]="'https://foodtogodeliveryph.com/public/foodtodineimage/default%20store.png'" [lazyLoad]="getCompressurl(restaurant.restaurant_image,'restaurant')"/>
+            <div class="off" *ngIf="restaurant.restaurant_discount!='0'">
+              <div class="number">{{restaurant.restaurant_discount}}% {{LanguageText.txt_home_off}}</div>
+            </div>
+            <div class="time">
+              <div class="number"><i class="far fa-clock-o" aria-hidden="true"></i>&nbsp;{{restaurant.restaurant_delivery_time}} {{LanguageText.txt_home_min}}</div>
+            </div>
+       </div>
+       <div class="info">
+        <div class="row">
+          <div class="col-9 col-md-9"><div class="title">{{restaurant.restaurant_name}}</div></div>
+          <div class="rating"><i class="fas fa-star"></i> {{restaurant.restaurant_rate}}</div>
+        </div>
+        <div class="tags">{{restaurant.category_name}}</div>
+
+        <div class="row btn_atbottom">
+          <div class="col-8 col-md-8 pr-0" align="left"><div class="free-btn"><div class="icon"><img src="../../../assets/images/motorbike.png" class="w-100"/></div> {{LanguageText.txt_home_freedelivery}}</div></div>
+          <div class="col-4 col-md-4 text-right pl-0"><div class="border-btn">{{restaurant.distance}}</div></div>
+        </div>
+       </div>
+       </div>
+       <div class="overlay_sec" *ngIf="restaurant.restaurant_status!='Available'">
+        <a class="like-btn active" *ngIf="restaurant.today_wking_time!=''"> <h4>{{restaurant.today_wking_time}} </h4></a>
+
+        <div class="close_badge">
+          <span>{{LanguageText.txt_homepage_store_closed}}</span>
+        </div>
+      </div>
+       </div>
+      </owl-carousel>
+  </div>
+  </div>
+  </div>
+
+<!-- Fast Deal RESTAURANT -->
+<div class="top-restaurents fastdeal section" *ngIf="showall&&isfastdeal">
+  <div class="container">
+  <h2 class="head">
+  <div class="name">{{fastdealname}}
+    <br>
+    <!-- <a href="" class="btn_seeall">{{LanguageText.txt_home_seeall}}</a> -->
+    <ul class="pagination counterpagination">
+      <li class="countsec page-item" >
+        <a class="page-link countdown_a">{{countdowndata['h']}}</a>
+      </li>:
+      <li class="countsec page-item" >
+        <a class="page-link countdown_a">{{countdowndata['m']}}</a>
+      </li>:
+      <li class="countsec page-item" >
+        <a class="page-link countdown_a">{{countdowndata['s']}}</a>
+      </li>
+      </ul>
+  </div>
+  <!-- <a href="/seeall/top_restaurant_list" class="btn_seeall">{{LanguageText.txt_home_seeall}}</a> -->
+  </h2>
+  <div class="slider outside">
+  <owl-carousel [options]="promotionsOptions" [items]="fastdeallist"  [carouselClasses]="['owl-theme recent-order', 'sliding']"   >
+
+       <div class="item" *ngFor="let restaurant of fastdeallist;let i = index" (click)="VisitStore(restaurant)">
+       <div class="image-box">
+       <div class="img">
+        <img class="image_menu_item" [defaultImage]="'https://foodtogodeliveryph.com/public/foodtodineimage/default%20store.png'" [lazyLoad]="getCompressurl(restaurant.restaurant_image,'restaurant')"/>
+        <div class="off" *ngIf="restaurant.restaurant_discount!='0'">
+          <div class="number">{{restaurant.restaurant_discount}}% {{LanguageText.txt_home_off}}</div>
+        </div>
+        <div class="time">
+          <div class="number"><i class="far fa-clock-o" aria-hidden="true"></i>&nbsp;{{restaurant.delivery_duration}} {{LanguageText.txt_home_min}}</div>
+        </div>
+       </div>
+       <div class="info">
+        <div class="ld_timer"><i class="far fa-clock-o" aria-hidden="true"></i>&nbsp;{{countdowndata['h']}}:{{countdowndata['m']}}:{{countdowndata['s']}} left</div>
+       <div class="row">
+       <div class="col-9 col-md-9"><div class="title">{{restaurant.restaurant_name}}</div></div>
+       <div class="rating"><i class="fas fa-star"></i> {{restaurant.restaurant_rate}}</div>
+       </div>
+       <div class="tags">{{restaurant.category_name}}</div>
+
+       <div class="row btn_atbottom">
+       <div class="col-8 col-md-8 pr-0"><div class="free-btn"><div class="icon"><img src="../../../assets/images/motorbike.png" class="w-100"/></div> {{LanguageText.txt_home_freedelivery}}</div></div>
+       <!-- <div class="col-6 col-md-6 text-right pl-0"><div class="border-btn"><a href="{{getStoreLink(restaurant)}}">{{LanguageText.txt_home_seemenu}}</a></div></div> -->
+       <div class="col-4 col-md-4 text-right pl-0"><div class="border-btn">{{restaurant.distance}}</div></div>
+       </div>
+       </div>
+       </div>
+       <div class="overlay_sec" *ngIf="restaurant.restaurant_status!='Available'">
+        <a class="like-btn active" *ngIf="restaurant.today_wking_time!=''"> <h4>{{restaurant.today_wking_time}} </h4></a>
+
+        <div class="close_badge">
+          <span>{{LanguageText. txt_homepage_store_closed}}</span>
+        </div>
+      </div>
+       </div>
+      </owl-carousel>
+  </div>
+  </div>
+</div>
+
+<!-- TOP BRANDS -->
+<div class="topbrandse section" hidden>
+  <div class="container">
+    <h2 class="head">
+      <div class="name">{{LanguageText.txt_home_topbrands}}</div>
+      <a href="/seeall/top_restaurant_list" class="btn_seeall">{{LanguageText.txt_home_seeall}}</a>
+      <!-- <a href="/seeall/new_restaurant_list" class="btn_seeall">{{LanguageText.txt_home_seeall}}</a> -->
+    </h2>
+    <div class="slider outside">
+      <owl-carousel [options]="topbrandsOptions" [items]="topRestoList"  [carouselClasses]="['owl-theme recent-order', 'sliding']"   >
+        <div class="item" *ngFor="let restaurant of topRestoList;let i = index" (click)="VisitStore(restaurant)">
+          <div class="image-box">
+            <div class="img">
+              <img class="image_menu_item" [defaultImage]="'https://foodtogodeliveryph.com/public/foodtodineimage/default%20store.png'" [lazyLoad]="getCompressurl(restaurant.restaurant_image,'restaurant')"/>
+              <div class="off" *ngIf="restaurant.restaurant_discount!='0'">
+                <div class="number">{{restaurant.restaurant_discount}}% {{LanguageText.txt_home_off}}</div>
+              </div>
+              <div class="time">
+                <div class="number"><i class="far fa-clock-o" aria-hidden="true"></i>&nbsp;{{restaurant.restaurant_delivery_time}} {{LanguageText.txt_home_min}}</div>
+              </div>
+            </div>
+            <div class="info">
+              <div class="row">
+                <div class="col-9 col-md-9"><div class="title">{{restaurant.restaurant_name}}</div></div>
+                <div class="rating"><i class="fas fa-star"></i> {{restaurant.restaurant_rate}}</div>
+              </div>
+              <div class="tags">{{restaurant.category_name}}</div>
+              <div class="row btn_atbottom">
+                <div class="col-8 col-md-8 pr-0"><div class="free-btn"><div class="icon"><img src="../../../assets/images/motorbike.png" class="w-100"/></div> {{LanguageText.txt_home_freedelivery}}</div></div>
+                <div class="col-4 col-md-4 text-right pl-0"><div class="border-btn">{{restaurant.distance}}</div></div>
+              </div>
+            </div>
+          </div>
+          <!-- IF CLOSED -->
+          <!-- <div class="overlay_sec" *ngIf="restaurant.restaurant_status!='Available'">
+            <a class="like-btn active" *ngIf="restaurant.today_wking_time!=''"> <h4>{{restaurant.today_wking_time}} </h4></a>
+            <div class="close_badge">
+              <span>{{LanguageText. txt_homepage_store_closed}}</span>
+            </div>
+          </div> -->
+        </div>
+
+      </owl-carousel>
+    </div>
+  </div>
+</div>
+
+
+<!-- OUR Recommendation -->
+<div class="top-restaurents recommendedse section" id="categorylisting" *ngIf="showall&&recommendedRestaurant.length!=0">
+  <div class="container">
+  <h2 class="head">
+  <div class="name">{{LanguageText.txt_home_recommendationforyou}}</div>
+  <a href="/seeall/recommendation" class="btn_seeall recmend">{{LanguageText.txt_home_seeall}}</a>
+  </h2>
+  <div class="slider outside">
+  <owl-carousel [options]="promotionsOptions" [items]="recommendedRestaurant"  [carouselClasses]="['owl-theme recent-order', 'sliding']"   >
+
+       <div class="item" *ngFor="let restaurant of recommendedRestaurant;let i = index" (click)="VisitStore(restaurant)">
+       <div class="image-box">
+       <div class="img">
+        <img class="image_menu_item" [defaultImage]="'https://foodtogodeliveryph.com/public/foodtodineimage/default%20store.png'" [lazyLoad]="getCompressurl(restaurant.restaurant_image,'restaurant')"/>
+        <div class="off" *ngIf="restaurant.restaurant_discount!='0'">
+          <div class="number">{{restaurant.restaurant_discount}}% {{LanguageText.txt_home_off}}</div>
+        </div>
+        <div class="time">
+          <div class="number"><i class="far fa-clock-o" aria-hidden="true"></i>&nbsp;{{restaurant.restaurant_delivery_time}} {{LanguageText.txt_home_min}}</div>
+        </div>
+       </div>
+       <div class="info">
+       <div class="row">
+       <div class="col-9 col-md-9"><div class="title">{{restaurant.restaurant_name}}</div></div>
+       <div class="rating"><i class="fas fa-star"></i> {{restaurant.restaurant_rate}}</div>
+       </div>
+       <div class="tags">{{restaurant.category_name}}</div>
+
+       <div class="row btn_atbottom">
+       <div class="col-8 col-md-8 pr-0"><div class="free-btn"><div class="icon"><img src="../../../assets/images/motorbike.png" class="w-100"/></div> {{LanguageText.txt_home_freedelivery}}</div></div>
+       <!-- <div class="col-6 col-md-6 text-right pl-0"><div class="border-btn"><a href="{{getStoreLink(restaurant)}}">{{LanguageText.txt_home_seemenu}}</a></div></div> -->
+       <div class="col-4 col-md-4 text-right pl-0"><div class="border-btn">{{restaurant.distance}}</div></div>
+       </div>
+       </div>
+       </div>
+       <div class="overlay_sec" *ngIf="restaurant.restaurant_status!='Available'">
+        <a class="like-btn active" *ngIf="restaurant.today_wking_time!=''"> <h4>{{restaurant.today_wking_time}} </h4></a>
+
+        <div class="close_badge">
+          <span>{{LanguageText. txt_homepage_store_closed}}</span>
+        </div>
+      </div>
+       </div>
+      </owl-carousel>
+  </div>
+  </div>
+</div>
+
+<div id="newcomerssection">
+
+</div>
+
+<!-- CATEGORIES -->
+<div class="homenav"  *ngIf="foodTypes.length!=0">
+  <div class="container">
+    <h2 class="head">
+      <div class="name">{{LanguageText.txt_home_foodcateg}}</div>
+      </h2>
+  <div class="slider mb-4">
+    <owl-carousel [options]="homenavOptions"  [items]="foodTypes" [carouselClasses]="['owl-theme home-nav', 'sliding']"   >
+        <div   class="item" *ngFor="let foodType of foodTypes;let i = index">
+
+          <div class="mainmenu-title"><a href="/category/{{seeCategory(foodType.category_id)}}" class="active"><span class="categ_imgs"><img src="{{getCompressurl(foodType.category_image,'category')}}" class="w-100" alt="{{ foodType.category_name }}"/></span><span class="categ_typen">{{ foodType.category_name }}</span></a></div>
+
+        </div>
+      </owl-carousel>
+      </div>
+  </div>
+  </div>
+<div class="homenav" *ngIf="foodTypes.length==0">
+    <div class="container">
+      <h2 class="head">
+        <div class="name">{{LanguageText.txt_home_ourrestau}}</div>
+        </h2>
+    <div class="slider">
+      <owl-carousel [options]="homenavOptions"  [items]="[0,1,2,3,4,6,7,8,9]" [carouselClasses]="['owl-theme home-nav', 'sliding']"   >
+          <div   class="item" *ngFor="let foodType of [0,1,2,3,4,6,7,8,9];let i = index">
+
+            <div class="mainmenu-title"><ngx-skeleton-loader
+              animation="progress"
+                [theme]="{ width: '60px', 'border-radius': '0', height: '60px' }"
+              ></ngx-skeleton-loader></div>
+
+          </div>
+        </owl-carousel>
+        </div>
+    </div>
+</div>
+
+<!-- OUR NEWCOMERS -->
+<div class="top-restaurents newcomerse section" *ngIf="showall">
+  <div class="container">
+  <h2 class="head">
+  <div class="name">{{LanguageText.txt_home_ournewcomers}}</div>
+  <a href="/seeall/new_restaurant_list" class="btn_seeall newrest">{{LanguageText.txt_home_seeall}}</a>
+  </h2>
+  <div class="slider outside">
+  <owl-carousel [options]="promotionsOptions" [items]="newComersList"  [carouselClasses]="['owl-theme recent-order', 'sliding']"   >
+
+       <div class="item" *ngFor="let restaurant of newComersList;let i = index" (click)="VisitStore(restaurant)">
+       <div class="image-box">
+       <div class="img">
+        <img class="image_menu_item" [defaultImage]="'https://foodtogodeliveryph.com/public/foodtodineimage/default%20store.png'" [lazyLoad]="getCompressurl(restaurant.restaurant_image,'restaurant')"/>
+        <div class="off" *ngIf="restaurant.restaurant_discount!='0'">
+          <div class="number">{{restaurant.restaurant_discount}}% {{LanguageText.txt_home_off}}</div>
+        </div>
+        <div class="time">
+          <div class="number"><i class="far fa-clock-o" aria-hidden="true"></i>&nbsp;{{restaurant.restaurant_delivery_time}} {{LanguageText.txt_home_min}}</div>
+        </div>
+       </div>
+       <div class="info">
+       <div class="row">
+       <div class="col-9 col-md-9"><div class="title">{{restaurant.restaurant_name}}</div></div>
+       <div class="rating"><i class="fas fa-star"></i> {{restaurant.restaurant_rate}}</div>
+       </div>
+       <div class="tags">{{restaurant.category_name}}</div>
+
+       <div class="row btn_atbottom">
+       <div class="col-8 col-md-8 pr-0"><div class="free-btn"><div class="icon"><img src="../../../assets/images/motorbike.png" class="w-100"/></div> {{LanguageText.txt_home_freedelivery}}</div></div>
+       <!-- <div class="col-6 col-md-6 text-right pl-0"><div class="border-btn"><a href="{{getStoreLink(restaurant)}}">{{LanguageText.txt_home_seemenu}}</a></div></div> -->
+       <div class="col-4 col-md-4 text-right pl-0"><div class="border-btn">{{restaurant.distance}}</div></div>
+       </div>
+       </div>
+       </div>
+       <div class="overlay_sec" *ngIf="restaurant.restaurant_status!='Available'">
+        <a class="like-btn active" *ngIf="restaurant.today_wking_time!=''"> <h4>{{restaurant.today_wking_time}} </h4></a>
+
+        <div class="close_badge">
+          <span>{{LanguageText. txt_homepage_store_closed}}</span>
+        </div>
+      </div>
+       </div>
+      </owl-carousel>
+  </div>
+  </div>
+  </div>
+
+<!-- ALL RESTAURANTS -->
+<div class="our-restaurents section" *ngIf="showall">
+<div class="container">
+<h2 class="head">
+<div class="name">{{LanguageText.txt_home_ourrestau}}</div>
+</h2>
+<div class="row">
+  <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3" *ngFor="let restaurant of restaurantList;let i = index" (click)="VisitStore(restaurant)">
+    <div class="image-box allrest_img">
+         <div class="img">
+         <img [defaultImage]="'https://foodtogodeliveryph.com/public/foodtodineimage/default%20store.png'" [lazyLoad]="getCompressurl(restaurant.restaurant_image,'restaurant')" class="w-100"/>
+         <div class="off" *ngIf="restaurant.restaurant_discount!='0'">
+          <div class="number">{{restaurant.restaurant_discount}}% {{LanguageText.txt_home_off}}</div>
+            </div>
+            <div class="time">
+              <div class="number"><i class="far fa-clock-o" aria-hidden="true"></i>&nbsp;{{restaurant.restaurant_delivery_time}} {{LanguageText.txt_home_min}}</div>
+            </div>
+         </div>
+         <div class="info">
+         <div class="row">
+         <div class="col-9 col-md-9"><div class="title">{{restaurant.restaurant_name}}</div></div>
+         <div class="rating"><i class="fas fa-star"></i> {{restaurant.restaurant_rate}}</div>
+         </div>
+         <div class="tags">{{restaurant.category_name}}</div>
+
+         <div class="row btn_atbottom">
+         <div class="col-md-8 col-8 pr-0"><div class="free-btn"><div class="icon"><img src="../../../assets/images/motorbike.png" class="w-100"/></div> {{LanguageText.txt_home_freedelivery}}</div></div>
+         <!-- <div class="col-md-6 col-6 text-right pl-0"><div class="border-btn"><a href="{{getStoreLink(restaurant)}}">{{LanguageText.txt_home_seemenu}}</a></div></div> -->
+         <div class="col-4 col-md-4 text-right pl-0"><div class="border-btn">{{restaurant.distance}}</div></div>
+         </div>
+         </div>
+         </div>
+         <div class="overlay_sec allrestau" *ngIf="restaurant.restaurant_status!='Available'">
+          <a class="like-btn active" *ngIf="restaurant.today_wking_time!=''"> <h4>{{restaurant.today_wking_time}} </h4></a>
+
+          <div class="close_badge">
+            <span>{{LanguageText. txt_homepage_store_closed}}</span>
+          </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- NEW PAGINATION DESIGN -->
+<div class="load_more_sec">
+  <button class="btn btn_load" *ngIf="loadmoreshow" (click)="loadmore()">Load more</button>
+  <div class="lds-ellipsis" *ngIf="!loadmoreshow" ><div></div><div></div><div></div><div></div></div>
+</div>
+<ul class="pagination" hidden>
+  <li class="page-item" *ngIf="currentpage>1">
+    <a href="/page/{{currentpage-1}}" class="page-link"><<</a>
+  </li>
+  <li class="page-item" *ngIf="currentpage>2">
+    <a href="/page/1" class="page-link {{isActive(0)}}">1</a>
+  </li>
+  <li class="page-item" *ngIf="currentpage>2&&lastpage>3">
+    <span> . . . </span>
+  </li>
+  <li class="page-item" *ngIf="currentpage==lastpage&&firstpagenumber-1>1">
+    <a href="/page/{{firstpagenumber-1}}"  class="page-link {{isActive(firstpagenumber-1)}}">{{firstpagenumber-1}}</a>
+  </li>
+  <li class="page-item" *ngIf="currentpage>1&&firstpagenumber<=lastpage">
+    <a href="/page/{{firstpagenumber}}"  class="page-link {{isActive(firstpagenumber-1)}}">{{firstpagenumber}}</a>
+  </li>
+  <li class="page-item" *ngIf="currentpage!=lastpage">
+    <a href="/page/{{secondpagenumber}}" class="page-link {{isActive(secondpagenumber-1)}}">{{secondpagenumber}}</a>
+  </li>
+  <li class="page-item" *ngIf="currentpage!=lastpage&&thirdpagenumber<=lastpage">
+    <a href="/page/{{thirdpagenumber}}" class="page-link {{isActive(thirdpagenumber-1)}}">{{thirdpagenumber}}</a>
+  </li>
+  <li class="page-item" *ngIf="currentpage==1&&thirdpagenumber+1<lastpage">
+    <a href="/page/{{thirdpagenumber+1}}" class="page-link {{isActive(thirdpagenumber-1)}}">{{thirdpagenumber+1}}</a>
+  </li>
+  <li class="page-item" *ngIf="lastpage-2>currentpage&&lastpage>3">
+    <span> . . . </span>
+  </li>
+  <li class="page-item"  *ngIf="lastpage-1!=currentpage">
+    <a href="/page/{{lastpage}}" class="page-link {{isActive(lastpage-1)}}">{{lastpage}}</a>
+  </li>
+  <li class="page-item">
+    <a href="/page/{{currentpage+1}}" class="page-link nextpagi" *ngIf="currentpage<lastpage">>></a>
+  </li>
+</ul>
+</div>
+</div>
+<!-- WITH MERCHANTS AND RIDER -->
+<div class="funfacts">
+<div class="container">
+<div class="row">
+<div class="col-4 col-md-4 col-lg-3 top">
+<div class="fact-image">
+  <img src="../../../assets/images/partner.gif?height=91&width=100"/>
+</div>
+<div class="fact-box">
+  <div class="label">{{LanguageText.txt_home_becomea}}</div>
+  <div class="count">{{LanguageText.txt_home_partner}}</div>
+
+</div>
+<div class="factbtn">
+  <!-- <a href="" routerLink="/merchantsignup" class="red-btn roundbtn">{{LanguageText.txt_home_applynow}}</a> -->
+  <a href="" routerLink="/" class="red-btn roundbtn">{{LanguageText.txt_home_applynow}}</a>
+</div>
+</div>
+<div class="col-4 col-md-4 col-lg-6">
+<div class="logo">
+<img src="../../../assets/images/funfact-logo.jpg" class="w-100"/>
+</div>
+</div>
+<!-- <div class="col-4 col-md-4 col-lg-3 top2">
+  <div class="fact-image">
+    <img src="../../../assets/images/rider.png?height=91&width=100"/>
+  </div>
+<div class="fact-box">
+  <div class="label">{{LanguageText.txt_home_becomea}}</div>
+  <div class="count">{{LanguageText.txt_home_rider}}</div>
+</div>
+<div class="factbtn">
+  <a href="" routerLink="/ridersignup" class="red-btn roundbtn">{{LanguageText.txt_home_signupnow}}</a>
+</div>
+</div> -->
+</div>
+</div>
+</div>
+
+<!-- <div class="funfacts">
+  <div class="container">
+  <div class="row">
+  <div class="col-4 col-md-4 col-lg-3 top">
+    <div class="fact-box">
+      <div class="label">1.5M</div>
+      <div class="count2">RESTAURANTS</div>
+    </div>
+    <div class="fact-box2">
+      <div class="label">120M</div>
+      <div class="count2">FOODIES EVERYWHERE</div>
+    </div>
+  </div>
+  <div class="col-4 col-md-4 col-lg-6">
+    <div class="logo">
+      <img src="../../../assets/images/funfact-logo.jpg" class="w-100"/>
+    </div>
+  </div>
+  <div class="col-4 col-md-4 col-lg-3 top2">
+    <div class="fact-box">
+      <div class="label">10M</div>
+      <div class="count2">REVIEWS</div>
+    </div>
+    <div class="fact-box2">
+      <div class="label">18M</div>
+      <div class="count2">BOOKMARKS</div>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div> -->
+
+<!-- ADVERTISEMENT -->
+<div class="modal" id="advertisemodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" style="background-color: transparent;">
+    <div class="modal-content" style="background-color: transparent;border: none;">
+      <div class="modal-body" style="text-align: center;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: absolute;right:100px; color:#fff; opacity: 1;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+
+          <img style="margin-left: auto; margin-right: auto;" (click)="seeAds(advertisement)" src="{{advertisementurl}}">
+
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Pin Location-->
+<div class="modal fade" id="branchmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body modalbodypinlocation" >
+        <button type="button" class="close btnclosemodal2" id="closeModalLocation" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <!-- <h5 class="title_modalcheckout2 text-center">{{LanguageText.txt_checkout_choosedelivery}}</h5> -->
+        <h2 class="title_modalcheckout2 text-center">Branch List </h2>
+        <!-- START -->
+        <form id="msform">
+          <!-- progressbar -->
+
+          <fieldset style="max-height: 500px;overflow-y: auto;">
+            <div class="form-card">
+              <div class="media mb-3">
+                <div class="media-body" style="margin-left: 30px;">
+                  <h5 class="mt-0 titlerestaurant">{{branch}}</h5>
+                  <div class="tags">{{branchcategory}}</div>
+                </div>
+              </div>
+              <ul class="addressmodal_ul branchsecmodal" style="cursor: pointer;" *ngFor="let restaurant of branchlist; let j = index;" >
+
+                <li>
+                  <div class="branchlist_item" (click)="visitBranch(restaurant)">
+                    <div class="image-box" style="border: none;">
+                         <!-- <div class="img">
+                         <img src="{{getCompressurl(restaurant.restaurant_image,'restaurant')}}" class="w-100"/>
+                         <div class="off" *ngIf="restaurant.restaurant_discount!='0'">
+                          <div class="number">{{restaurant.restaurant_discount}}%</div>
+                         <div class="text">{{LanguageText.txt_home_off}}</div>
+                        </div>
+                         <div class="time"><div class="number">{{restaurant.restaurant_delivery_time}}</div>
+                         <div class="text">{{LanguageText.txt_home_min}}</div>
+                         </div>
+                         </div> -->
+                         <div class="info">
+                         <div class="row">
+                          <div class="col-md-12">
+                            <div class="title">{{restaurant.restaurant_name}}</div>
+                          </div>
+                          <div class="col-md-12 nopad">
+                            <div class="rating"><i class="fas fa-star"></i> {{restaurant.restaurant_rate}}</div>
+                            <div class="branchdeliverytime"><i class="far fa-clock"></i> {{restaurant.restaurant_delivery_time}} {{LanguageText.txt_home_min}}</div>
+                            <div class="branchdeliverytime"><i class="fas fa-tag"></i> {{restaurant.restaurant_discount}}% {{LanguageText.txt_home_off}}</div>
+                            <div class="tags">{{restaurant.restaurant_category}}</div>
+                          </div>
+                        </div>
+
+
+                         <div class="row no-gutters btn_atbottom">
+                         <div class="col-md-8 col-8 pr-0"><div class="free-btn"><div class="icon"><img src="../../../assets/images/motorbike.png" class="w-100"/></div> {{LanguageText.txt_home_freedelivery}}</div></div>
+                         <div class="col-md-4 col-4 text-right pl-0"><div class="border-btn"><a href="{{getStoreLink(restaurant)}}">{{LanguageText.txt_home_seemenu}}</a></div></div>
+                         </div>
+                         </div>
+                         </div>
+                         <div class="overlay_sec allrestau" *ngIf="restaurant.restaurant_status!='Available'">
+                          <a class="like-btn active" *ngIf="restaurant.today_wking_time!=''"> <h4>{{restaurant.today_wking_time}} </h4></a>
+
+                          <div class="close_badge">
+                            <span>{{LanguageText. txt_homepage_store_closed}}</span>
+                          </div>
+                        </div>
+                    </div>
+                </li>
+              </ul>
+            </div>
+
+
+          </fieldset>
+
+
+
+
+        </form>
+        <!-- END -->
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="pinlocationaddress" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    <div class="modal-body modalbodypinlocation">
+      <button type="button" class="close btnclosemodal2" id="closeModalLocation"
+        data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h5 class="title_modalcheckout2 text-center">Let us know where you are</h5>
+
+
+
+      <!-- START -->
+      <form id="msform">
+
+        <fieldset>
+          <div class="form-card">
+            <form>
+              <div class="modal_search_sec">
+                <input type="text" class="form-control search_location" (keydown.enter)="$event.preventDefault()"
+                  placeholder="Enter your exact location" autocorrect="off" autocapitalize="off" id="searchlocation2" spellcheck="off"
+                  type="text" #search>
+                <i class="fa fa-map-pin location_icon" aria-hidden="true"></i>
+              </div>
+
+              <div class="pinlocation_map">
+                <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" [mapTypeControl]='true'
+                  (centerChange)="centerChange($event)" (boundsChange)="boundsChange($event)"
+                  (mapReady)="mapReady($event)">
+                  <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+                    (dragEnd)="markerDragEnd($event)"></agm-marker>
+                </agm-map>
+
+
+              </div>
+
+            </form>
+          </div>
+          <h5 class="text-left" style="cursor: pointer;color: brown;" (click)="setCurrentLocation()"><i
+              class="fa fa-location-arrow" aria-hidden="true"></i> Set to my current location</h5>
+
+          <input (click)="gotohomepage()"  data-dismiss="modal"  type="button"  name="next" class="btn next red-btn action-button"
+            value="Save my location" />
+
+        </fieldset>
+
+
+      </form>
+      <!-- END -->
+    </div>
+  </div>
+</div>
+</div>
+
+</main>
+<app-footer [LanguageText]="LanguageText" [isLanguageLoaded]="isLanguageLoaded" [loadstring]=1></app-footer>
+

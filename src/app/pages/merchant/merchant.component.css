@@ -1,0 +1,119 @@
+.verticalwiz {
+  display: block;
+  list-style: none;
+  position: relative;
+  width: 100%
+}
+
+.verticalwiz a:hover,.verticalwiz a:active,.verticalwiz a:focus {
+  text-decoration: none
+}
+
+.verticalwiz li {
+  display: block;
+  height: 100%;
+  min-height: 90px;
+  width: 100%;
+  position: relative;
+}
+.verticalwiz.part2 li {
+min-height: 120px;
+}
+.verticalwiz.part2 li:before {
+height: 100px;
+}
+.verticalwiz.part3 li {
+  min-height: 89px;
+  }
+  .verticalwiz.part3 li:before {
+  height: 60px;
+  }
+.verticalwiz li:last-child:before{
+display: none;
+}
+.verticalwiz li:before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 25px;
+  width: 3px;
+  height: 62px;
+  z-index: 1;
+  left: 9px;
+  background: #b7b7b7;
+}
+
+.verticalwiz li .step i {
+  font-size: 10px;
+  font-weight: 400;
+  position: relative;
+  top: -1.5px
+}
+.verticalwiz li a .step {
+  border: solid 3px #B2B5B9;
+  background: #fff;
+  color: #fff;
+  line-height: 0;
+  border-radius: 50%;
+  line-height: normal;
+  position: relative;
+  z-index: 2;
+  height: 22px;
+  width: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: transparent;
+  transition: all ease 0.2s;
+}
+.verticalwiz li a:hover .step {
+border: solid 3px #EA7826;
+background: #EA7826;
+}
+.verticalwiz li a.actives .step {
+  border: solid 3px #EA7826;
+  background: #EA7826;
+}
+
+.verticalwiz li.active .step,.verticalwiz li.active.complete .step {
+  background: #EA7826;
+  border-color: #EA7826;
+  color: transparent;
+}
+
+.verticalwiz li .title {
+  display: inline;
+  position: relative;
+  top: 0;
+  width: 90%;
+  color: #1f1f1f;
+}
+
+.verticalwiz li .title{
+font-size: 14px;
+font-weight: 300;
+}
+.verticalwiz li .title h5 {
+  font-size: 1.25rem!important;
+  font-weight: 500!important;
+}
+.verticalwiz li .title h6 {
+  font-size: 1rem!important;
+  color: #737373;
+}
+.rightab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.rightab img{
+max-height: 550px!important;
+-o-object-fit: cover;
+object-fit: cover;
+width: 330px;
+-o-object-position: 50% 0;
+object-position: 50% 0;
+}
+.riderbody.merchantbody .signupdetail {
+  padding-bottom: 0;
+}

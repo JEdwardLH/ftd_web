@@ -1,0 +1,43 @@
+<app-header class="header-show-search"></app-header>
+<main class="page-padding">
+<div class="container">
+
+<div class="red-page-title text-center mobile d-md-none"><a class="titleback-btn"><i class="fas fa-arrow-left"></i></a> My Addresses</div>
+
+<div class="row">
+
+<div class="col-md-7 col-lg-8 col-xl-9">
+<div class="map">
+<div class="pinlocation">
+
+
+
+  <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" >
+    <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="false" [iconUrl]="merchantmarker">
+    </agm-marker>
+    <agm-marker [latitude]="restolatitude" [longitude]="restolongitude" [markerDraggable]="false"
+      [iconUrl]="usermarker"></agm-marker>
+    <!-- <agm-marker [latitude]="riderlatitude" [longitude]="riderlongitude" [markerDraggable]="false"
+      [iconUrl]="ridermarker"></agm-marker> -->
+      <agm-marker (dragEnd)="markerDragEnd($event)" (dragStart)="markerDragEnd($event)" [latitude]="riderlatitude2" [longitude]="riderlongitude2" [markerDraggable]="true"
+      [iconUrl]="ridermarker"></agm-marker>
+  </agm-map>
+
+  <h5>Address: {{address}}</h5>
+  <div>Latitude: {{latitude}}</div>
+  <div>Longitude: {{longitude}}</div>
+  <div>province: {{province}}</div>
+  <div>district: {{district}}</div>
+  <div>subdistrict: {{subdistrict}}</div>
+  <div>route: {{route}}</div>
+  <div>stno: {{stno}}</div>
+</div>
+<div class="btn-box text-right">
+<a class="red-btn">Save Addresses</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<app-footer></app-footer>

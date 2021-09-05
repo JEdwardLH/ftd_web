@@ -1,0 +1,132 @@
+<app-authheader *ngIf="isUserMode()" class="header-show-search"></app-authheader>
+<app-header *ngIf="!isUserMode()" id="home" class="header-show-search"></app-header>
+<main *ngIf="isLanguageLoaded" class="faq">
+<section class="innerpagetitle  d-table">
+<div class="container  d-table-cell align-middle">
+<div class="title">{{LanguageText.txt_faq_faqs}}</div>
+</div>
+</section>
+<section class="body">
+<div class="topic section">
+  <h2 class="head center">
+    <div class="bgicon"><img src="../../../assets/images/location.png" class="w-100" /></div>
+    <div class="name">{{LanguageText.txt_faq_viewfaq}}</div>
+  </h2>
+  <ul class="faqselectul">
+    <li routerLink="/faq">
+      <div class="icon"><img src="../../../assets/images/icon-faqgeneral-red.png" class="w-100"/></div>
+      <div class="label">{{LanguageText.txt_faq_generalfaq}}</div>
+    </li>
+    <li class="active">
+      <div class="icon tex-red"><i class="fa fa-mobile" aria-hidden="true"></i></div>
+      <div class="label">{{LanguageText.txt_faq_ordersfaq}}</div>
+    </li>
+    <li routerLink="/faqdelivery">
+      <div class="icon"><img src="../../../assets/images/icon-faqrider-grey.png" class="w-100"/></div>
+      <div class="label">{{LanguageText.txt_faq_deliveryfaq}}</div>
+    </li>
+    <li routerLink="/faqpayment">
+      <div class="icon"><img src="../../../assets/images/icon-paymethod-red.png" class="w-100"/></div>
+      <div class="label">{{LanguageText.txt_faq_paymentfaq}}</div>
+    </li>
+  </ul>
+
+
+</div>
+
+<!-- USER FAQS -->
+<div class="general section">
+  <h2 class="head center">
+  <div class="bgicon"><img src="../../../assets/images/location.png" class="w-100" /></div>
+  <div class="name">{{LanguageText.txt_faq_ordersfaq}}</div>
+  </h2>
+  <div class="container">
+  <div class="row">
+  <div class="col-lg-6">
+  <div class="box">
+  <a class="acc-title" data-toggle="collapse" data-target="#userfaq1"><span>{{LanguageText.txt_faq_whatskalanbanga}}</span><i class="fas fa-arrow-right"></i></a>
+    <div id="userfaq1" class="collapse acc-body">
+      <p>{{LanguageText.txt_faq_whatskalanbanga1}}</p>
+    </div>
+  </div>
+  </div>
+  <div class="col-lg-6">
+  <div class="box">
+  <a class="acc-title" data-toggle="collapse" data-target="#userfaq2"><span>{{LanguageText.txt_faq_openinghours}}</span><i class="fas fa-arrow-right"></i></a>
+    <div id="userfaq2" class="collapse acc-body">
+      <p>{{LanguageText.txt_faq_openinghours1}}</p>
+      <p>{{LanguageText.txt_faq_openinghours2}}</p>
+    </div>
+  </div>
+  </div>
+  </div>
+  <div class="row">
+  <div class="col-lg-6">
+  <div class="box">
+  <a class="acc-title" data-toggle="collapse" data-target="#userfaq3"><span>{{LanguageText.txt_faq_typesfood}}</span>  <i class="fas fa-arrow-right"></i></a>
+    <div id="userfaq3" class="collapse acc-body">
+      <p>{{LanguageText.txt_faq_typesfood1}}</p>
+    </div>
+  </div>
+  </div>
+  <div class="col-lg-6">
+  <div class="box">
+  <a class="acc-title" data-toggle="collapse" data-target="#userfaq4"><span>{{LanguageText.txt_faq_wheredeliver}}</span>  <i class="fas fa-arrow-right"></i></a>
+    <div id="userfaq4" class="collapse acc-body">
+      <p>{{LanguageText.txt_faq_wheredeliver1}}</p>
+    </div>
+  </div>
+  </div>
+  </div>
+  <div class="row">
+  <div class="col-lg-6">
+  <div class="box">
+  <a class="acc-title" data-toggle="collapse" data-target="#userfaq5"><span>{{LanguageText.txt_faq_paymentmethod}}</span><i class="fas fa-arrow-right"></i></a>
+    <div id="userfaq5" class="collapse acc-body">
+      <p>{{LanguageText.txt_faq_paymentmethod1}} </p>
+    </div>
+  </div>
+  </div>
+  <div class="col-lg-6">
+  <div class="box">
+  <a class="acc-title" data-toggle="collapse" data-target="#userfaq6"><span>{{LanguageText.txt_faq_ordertime}}</span>  <i class="fas fa-arrow-right"></i></a>
+    <div id="userfaq6" class="collapse acc-body">
+      <p>{{LanguageText.txt_faq_ordertime1}} </p>
+    </div>
+  </div>
+  </div>
+  </div>
+  <div class="row">
+  <div class="col-lg-6">
+  <div class="box">
+  <a class="acc-title" data-toggle="collapse" data-target="#userfaq7"><span>{{LanguageText.txt_faq_outsideofarea}}</span><i class="fas fa-arrow-right"></i></a>
+    <div id="userfaq7" class="collapse acc-body">
+      <p>{{LanguageText.txt_faq_outsideofarea1}} </p>
+    </div>
+  </div>
+  </div>
+  <div class="col-lg-6">
+  <div class="box">
+  <a class="acc-title" data-toggle="collapse" data-target="#userfaq8"><span>{{LanguageText.txt_faq_tipdriver}}</span> <i class="fas fa-arrow-right"></i></a>
+    <div id="userfaq8" class="collapse acc-body">
+      <p>{{LanguageText.txt_faq_tipdriver1}} </p>
+    </div>
+  </div>
+  </div>
+  </div>
+  <div class="row">
+  <div class="col-lg-6">
+  <div class="box">
+  <a class="acc-title" data-toggle="collapse" data-target="#userfaq9"><span>{{LanguageText.txt_faq_missing}}</span> <i class="fas fa-arrow-right"></i></a>
+    <div id="userfaq9" class="collapse acc-body">
+      <p>{{LanguageText.txt_faq_missing1}}</p>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+
+</section>
+</main>
+<app-footer *ngIf="isLanguageLoaded"></app-footer>

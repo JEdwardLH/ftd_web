@@ -1,0 +1,24 @@
+<app-header class="header-show-search"></app-header>
+<main *ngIf="isLanguageLoaded" class="paymentstatus riderbody">
+<section>
+    <div class="paymentstatus_sec section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-sm-6 col-xs-12" align="center">
+                    <div class="sec_img_payment_error">
+                        <img src="../assets/images/paymenterror.png"/>
+                        <div class="failed_circle"></div>
+                    </div>
+                    <p class="title_payment">{{LanguageText.txt_payment_yourpayment_failed}}!</p>
+                    <p class="desc_payment">{{LanguageText.txt_payment_paymentf_sorry}}.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    </section>
+
+</main>
+<app-footer *ngIf="isLanguageLoaded"></app-footer>
+

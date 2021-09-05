@@ -1,0 +1,22 @@
+.contactpage
+{
+	background:url(../../../assets/images/contactusbg.jpg);
+	background-size:cover;
+	background-position:center center;
+	background-repeat:no-repeat;
+	padding-top:180px;
+	padding-bottom:120px;
+
+}
+
+.authpages .form-box {
+    width: 440px;
+    position: relative;
+    margin-left: 60px;
+}
+@media (max-width: 576px) {
+  .authpages .form-box {
+    width: 100%;
+    margin-left: 0;
+  }
+}

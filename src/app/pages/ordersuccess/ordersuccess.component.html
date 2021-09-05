@@ -1,0 +1,59 @@
+<app-header class="header-show-search"></app-header>
+<main *ngIf="isLanguageLoaded" class="trackorder">
+<div class="popup">
+<div class="overlay"></div>
+<div class="box">
+<div class="image"><img src="../../../assets/images/eatman.jpg" class="w-100"/></div>
+<div class="light">{{LanguageText.txt_order_fooddoorstep}}</div>
+<div class="bold">{{LanguageText.txt_order_enjoythefood}}!</div>
+<div class="btn-box">
+<a>{{LanguageText.txt_order_gohome}}</a>
+</div>
+</div>
+</div>
+<div class="map mt-5 pt-3">
+  <div class="container">
+    <div class="map"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12249.916251545696!2d-4.056166538350904!3d39.863505878304885!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd6a0b1f2f95ba67%3A0x2714f5644ee90368!2sCamping%20El%20Greco!5e0!3m2!1sen!2sin!4v1592670299678!5m2!1sen!2sin" width="100%" height="300" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe></div>
+  </div>
+</div>
+
+<div class="process">
+  <div class="container">
+    <div class="horizontal-process text-center">
+      <ul>
+      <li class="active"><a><div class="icon"><div class="tick"><i class="fa fa-check"></i></div><img src="../../../assets/images/icon-processlike-grey.png" class="w-100 active-hide"/><img src="../../../assets/images/icon-processlike-white.png" class="w-100 active-show"/></div>
+      <div class="name">{{LanguageText.txt_order_neworder}}</div>
+
+      </a>
+      </li>
+      <li class="active"><a><div class="icon"><div class="tick"><i class="fa fa-check"></i></div><img src="../../../assets/images/icon-processaccepted-grey.png" class="w-100 active-hide"/><img src="../../../assets/images/icon-processaccepted-white.png" class="w-100 active-show"/></div>
+      <div class="name">{{LanguageText.txt_order_accepted}}</div>
+      </a>
+      </li>
+      <li class="active"><a><div class="icon"><div class="tick"><i class="fa fa-check"></i></div><img src="../../../assets/images/icon-processrideraccepted-grey.png" class="w-100 active-hide"/><img src="../../../assets/images/icon-processrideraccepted-white.png" class="w-100 active-show"/></div>
+      <div class="name">{{LanguageText.txt_order_rideraccepted}}</div>
+      </a></li>
+      <li class="active"><a><div class="icon"><div class="tick"><i class="fa fa-check"></i></div><img src="../../../assets/images/icon-processdispacted-grey.png" class="w-100 active-hide"/><img src="../../../assets/images/icon-processdispacted-white.png" class="w-100 active-show"/></div>
+      <div class="name">{{LanguageText.txt_order_dispatched}}</div>
+      </a></li>
+      <li class="active"><a><div class="icon"><div class="tick"><i class="fa fa-check"></i></div><img src="../../../assets/images/icon-processscooter-grey.png" class="w-100 active-hide"/><img src="../../../assets/images/icon-processscooter-white.png" class="w-100 active-show"/></div>
+      <div class="name">{{LanguageText.txt_order_ontheway}}</div>
+      </a></li>
+      <li class="active"><a><div class="icon"><div class="tick"><i class="fa fa-check"></i></div><img src="../../../assets/images/icon-processlocation-grey.png" class="w-100 active-hide"/><img src="../../../assets/images/icon-processlocation-white.png" class="w-100 active-show"/></div>
+      <div class="name">{{LanguageText.txt_order_arrived}}</div>
+      </a></li>
+      <li class="active"><a><div class="icon"><div class="tick"><i class="fa fa-check"></i></div><img src="../../../assets/images/icon-processcutlery-grey.png" class="w-100 active-hide"/><img src="../../../assets/images/icon-processcutlery-white.png" class="w-100 active-show"/></div>
+      <div class="name">{{LanguageText.txt_order_delivered}}</div>
+      </a></li>
+      </ul>
+      </div>
+  </div>
+</div>
+<div class="time">
+  <div class="value">0 {{LanguageText.txt_trackorder_min}}</div>
+  <div class="cancelorder_timer text-center">
+    <span class="timertrack">{{LanguageText.txt_trackorder_estimated_arrival_time}}<br>00:00</span>
+  </div>
+</div>
+</main>
+<app-footer *ngIf="isLanguageLoaded"></app-footer>

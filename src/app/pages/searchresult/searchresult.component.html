@@ -1,0 +1,144 @@
+
+<main *ngIf="isLanguageLoaded">
+  <app-authheader *ngIf="isUserMode()" [loadstring]=1 [isLanguageLoaded]="isLanguageLoaded" [categorylist]="foodTypes" [selected]="filtercategorylist" [filterdata]="filterdata" id="home"  [LanguageText]="LanguageText" class="header-show-search"></app-authheader>
+  <app-header *ngIf="!isUserMode()" [loadstring]=1 [isLanguageLoaded]="isLanguageLoaded" [categorylist]="foodTypes" [selected]="filtercategorylist" [filterdata]="filterdata" id="home"  [LanguageText]="LanguageText"  class="header-show-search"></app-header>
+<div class="container">
+  <div class="searchforma section2">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-8 col-xl-8 col-sm-12">
+          <div class="searchfrom" *ngIf="screenWidth>575">
+            <!-- WITH FUNCTION -->
+            <form>
+              <div class="searchicon"><i class="fa fa-search"></i></div>
+              <input type="text" placeholder="{{LanguageText.txt_home_searchplchldr}}" (focus)="onFocusEvent($event)" (focusout)="onFocusOutEvent($event)"  [(ngModel)]="searchText" (change)="checkfield()" (keyup)="checkfield()" (keydown)="checkfield()" [ngModelOptions]="{standalone: true}"/>
+              <button type="submit" (click)="searchResto(searchText)">Search</button>
+              <div class="filter" ><img src="../../../assets/images/filter.png" class="w-100 active-hide"/>
+                <img src="../../../assets/images/filter-red.png" class="w-100 active-show"/>
+              </div>
+            </form>
+            <div class="searchtype-box" *ngIf="searchresultlist.length != 0">
+              <ul class="searchtypelist">
+                <li (click)="searchResto(textitem.text)" *ngFor="let textitem of searchresultlist">{{textitem.text}}</li>
+              </ul>
+            </div>
+            <div class="searchtype-box2" *ngIf="issuggestionshow">
+              <div class="popsearchttl">
+                <h3>Popular Searches</h3>
+              </div>
+              <div class="popsearch_box">
+                <span class="btnpopsearch" style="cursor: pointer;" (mouseenter)="mouseEnter()" (mouseleave)="mouseout()" *ngFor="let item of sugestionlist" (click)="searchResto(item.storename)">{{item.storename}}</span>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="searchtitle" *ngIf="!apicalldone&&restaurantList.length!=0&&issearch==0"> {{restaurantList.length}} {{LanguageText.txt_filter_resultfound}}</div>
+<div class="searchtitle" *ngIf="!apicalldone&&restaurantList.length!=0&&issearch==1">{{LanguageText.txt_search_resultof}} “ <span>{{searchText}}</span> ” {{LanguageText.txt_search_have}} {{restaurantList.length}} {{LanguageText.txt_search_restaurants}}</div>
+<div class="searchtitle" *ngIf="!apicalldone&&restaurantList.length==0">{{LanguageText.txt_search_notfound}} “ <span>{{searchText}}</span> ”</div>
+<div class="searchtitle" *ngIf="apicalldone">{{LanguageText.txt_search_please_wait}}.... </div>
+<div style="height: 500px;" *ngIf="!apicalldone&&restaurantList.length==0">
+
+</div>
+<div class="our-restaurents mb-5">
+<div class="row" *ngIf="apicalldone">
+  <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3" *ngFor="let restaurant of [0,1,2,3,4,5,6,7];let i = index" >
+    <div class="">
+      <ngx-skeleton-loader
+        animation="pulse"
+          [theme]="{ width: '255px', 'border-radius': '0', height: '200px' }"
+        ></ngx-skeleton-loader>
+
+        <ngx-skeleton-loader
+        animation="pulse"
+          [theme]="{ width: '100px', 'border-radius': '0', height: '20px' }"
+        ></ngx-skeleton-loader>
+        <ngx-skeleton-loader
+        animation="pulse"
+          [theme]="{ width: '255px', 'border-radius': '0', height: '20px' }"
+        ></ngx-skeleton-loader>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="issearch==1">
+
+
+<div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3" *ngFor="let restaurant of restaurantList;let i = index" (click)="seeResto(restaurant)">
+<div class="image-box">
+     <div class="img">
+     <img [defaultImage]="'https://foodtogodeliveryph.com/public/foodtodineimage/default%20store.png'" [lazyLoad]="restaurant.banner" class="w-100"/>
+     <div class="off" *ngIf="restaurant.restaurant_discount!='0'">
+      <div class="number">{{restaurant.restaurant_discount}}% {{LanguageText.txt_home_off}}</div>
+    </div>
+    <div class="time">
+      <div class="number"><i class="far fa-clock-o" aria-hidden="true"></i>&nbsp;{{restaurant.st_delivery_time}} {{LanguageText.txt_home_min}}</div>
+    </div>
+     </div>
+     <div class="info">
+     <div class="row">
+     <div class="col-md-8 col-8"><div class="title">{{restaurant.store_name}}</div></div>
+       <div class="col-md-4 col-4 text-right"><div class="rating"><i class="fas fa-star"></i> {{restaurant.restaurant_rate}}</div></div>
+     </div>
+     <div class="tags">{{restaurant.st_category}}</div>
+
+     <div class="row btn_atbottom">
+     <div class="col-md-6 col-6 pr-0"><div class="free-btn"><div class="icon"><img src="../../../assets/images/motorbike.png" class="w-100"/></div> {{LanguageText.txt_home_freedelivery}}</div></div>
+     <!-- <div class="col-md-6 col-6 text-right pl-0"><div class="border-btn"><a href="{{getStoreLink(restaurant)}}">{{LanguageText.txt_home_seemenu}}</a></div></div> -->
+     <div class="col-6 col-md-6 text-right pl-0"><div class="border-btn">{{restaurant.distance}}</div></div>
+    </div>
+     </div>
+     </div>
+     <div class="overlay_sec allrestau" *ngIf="restaurant.store_status!='Avail'">
+    <a class="like-btn active" *ngIf="restaurant.today_wking_time!=''"> <h4>{{restaurant.today_wking_time}} </h4></a>
+
+      <div class="close_badge">
+        <span>{{LanguageText.txt_homepage_store_closed}}</span>
+      </div>
+    </div>
+</div>
+</div>
+
+<div class="row" *ngIf="issearch==0">
+
+
+  <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3" *ngFor="let restaurant of restaurantList;let i = index" (click)="seeResto2(restaurant)">
+  <div class="image-box">
+       <div class="img">
+       <img [defaultImage]="'https://foodtogodeliveryph.com/public/foodtodineimage/default%20store.png'" [lazyLoad]="restaurant.restaurant_image" class="w-100"/>
+      <div class="off" *ngIf="restaurant.restaurant_discount!='0'">
+        <div class="number">{{restaurant.restaurant_discount}}% {{LanguageText.txt_home_off}}</div>
+      </div>
+       <!-- <a class="like-btn"><i class="far fa-heart"></i></a> -->
+       <div class="time">
+       <div class="number"><i class="far fa-clock-o" aria-hidden="true"></i>&nbsp;{{restaurant.restaurant_delivery_time}} {{LanguageText.txt_home_min}}</div>
+       </div>
+       </div>
+       <div class="info">
+       <div class="row">
+       <div class="col-md-8 col-8"><div class="title">{{restaurant.restaurant_name}}</div></div>
+         <div class="col-md-4 col-4 text-right"><div class="rating"><i class="fas fa-star"></i> {{restaurant.restaurant_rate}}</div></div>
+       </div>
+       <div class="tags">{{restaurant.category_name}}</div>
+
+       <div class="row">
+       <div class="col-md-6 col-6 pr-0"><div class="free-btn"><div class="icon"><img src="../../../assets/images/motorbike.png" class="w-100"/></div> {{LanguageText.txt_home_freedelivery}}</div></div>
+       <div class="col-md-6 col-6 text-right pl-0"><div class="border-btn"><a href="{{getStoreLink(restaurant)}}">see menu</a></div></div>
+       </div>
+       </div>
+       </div>
+       <div class="overlay_sec allrestau" *ngIf="restaurant.restaurant_status!='Available'">
+      <a class="like-btn active" *ngIf="restaurant.today_wking_time!=''"> <h4>{{restaurant.today_wking_time}} </h4></a>
+
+        <div class="close_badge">
+          <span>{{LanguageText.txt_homepage_store_closed}}</span>
+        </div>
+      </div>
+  </div>
+  </div>
+</div>
+</div>
+</main>
+<app-footer [LanguageText]="LanguageText" [isLanguageLoaded]="isLanguageLoaded"></app-footer>

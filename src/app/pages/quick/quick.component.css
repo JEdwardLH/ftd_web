@@ -1,0 +1,4 @@
+.image-box .info .title {
+  max-height: 42px;
+  overflow: hidden;
+}

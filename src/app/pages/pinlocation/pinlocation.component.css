@@ -1,0 +1,16 @@
+agm-map{
+    height: 400px;
+}
+* {box-sizing: border-box;}
+
+p {
+  font-family: Lato;
+}
+.img-zoom-result {
+  border: 1px solid #d4d4d4;
+  /*set the size of the result div:*/
+  width: 320px;
+  height: 250px;
+
+}
+

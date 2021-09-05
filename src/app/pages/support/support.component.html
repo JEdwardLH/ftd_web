@@ -1,0 +1,70 @@
+<app-authheader *ngIf="isUserMode()&&ismobile" class="header-show-search hometrans"></app-authheader>
+<app-header *ngIf="!isUserMode()&&ismobile" id="home" class="header-show-search hometrans"></app-header>
+<main *ngIf="isLanguageLoaded" class="support" style="padding-top: {{paddingtop}};">
+<section class="innerpagetitle d-table mt-0">
+<div class="container d-table-cell align-middle">
+<div class="title">{{LanguageText.txt_support_welcomesupport}}</div>
+<form>
+<input type="text" placeholder="Ask us your Query"/>
+<button type="submit" class="red-btn">{{LanguageText.txt_support_submit}}</button>
+</form>
+</div>
+</section>
+<section class="body">
+<div class="container">
+<div class="row">
+<div class="col-md-5 col-lg-5 col-xl-4">
+<div class="topcontactbox">
+<div class="logo"><img src="../../../assets/images/logo.jpg" class="w-100" /></div>
+<div class="infobox"><div class="icon"><img src="../../../assets/images/icon-mail-white.png" class="w-100"/></div> support@kalanbanga.co.th</div>
+<div class="infobox nomargbot"><div class="icon"><img src="../../../assets/images/icon-phone-white.png" class="w-100"/></div> Soon to be ready!</div>
+</div>
+<div class="bottomcontactbox">
+<div class="icon"><img src="../../../assets/images/headphone-yellow.png" class="w-100"/></div>
+<div class="label">{{LanguageText.txt_support_customercare}}</div>
+<div class="value">Soon to be ready!</div>
+</div>
+</div>
+<div class="col-md-7  col-lg-7 col-xl-8">
+<!-- <p>{{LanguageText.txt_support_par1}}</p> -->
+<p class="mb-4">{{LanguageText.txt_support_par1}}</p>
+<!-- <p>{{LanguageText.txt_support_par2}} </p> -->
+
+<form>
+<div class="form-group icon-left">
+<div class="icon"><img class="w-100" src="../../../assets/images/icon-user-grey.png"/></div>
+<input type="text" placeholder="Name" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" class="form-control inputsupport"/>
+</div>
+<div class="form-group icon-left">
+    <div class="icon"><img class="w-100" src="../../../assets/images/icon-mail-grey.png"/></div>
+<input type="email" placeholder="Email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" class="form-control inputsupport"/>
+</div>
+<div class="form-group icon-left">
+    <div class="icon"><img class="w-100" src="../../../assets/images/icon-phone-grey.png"  class="w-100"/></div>
+<input type="text" placeholder="Phone" [(ngModel)]="phone" [ngModelOptions]="{standalone: true}" class="form-control inputsupport"/>
+</div>
+<div class="form-group icon-left">
+    <div class="icon"><i class="fa fa-comment-o"></i></div>
+    <textarea style="height: 89px;" placeholder="Message" [(ngModel)]="message" [ngModelOptions]="{standalone: true}" class="form-control inputsupport"></textarea>
+</div>
+<div class="form-group input-group">
+  <span class="captcha" id="captcha_mer" style="background-color: cornsilk;" #captcha_mer></span>
+  <button type="button" class="btn " (click)="createCaptcha('mer')"><i class="fa fa-refresh" id="refresh"></i></button>
+</div>
+<div class="form-group icon-left">
+  <div class="icon otpicon"><img style="opacity: 0.66;" src="../../../assets/images/otp.png" class="w-100"/></div>
+  <input type="text" class="form-control" placeholder="Please Enter Captcha" id="verification code"  [(ngModel)]="captcha" [ngModelOptions]="{standalone: true}" >
+  <div class="text-danger" *ngIf="invalidcaptcha">Wrong Captcha</div>
+</div>
+<div class="form-group text-center">
+<button type="submit" class="red-btn" (click)="sendInquiry()">{{LanguageText.txt_support_send}}</button>
+</div>
+</form>
+
+</div>
+</div>
+</div>
+</section>
+
+</main>
+<app-footer *ngIf="ismobile"></app-footer>

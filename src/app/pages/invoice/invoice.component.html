@@ -1,0 +1,131 @@
+<app-authheader *ngIf="isUserMode()" class="header-show-search"></app-authheader>
+<app-header *ngIf="!isUserMode()" id="home" class="header-show-search"></app-header>
+<main *ngIf="isLanguageLoaded">
+  <div class="container">
+    <div class="invoicedetails orders position-relative">
+      <div class="title"><span>{{LanguageText.txt_invoice_invoicedetails}}</span></div>
+      <div class="row mt-3">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="invoicettl">{{storename}}</div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+          <ul class="customerdetails">
+            <li>{{customername}}</li>
+            <li>{{customerAddress1}}</li>
+            <li>{{customerAddress2}}</li>
+            <li>{{customerMobile}}</li>
+            <li>{{customerEmail}}</li>
+          </ul>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+          <ul class="orderdetails">
+            <li><b class="mr10">{{LanguageText.txt_invoice_ordernum}}: </b> {{orderid}}</li>
+
+            <li><b class="mr10">{{LanguageText.txt_invoice_preorderdate}}: </b> {{order_date}}</li>
+            <li><b class="mr10">{{LanguageText.txt_invoice_payment}}: </b> COD</li>
+            <li><b class="mr10">{{LanguageText.txt_invoice_ordertype}}: </b> Delivery Boy</li>
+          </ul>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-md-12 col-12 col-sm-12">
+          <div class="table-responsive">
+            <table class="table table-striped tbl_invoice">
+              <thead>
+                <tr>
+                  <th width="50%">{{LanguageText.txt_invoice_product}}</th>
+                  <th width="16.66%" class="text-center">Qty</th>
+                  <th width="16.66%" class="text-right">{{LanguageText.txt_invoice_cost}}</th>
+                  <th width="16.66%" class="text-right">{{LanguageText.txt_invoice_total}}</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr  *ngFor="let product of productList;let i = index">
+                  <td>
+                    <div class="media invoiceimg">
+                      <img src="{{product.pdt_image}}" class="mr-3">
+                      <div class="media-body">
+                        <h5 class="mt-0"> - {{product.item_name}}</h5>
+                        <div class="extrainv" *ngFor="let productitem of product.product_option_items;let j = index">
+
+                          <span class="inv_product_name" *ngFor="let items of productitem.option_items;let j = index">{{productitem.option_name}}
+                            <span class="inv_product_name mt-0">➤{{items.name}}</span>
+
+                          </span>
+                          <span *ngIf="product.specialRequest!=''"><b class="text-red">{{LanguageText.txt_invoice_specialinstruct}}: </b> {{product.specialRequest}}</span>
+
+                        </div>
+                       </div>
+                    </div>
+                  </td>
+                  <td class="text-center">{{product.ord_quantity}}x
+                    <div class="extrainv" >
+
+                    </div>
+                  </td>
+                  <td class="text-right"><b [hidden]="hasRequired(product.item_name)">{{product.ord_currency}}{{product.ord_unit_price}}</b>&nbsp;
+                    <div class="extrainv" *ngFor="let productitem of product.product_option_items;let j = index">
+
+                      <span class="inv_product_name" *ngFor="let items of productitem.option_items;let j = index">
+
+                        <span class="inv_product_price">{{product.ord_currency}}{{items.amount}}</span>
+                      </span>
+
+
+                    </div>
+                  </td>
+                  <td class="text-right">{{product.ord_currency}}{{product.sub_total}} </td>
+                </tr>
+
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12 mt-2">
+           <!-- Special Instruction -->
+          <div class="special_instruct_box">
+
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12 mt-2">
+          <table class="table table-clear tbl_invoice2">
+            <tr>
+              <td width="80%" class="text-right ttl_invtbl">{{LanguageText.txt_invoice_subtotal}}</td>
+              <td width="20%" class="font-weight-bold">{{currency}} {{grand_sub_total}}</td>
+            </tr>
+            <tr>
+              <td class="text-right ttl_invtbl">{{LanguageText.txt_product_discount}} (-)</td>
+              <td class="font-weight-bold">{{currency}} {{coupon_used}}</td>
+            </tr>
+            <tr>
+              <td class="text-right ttl_invtbl">{{LanguageText.txt_invoice_delivery}}</td>
+              <td class="font-weight-bold">{{currency}} {{delivery_fee}}</td>
+            </tr>
+            <!-- <tr>
+              <td class="text-right ttl_invtbl">{{LanguageText.txt_invoice_vat}} 7%</td>
+              <td class="font-weight-bold">₱ 450</td>
+            </tr> -->
+            <tr>
+              <td class="text-right ttl_invtbl">{{LanguageText.txt_invoice_grand_total}}</td>
+              <td class="font-weight-bold">{{currency}} {{grand_total}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+  </div>
+</main>
+<app-footer *ngIf="isLanguageLoaded"></app-footer>

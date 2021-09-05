@@ -1,0 +1,58 @@
+<app-header class="riderheader"></app-header>
+<main *ngIf="isLanguageLoaded" class="aboutus riderbody">
+<section class="innerpagetitle d-table">
+<div class="container d-table-cell align-middle">
+<div class="title">{{LanguageText.txt_about_aboutus}}</div>
+</div>
+</section>
+<div class="aboutus section nopadbot">
+    <div class="container">
+        <p>{{LanguageText.txt_about_aboutus1}}</p>
+    </div>
+</div>
+<div class="howitwork section">
+    <div class="container">
+    <div class="row">
+    <div class="col-md-12">
+    <h2 class="head center">
+    <div class="bgicon"><img src="../../../assets/images/location.png" class="w-100" /></div>
+    <div class="name">{{LanguageText.txt_home_lbl_how}} {{LanguageText.txt_home_lbl_how2}}</div>
+    </h2>
+    </div>
+    <div class="col-md-12">
+    <div class="image"><img src="../../../assets/images/workimage.png" class="w-100"/></div>
+    <ul>
+    <li>{{LanguageText.txt_home_findrestau}}</li>
+    <li>{{LanguageText.txt_home_orderfood}}</li>
+    <li>{{LanguageText.txt_home_getfood}}</li>
+    </ul>
+    </div>
+    </div>
+    </div>
+    </div>
+    <section>
+
+    <div class="whatdowedo section">
+        <div class="container">
+            <h2 class="head center">
+                <div class="bgicon"><img src="../../../assets/images/location.png" class="w-100" /></div>
+                <div class="name">{{LanguageText.txt_about_whatwedo}}</div>
+            </h2>
+            <p>{{LanguageText.txt_about_whatwedo1}}</p>
+            <h3 class="valuettl">{{LanguageText.txt_about_valuetitle}}</h3>
+            <p>{{LanguageText.txt_about_valuedesc1}}.</p>
+            <p>{{LanguageText.txt_about_valuedesc2}}.</p>
+
+            <h4 class="to_ttls">{{LanguageText.txt_about_customerttl}}</h4>
+            <p>{{LanguageText.txt_about_customerdesc}}.</p>
+            <h4 class="to_ttls">{{LanguageText.txt_about_merchantttl}}</h4>
+            <p>{{LanguageText.txt_about_merchantdesc}}.</p>
+            <h4 class="to_ttls">{{LanguageText.txt_about_riderttl}}</h4>
+            <p>{{LanguageText.txt_about_riderdesc}}.</p>
+        </div>
+    </div>
+
+    </section>
+
+</main>
+<app-footer *ngIf="isLanguageLoaded"></app-footer>

@@ -1,0 +1,679 @@
+
+<main *ngIf="isLanguageLoaded&&hasCart">
+  <app-authheader *ngIf="isUserMode()" [loadstring]=1 [isLanguageLoaded]="isLanguageLoaded" id="home"  [LanguageText]="LanguageText" class="header-show-search"></app-authheader>
+  <app-header *ngIf="!isUserMode()" [loadstring]=1 [isLanguageLoaded]="isLanguageLoaded" id="home"  [LanguageText]="LanguageText"  class="header-show-search"></app-header>
+<div>
+
+</div>
+<div class="product-list-box">
+<div class="container">
+<div class="row">
+<div class="col-12 col-lg-8 col-xl-8">
+<div class="bold-title">{{LanguageText.txt_checkout_checkout}}</div>
+<div class="checkout-process">
+<form>
+<ul>
+<li class="active">
+<div class="process-icon">
+<img src="../../../assets/images/icon-iphone-grey.png" class="w-100 active-hide"/>
+<img src="../../../assets/images/icon-iphone-white.png" class="w-100 active-show"/>
+</div>
+<div class="top">
+  <span class="name">{{LanguageText.txt_checkout_contactinfo}}</span>
+  <span class="subname">{{LanguageText.txt_checkout_howcanwecontact}}?</span>
+  <!-- <a class="toggle-btn" [ngClass]="showcontactinfo ? '' : 'hide'" (click)=" toggleContactinfo()"><i class="fas fa-angle-down"></i></a> -->
+</div>
+<button id="showloading" [hidden]="true" data-toggle="modal" data-target="#loadingmodal"></button>
+<div class="sec_contact_box"  style="cursor: pointer;" (click)="openAddressModalUser()">
+  <div class="row">
+    <div class="col-4 col-md-4 col-sm-4">
+      <span class="txt_checkouttitle">{{LanguageText.txt_checkout_phonenumber}}</span>
+    </div>
+    <div class="col-8 col-md-8 col-sm-8">
+
+      <button id="openModalUser" [hidden]="true" data-toggle="modal" data-target="#modal_contactinfo">{{LanguageText.txt_checkout_openmodal}}</button>
+
+      <span class="txt_phonenumber" style="font-size: 13px;">{{checkoutcode}}&nbsp;</span>
+      <span class="txt_phonenumber">&nbsp;{{checkoutphone}}</span>
+      <div class="btn-box2">
+        <a href="#" target="_self" data-toggle="modal" data-target="#modal_contactinfo"><i class="far fa-edit"></i></a>
+
+      </div>
+    </div>
+  </div>
+</div>
+<button id="openAddcardModal" [hidden]="true" data-toggle="modal" data-target="#addcard">{{LanguageText.txt_checkout_openmodal}}</button>
+<!-- MODAL -->
+</li>
+<li>
+<div class="process-icon"><img src="../../../assets/images/icon-pin-grey.png" class="w-100 active-hide"/>
+<img src="../../../assets/images/icon-pin-white.png" class="w-100 active-show"/>
+</div>
+<div class="top">
+  <span class="name">{{LanguageText.txt_checkout_deliveryaddress}}</span>
+  <span class="subname">{{LanguageText.txt_checkout_delivery_par}}.</span>
+  <!-- <a class="toggle-btn"  (click)="toggleDelivery()"><i class="fas fa-angle-down"></i></a> -->
+</div>
+<input type="button" (click)="addnewaddress()" *ngIf="!iseditingaddress" name="next" class="btnaddnewaddress_co" value="+ Add New Address" />
+<input type="button" name="next"  (click)="canceladdress()" *ngIf="iseditingaddress" class="btnaddnewaddress_co" value="Cancel" />
+<agm-map style="height: 200px;" [latitude]="displaylatitude" [longitude]="displaylongitude" [zoom]="18" [mapTypeControl]='false'
+                  (mapReady)="mapReady($event)">
+                    <agm-marker [iconUrl]="usermarker" [latitude]="displaylatitude" [longitude]="displaylongitude" [markerDraggable]="false"
+                     ></agm-marker>
+                  </agm-map>
+<div class="bottom" *ngIf="showdelivery">
+  <fieldset class="pb-0" *ngIf="iseditingaddress" >
+    <div class="form-card">
+      <div class="row mt-2">
+        <div class="col-md-6">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="{{LanguageText.txt_map_addressnameplaceholder}}" [(ngModel)]="addressname" [ngModelOptions]="{standalone: true}" id="addressname">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group selectarrow">
+            <select class="form-control selectbox" id="buildingtype" [(ngModel)]="buildingtype" [ngModelOptions]="{standalone: true}">
+              <option value="0" selected>{{LanguageText.txt_checkout_selectbuildingtype}}</option>
+              <option value="Condominium">{{LanguageText.txt_checkout_condominium}}</option>
+              <option value="Townhouse">{{LanguageText.txt_checkout_townhouse}}</option>
+              <option value="Detached house">{{LanguageText.txt_checkout_detachedhouse}}</option>
+              <option value="Office building">{{LanguageText.txt_checkout_officebuilding}}</option>
+              <option value="Residential">{{LanguageText.txt_checkout_residential}}</option>
+              <option value="Institutional">{{LanguageText.txt_checkout_institutional}}</option>
+              <option value="Business">{{LanguageText.txt_checkout_business}}</option>
+
+
+            </select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="My Village/Building" [(ngModel)]="buildingname" [ngModelOptions]="{standalone: true}" id="buildingname">
+          </div>
+        </div>
+        <div class="col-md-12"><div class="form-group">
+          <input type="text" class="form-control" placeholder="Room/House no." [(ngModel)]="houseno" [ngModelOptions]="{standalone: true}" id="houseno">
+        </div></div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Address" [(ngModel)]="Address" [ngModelOptions]="{standalone: true}" id="Address">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Soi" [(ngModel)]="soi" [ngModelOptions]="{standalone: true}" id="soi">
+          </div>
+        </div>
+       <div class="col-md-6">
+         <div class="form-group">
+            <input type="text" class="form-control" placeholder="Moo" [(ngModel)]="moo" [ngModelOptions]="{standalone: true}" id="moo">
+          </div>
+        </div>
+      <div class="col-md-6">
+        <div class="form-group selectarrow">
+          <select class="form-control selectbox" [(ngModel)]="province" id="province" [ngModelOptions]="{standalone: true}" (change)="provinceChage(province)">
+            <option value="0" selected>{{LanguageText.txt_checkout_province}}</option>
+            <option value="{{getMetaName(provinceitem)}}" *ngFor="let provinceitem of provinceList; let i = index;">{{getMetaName(provinceitem)}}</option>
+
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group selectarrow">
+          <select class="form-control selectbox" [(ngModel)]="district" id="district" [ngModelOptions]="{standalone: true}" (change)="districtChage(district)">
+            <option value="0" selected>District</option>
+            <option value="{{getMetaName(districtitem)}}" *ngFor="let districtitem of districtList; let i = index;">{{getMetaName(districtitem)}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group selectarrow">
+          <select class="form-control selectbox"[(ngModel)]="subdistrict" [ngModelOptions]="{standalone: true}" id="subdistrict">
+            <option value="0" selected>{{LanguageText.txt_checkout_subdistrict}}</option>
+            <option value="{{getMetaName(subdistrictitem)}}" *ngFor="let subdistrictitem of subdistrictList; let i = index;">{{getMetaName(subdistrictitem)}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Floor" [(ngModel)]="floor" [ngModelOptions]="{standalone: true}" id="floor">
+        </div>
+      </div>
+
+        <div class="col-md-12"><div class="form-group nomargbot">
+          <input type="text" class="form-control" placeholder="Note to rider" [(ngModel)]="note" [ngModelOptions]="{standalone: true}" id="note">
+        </div></div>
+      </div>
+    </div>
+
+    <input type="button" name="previous" (click)="saveMultiLocation()" class="btn red-btn mt-3 w-100" value="{{LanguageText.txt_resetpw_submit}}" />
+  </fieldset>
+  <button id="openModalLocation" [hidden]="true" data-toggle="modal" data-target="#pinlocationmap">{{LanguageText.txt_checkout_openmodal}}</button>
+<div class="tab-card" *ngIf="deliveryAddressList.length==0">
+
+  <div class="address-box" style="cursor: pointer;" (click)="addnewaddress()">
+    <div class="row">
+      <div class="col-12 col-md-12 col-sm-12">
+        <span class="txt_location">{{LanguageText.txt_kalanbanga_setdeladdress}}!</span>
+        <p class="txt_locationdetails">{{LanguageText.txt_checkout_noaddress_selected}}</p>
+      </div>
+
+      <div class="btn-box">
+        <a href="" target="_self" data-toggle="modal" data-target="#pinlocationmap"><i class="fas fa-angle-right"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-3 tab-card" style="max-height:600px;overflow-y: auto;" *ngIf="!iseditingaddress&&deliveryAddressList.length!=0">
+
+  <div class="form-group col-md-12 col-xl-12 col-lg-12 tab-carddeliver{{isActive(address)}}"  *ngFor="let address of deliveryAddressList; let j = index;" >
+    <div class="tcborder">
+      <div class="mdl_location_check selection-tick custom-checkbox"  [hidden]="showdelete(address)">
+        <input type="radio" name="addressradio" [value]="address.loc_id" [ngModel]="selectedAddressRadio" (change)="onRadioChange(address)" >
+        <span class="checkmark"></span>
+      </div>
+      <div class="mdl_location_details" [hidden]="showdelete(address)">
+      <div class="row rowidth100">
+        <div class="col-12 col-sm-12 col-md-12">
+          <div class="label" (click)="onRadioChange(address)">{{address.loc_address_name}}</div>
+          <div class="price" (click)="onRadioChange(address)">{{address.loc_location}}</div>
+        </div>
+        <div class="btn-boxpin">
+          <a style="cursor: pointer;" target="_self" (click)="editAddress(address)"><i class="far fa-edit"></i></a>
+          <a style="cursor: pointer; font-size: 16px;" target="_self"  (click)="selectdelete(address)"><i class="fatrasho fa fa-trash-o"></i></a>
+        </div>
+      </div>
+      </div>
+
+      <!-- DELETE TAB -->
+      <div class="deleteaddress_sec" *ngIf="showdelete(address)">
+        <p class="dltetitle">{{LanguageText.txt_checkout_delete_this_address}}?</p>
+        <button class="btn red-btn back2 mr-3" (click)="canceldelete()">{{LanguageText.txt_product_no}}</button>
+        <button class="btn red-btn" (click)="deleteAddress(address)">{{LanguageText.txt_product_yes}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+</li>
+<li>
+<div class="process-icon"><img src="../../../assets/images/icon-payment-grey.png" class="w-100 active-hide"/>
+<img src="../../../assets/images/icon-payment-white.png" class="w-100 active-show"/>
+</div>
+<div class="top">
+  <span class="name">{{LanguageText.txt_checkout_paymentmethod}}</span>
+  <span class="subname">{{LanguageText.txt_checkout_payment_par}}?</span>
+  <!-- <a class="toggle-btn" (click)="togglePaymentmethod()"><i class="fas fa-angle-down"></i></a> -->
+</div>
+<div class="bottom" *ngIf="showpaymentmethod" style="cursor: pointer;"  (click)="openPaymentModal()">
+
+  <div class="payment-box">
+    <div class="row">
+      <div class="col-8 col-md-8 col-sm-8">
+        <button id="openModalPayment" [hidden]="true" data-toggle="modal" data-target="#paymentmethod">{{LanguageText.txt_checkout_openmodal}}</button>
+        <span class="txt_method">{{selectedPaymentMethod}}</span>
+      </div>
+      <div class="col-4 col-md-4 col-sm-4">
+
+        <div class="btn-box">
+          <a href="#" target="_self" data-toggle="modal" data-target="#paymentmethod"><i class="fas fa-angle-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</li>
+<li>
+<div class="process-icon"><img src="../../../assets/images/icon-history-grey.png" class="w-100 active-hide"/>
+<img src="../../../assets/images/icon-history-white.png" class="w-100 active-show"/>
+</div>
+<div class="top">
+  <span class="name">{{LanguageText.txt_checkout_deliverytime}}</span>
+  <div class="time float-right">{{deliverytime}}</div>
+</div>
+</li>
+</ul>
+</form>
+</div>
+</div>
+<div class="col-sm-12 col-md-12 col-lg-4 col-xl-4" *ngIf="hasCart">
+  <div class="checkout">
+  <div class="box">
+  <div class="icon"><img src="../../../assets/images/receipt.png" class="w-100"/></div><div class="text">{{LanguageText.txt_product_your_order_from}} {{store_name}}
+  {{restoName}}</div>
+  </div>
+  <div class="box"  *ngFor="let cartItem of cartDetails; let i = index;">
+      <div class="main_dish_ttl">
+        <div class="count d-inline-block">
+            <span (click)="carItemDec(cartItem)">-</span> {{cartItem.cart_quantity}} <span (click)="carItemInc(cartItem)">+</span>
+          </div>
+          <div class="right-text text-mute">{{cartItem.product_name}} {{showRequiredOptionName(cartItem.order_option_items)}}</div>
+          <div class="price">{{cartItem.cart_currency}} {{showRequiredOptionPrice(cartItem)}}</div>
+      </div>
+      <div class="extra_selection" *ngFor="let optionID of cartItem.order_option_items; let j = index;">
+          <div class="text_extra text-mute">{{showOptonName(optionID)}}</div>
+          <div class="extra_price">{{showOptonPrice(optionID,cartItem.cart_currency)}}</div>
+      </div>
+      <div class="extra_selection">
+        <div class="text_extra text-mute">&nbsp;</div>
+        <div class="extra_delete" (click)="removeItemOnCart(cartItem.cart_id)"><i class="fas fa-trash"></i></div>
+      </div>
+    </div>
+  <div class="box">
+      <div class="mb-1 overflow-hidden">
+        <div class="label text-primary voucherlabel" (click)="inputVoucher()" *ngIf="!hasDiscout">{{LanguageText.txt_product_doyouhaveavoucher}}</div>
+
+        <!-- Show input when voucher link is clicked -->
+        <div class="value" [hidden]="!hasVouch">
+          <input type="text" class="input_discount" style="width: 170px;" id="vouchercodeall"  (keydown)="onChangeEventall($event)" [(ngModel)]="vouchercodeall" [ngModelOptions]="{standalone: true}" >
+          <button class="btn-box" (click)="onChangeEventallapply()" style="color: #FFFFFF;width: 30px;background-color: #21AE1D;height: 38px;border-radius: 5px;border-color: #21AE1D;" > > </button>
+
+        </div>
+    </div>
+    <div class="mb-1 overflow-hidden">
+    <div class="label text-uppercase float-left">{{LanguageText.txt_product_subtotal}}</div>
+    <div class="value  float-right">{{cartSubTotal}}</div>
+    </div>
+
+    <div class="mb-1 line  overflow-hidden"  *ngIf="hasDiscout">
+      <div class="label text-uppercase float-left">{{LanguageText.txt_checkout_voucher}}: ({{vouchercode}})</div>
+      <div class="value  float-right"><a (click)="removeVoucher()" style="cursor: pointer;color:brown;">{{LanguageText.txt_product_changecode}}?</a></div>
+    </div>
+    <div class="mb-1 line  overflow-hidden" *ngIf="hasDiscout">
+      <div class="label text-uppercase float-left">{{LanguageText.txt_product_discount}}</div>
+      <div class="value  float-right">- {{discountValue}}</div>
+    </div>
+
+    <!-- DELIVERY FEE -->
+    <!-- <div class="line  overflow-hidden">
+    <div class="label text-uppercase float-left">{{LanguageText.txt_product_delivery_fee}}</div>
+    <div class="value  float-right">$0</div>
+    </div> -->
+    </div>
+    <div class="box border-none">
+    <div class="mb-1 overflow-hidden total">
+    <div class="label text-uppercase float-left">{{LanguageText.txt_product_totalinclvat}}</div>
+    <div class="value  float-right">{{cartGrandTotal}}</div>
+    </div>
+    <div class="btn-box" >
+      <a (click)="PlaceOrder()" style="cursor: pointer;">{{LanguageText.txt_checkout_placed_order}}</a>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="modal fade" id="loadingmodal">
+
+  <div class="modal-dialog modal-dialog-centered" align="center">
+    <div class="modal-content" style="border: 0;">
+      <div class="" align="center" style="background-color: #00000000">
+        <button type="button" [hidden]="true"  class="close btnclosemodal2" id="closeloading"  data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+
+      </div>
+    </div>
+
+    <div class="row">
+      <img src="../assets/images/logo.jpg"/><br>
+      <p class="title_nocart" style="color: #ffffff;">{{LanguageText.txt_checkout_please_wait}}...</p><br>
+      <p class="desc_nocart" style="color: #ffffff;">{{LanguageText.txt_checkout_we_processing_order}}</p>
+    </div>
+
+
+  </div>
+</div>
+<!-- Modal Pin Location-->
+<div class="modal fade" id="pinlocationmap" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body modalbodypinlocation">
+        <button type="button" class="close btnclosemodal2" id="closeModalLocation" (click)="closeLocationModal()" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <!-- <h5 class="title_modalcheckout2 text-center">{{LanguageText.txt_checkout_choosedelivery}}</h5> -->
+        <h2 class="title_modalcheckout2 text-center">{{LanguageText.txt_checkout_whatyourexactlocation}}?</h2>
+        <!-- START -->
+        <form id="msform">
+          <!-- progressbar -->
+          <ul id="progressbar" hidden>
+              <li class="active" id="ic_select_address"><strong>{{LanguageText.txt_checkout_addresses}}</strong></li>
+              <li class="{{active2}}" id="ic_pin_location"><strong>{{LanguageText.txt_checkout_pinlocation}}</strong></li>
+              <li class="{{active3}}" id="ic_edit_address"><strong>{{LanguageText.txt_checkout_editaddress}}</strong></li>
+          </ul> <!-- fieldsets -->
+          <fieldset *ngIf="false">
+            <div class="form-card">
+              <h2 class="fs-title">{{LanguageText.txt_checkout_selectaddress}}</h2>
+              <ul class="addressmodal_ul" style="cursor: pointer;" *ngFor="let address of deliveryAddressList; let j = index;" (click)="BtnonRadioChange(address)">
+                <li>
+                  <div class="mdl_location_check selection-tick custom-checkbox"  >
+                    <input type="radio" name="addressradio" [value]="address.loc_id" [ngModel]="selectedAddressRadio" (change)="onRadioChange(address)" >
+                    <span class="checkmark"></span>
+                  </div>
+                  <div class="mdl_location_details">
+                  <div class="row rowidth100">
+                    <div class="col-12 col-sm-12 col-md-12"><div class="label">{{address.loc_address_name}}</div>
+                    <div class="price">{{address.loc_location}}</div></div>
+                    <div class="btn-boxpin">
+                      <a style="cursor: pointer;" target="_self" (click)="editAddress(address)"><i class="far fa-edit"></i></a>
+                      <a style="cursor: pointer; font-size: 16px;" target="_self" (click)="deleteAddress(address)"><i class="fatrasho fa fa-trash-o"></i></a>
+                    </div>
+                  </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <input type="button" (click)="nextStepAddress()" name="next" class="btn next red-btn action-button" value="Add New Address" />
+          </fieldset>
+          <fieldset class="pb-0" *ngIf="showAddressForm">
+            <div class="form-card">
+              <div class="row mt-2">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="{{LanguageText.txt_map_addressnameplaceholder}}" [(ngModel)]="addressname" [ngModelOptions]="{standalone: true}" id="addressname">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group selectarrow">
+                    <select class="form-control selectbox" id="buildingtype" [(ngModel)]="buildingtype" [ngModelOptions]="{standalone: true}">
+                      <option value="0" selected>{{LanguageText.txt_checkout_selectbuildingtype}}</option>
+                      <option value="Condominium">{{LanguageText.txt_checkout_condominium}}</option>
+                      <option value="Townhouse">{{LanguageText.txt_checkout_townhouse}}</option>
+                      <option value="Detached house">{{LanguageText.txt_checkout_detachedhouse}}</option>
+                      <option value="Office building">{{LanguageText.txt_checkout_officebuilding}}</option>
+                      <option value="Residential">{{LanguageText.txt_checkout_residential}}</option>
+                      <option value="Institutional">{{LanguageText.txt_checkout_institutional}}</option>
+                      <option value="Business">{{LanguageText.txt_checkout_business}}</option>
+
+
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="My Village/Building" [(ngModel)]="buildingname" [ngModelOptions]="{standalone: true}" id="buildingname">
+                  </div>
+                </div>
+                <div class="col-md-12"><div class="form-group">
+                  <input type="text" class="form-control" placeholder="Room/House no." [(ngModel)]="houseno" [ngModelOptions]="{standalone: true}" id="houseno">
+                </div></div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Address" [(ngModel)]="Address" [ngModelOptions]="{standalone: true}" id="Address">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Soi" [(ngModel)]="soi" [ngModelOptions]="{standalone: true}" id="soi">
+                  </div>
+                </div>
+               <div class="col-md-6">
+                 <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Moo" [(ngModel)]="moo" [ngModelOptions]="{standalone: true}" id="moo">
+                  </div>
+                </div>
+              <div class="col-md-6">
+                <div class="form-group selectarrow">
+                  <select class="form-control selectbox" [(ngModel)]="province" id="province" [ngModelOptions]="{standalone: true}" (change)="provinceChage(province)">
+                    <option value="0" selected>{{LanguageText.txt_checkout_province}}</option>
+                    <option value="{{getMetaName(provinceitem)}}" *ngFor="let provinceitem of provinceList; let i = index;">{{getMetaName(provinceitem)}}</option>
+
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group selectarrow">
+                  <select class="form-control selectbox" [(ngModel)]="district" id="district" [ngModelOptions]="{standalone: true}" (change)="districtChage(district)">
+                    <option value="0" selected>{{LanguageText.txt_merchant_district}}</option>
+                    <option value="{{getMetaName(districtitem)}}" *ngFor="let districtitem of districtList; let i = index;">{{getMetaName(districtitem)}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group selectarrow">
+                  <select class="form-control selectbox"[(ngModel)]="subdistrict" [ngModelOptions]="{standalone: true}" id="subdistrict">
+                    <option value="0" selected>{{LanguageText.txt_checkout_subdistrict}}</option>
+                    <option value="{{getMetaName(subdistrictitem)}}" *ngFor="let subdistrictitem of subdistrictList; let i = index;">{{getMetaName(subdistrictitem)}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Floor" [(ngModel)]="floor" [ngModelOptions]="{standalone: true}" id="floor">
+                </div>
+              </div>
+
+                <div class="col-md-12"><div class="form-group nomargbot">
+                  <input type="text" class="form-control" placeholder="Note to rider" [(ngModel)]="note" [ngModelOptions]="{standalone: true}" id="note">
+                </div></div>
+              </div>
+            </div>
+            <!-- <input type="button" (click)="prevStepAddress()" name="previous" class="btn previous black-btn action-button-previous mt-3" value="Previous" /> -->
+            <input type="button" name="previous" (click)="saveMultiLocation()" class="btn red-btn mt-3" value="{{LanguageText.txt_resetpw_submit}}" />
+          </fieldset>
+          <fieldset class="pb-0">
+            <div class="form-card">
+              <form>
+                <div class="modal_search_sec">
+                  <input type="text" class="form-control search_location"  (keydown.enter)="$event.preventDefault()" placeholder="Enter your exact location" autocorrect="off" autocapitalize="off" id="searchlocation" spellcheck="off" type="text" #search>
+                  <i class="fa fa-map-pin location_icon" aria-hidden="true"></i>
+                </div>
+                <h3 class="text-left mb-1" style="cursor: pointer;color: brown;" (click)="setCurrentLocation()"><i class="fa fa-crosshairs" aria-hidden="true"></i> {{LanguageText.txt_checkout_setcurrentlocation}}</h3>
+
+                <div class="pinlocation_map" >
+                  <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" [mapTypeControl]='true' (centerChange)="centerChange($event)"
+                  (boundsChange)="boundsChange($event)"  (mapReady)="mapReady($event)">
+                    <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+                      (dragEnd)="markerDragEnd($event)"></agm-marker>
+                  </agm-map>
+
+
+                </div>
+
+              </form>
+            </div>
+            <!-- <input type="button" (click)="prevStepAddress()" name="previous" class="btn previous black-btn action-button-previous" value="Previous" /> -->
+            <div class="text-center btnsubmitaddress">
+              <input type="button" (click)="nextStepAddress()" name="next" class="btn next red-btn action-button" data-dismiss="modal" style="width:80%" value="{{LanguageText.txt_resetpw_submit}}" />
+            </div>
+
+          </fieldset>
+
+
+        </form>
+        <!-- END -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL FOR CONTACT INFO -->
+<div class="modal fade" id="modal_contactinfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body modalbodypinlocation">
+        <div class="btnbutton_modals">
+          <a href="" target="_self" data-dismiss="modal" class="btn_modal_cancel">{{LanguageText.txt_checkout_cancel}}</a>
+          <a href="" target="_self" class="btn_modal_apply" data-dismiss="modal" (click)="applyUserInfo()">{{LanguageText.txt_checkout_apply}}</a>
+        </div>
+        <h5 class="title_modalcheckout text-center">{{LanguageText.txt_checkout_contactinfo}}</h5>
+        <div class="bottom" *ngIf="showcontactinfo">
+          <div class="checkout_infos row">
+          <div class="col-md-6"><div class="form-group icon-left">
+              <div class="icon"><img src="../../../assets/images/icon-user-grey.png"  class="w-100"/></div>
+              <input type="text" class="form-control" placeholder="First Name" id="firstname" [(ngModel)]="firstname" [ngModelOptions]="{standalone: true}">
+            </div>
+          </div>
+          <div class="col-md-6"><div class="form-group icon-left">
+              <div class="icon"><img src="../../../assets/images/icon-user-grey.png"  class="w-100"/></div>
+              <input type="text" class="form-control" placeholder="Last Name" id="lastname" [(ngModel)]="lastname" [ngModelOptions]="{standalone: true}">
+            </div>
+          </div>
+          <div class="col-md-6"><div class="form-group icon-left">
+              <div class="icon"><img src="../../../assets/images/icon-mail-grey.png"  class="w-100"/></div>
+              <input type="email" class="form-control" placeholder="Email" id="email" [(ngModel)]="email" (change)="EmailChange()" [ngModelOptions]="{standalone: true}">
+              <a class="border-btn" *ngIf="!isEmailverify" (click)="verifyEmail()">{{LanguageText.txt_foundation_verify}}</a>
+              <!-- IF VERIFIED -->
+              <!-- <div class="iconverify"><i class="fa fa-check" aria-hidden="true"></i></div> -->
+
+              <!-- SHOW WHEN VERIFY IS CLICKED -->
+              <input type="text" *ngIf="!isEmailverify&&emailOtpCodeVisible" (click)="EmailActivate()" [(ngModel)]="emailvcode" [ngModelOptions]="{standalone: true}"  class="form-control input_otp" placeholder="Enter OTP" maxlength="6">
+
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group icon-left">
+              <!-- <div class="icon"><img src="../../../assets/images/icon-phone-grey.svg"  class="w-100"/></div>
+              <input type="text" class="form-control inputphone" placeholder="Phone Number" (keypress)="omit_special_char($event)" id="phonenumber" [(ngModel)]="phonenumber" (change)="phoneNumberChange()" [ngModelOptions]="{standalone: true}">
+
+              <div class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">
+                  {{phonecode}} <i class="fas fa-angle-down"></i>
+                </a>
+                <div class="dropdown-menu" style="height: 300px;overflow-y: auto;">
+                  <a class="dropdown-item" target="_self" (click)="selectCode(country.country_dial)" *ngFor="let country of countryCodeList; let i = index;"><span class="pull-left">{{country.country_name}} </span> <span class="pull-right">{{country.country_dial}}</span></a>
+                </div>
+              </div> -->
+              <div class="icon"><img src="../../../assets/images/icon-phone-grey.png"  class="w-100"/></div>
+              <input type="text" class="form-control inputphone" placeholder="Phone Number" (keypress)="omit_special_char($event)" id="phonenumber" [(ngModel)]="phonenumber" (change)="phoneNumberChange()" [ngModelOptions]="{standalone: true}">
+
+
+              <div class="errortriangle" *ngIf="invalidPhone"><img src="../../../assets/images/error.png" class="w-100"/> </div>
+              <div class="text-danger" *ngIf="invalidPhone">{{LanguageText.txt_register_invalidphonenumber}}</div>
+              <div class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">
+                  {{phonecode}} <i class="fas fa-angle-down"></i>
+                </a>
+                <div class="dropdown-menu menu-item-scroll registersearchbar" style="height: 300px;overflow-y: auto; width: 277px;">
+                  <a class="dropdown-item" style="height: 50px;" target="_self"  ><div class="icon insearch"><img src="../../../assets/images/icon-search-red.png"  class="w-100"/></div><input type="text"  (keyup)="checkfield()" (keydown)="checkfield()"  class="form-control" placeholder="Search" id="search"  [(ngModel)]="searchcode" [ngModelOptions]="{standalone: true}" maxlength="6"></a>
+                  <a class="dropdown-item" target="_self" (click)="selectCode(country.country_dial)" [hidden]="isMatched(country)" *ngFor="let country of countryCodeList; let i = index;"><span class="pull-left" style="width: 50px;">{{country.country_dial}} </span> <span class="pull-left">{{country.country_name}}</span></a>
+                </div>
+              </div>
+
+
+              <a class="border-btn" *ngIf="!isPhoneverify" (click)="verifyPhone()">{{LanguageText.txt_foundation_verify}}</a>
+              <!-- IF VERIFIED -->
+              <!-- <div class="iconverify"><i class="fa fa-check" aria-hidden="true"></i></div> -->
+
+              <!-- SHOW WHEN VERIFY IS CLICKED -->
+              <input type="text" *ngIf="!isPhoneverify&&phoneOtpCodeVisible" (change)="PhoneActivate()" [(ngModel)]="phonenumbervcode" [ngModelOptions]="{standalone: true}" class="form-control input_otp" placeholder="Enter OTP">
+            </div>
+          </div>
+          </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL FOR PAYMENT METHOD -->
+<div class="modal fade" id="paymentmethod" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body modalbodypinlocation">
+        <div class="btnbutton_modals">
+          <a href="" target="_self" data-dismiss="modal" class="btn_modal_cancel">{{LanguageText.txt_checkout_cancel}}</a>
+        </div>
+        <h5 class="title_modalcheckout text-center">{{LanguageText.txt_checkout_paymentmethod}}</h5>
+        <div class="mdl_payment row">
+          <div class="col-md-12 mb-4">
+            <div class="round-btn" style="cursor: pointer;" (click)="selectPayment('cod')">
+              <div class="selection-tick custom-radio">
+                <input type="radio"  name="paymentmethod" [value]="'cod'" [ngModel]="selectedPaymentRadio">
+                <span class="checkmark"></span>
+              </div>
+              <span><img src="../../../assets/images/icon-money-grey.png"/></span>
+              <span class="lable">{{LanguageText.txt_checkout_cod}}</span>
+            </div>
+          </div>
+          <div class="col-md-12" *ngIf="cardlist.length>0">
+            <p class="paymentmodal_ttl">{{LanguageText.txt_checkout_creditdebit}}</p>
+          </div>
+
+          <div class="col-md-12 mb-3"   *ngFor="let card of cardlist; let i = index;" style="cursor: pointer;" (click)="selectPayment(card.id)">
+            <div class="round-btn">
+              <div class="selectmodal_card selection-tick custom-radio">
+                <input type="radio"  name="paymentmethod" [value]="card.id" [ngModel]="selectedPaymentRadio" >
+                <span class="checkmark"></span>
+              </div>
+              <img class="cardpaymentimg" src="../../../assets/images/payment-master-icon.png"/>
+              <span class="lable">{{card.number}}</span><br>
+              <span class="namebank">{{card.brand}}</span>
+              <a style="cursor: pointer;" (click)="deleteCard(card.id)" class="icon_paymentdelete"><i class="fa fa-trash-o"></i></a>
+            </div>
+          </div>
+
+          <!-- ADD NEW CARD FORM -->
+          <!-- <div class="col-md-12 mt-3">
+            <div class="box">
+              <form>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Cardholder Name</label>
+                      <input type="text" class="form-control" placeholder="Card holder name">
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                  <div class="form-group">
+                      <label>Card Number</label>
+                      <input type="text" class="form-control" placeholder="Card number">
+                    </div>
+                  </div>
+                  <div class="col-7 col-md-7">
+                    <div class="form-group">
+                        <label>Expiration Date</label>
+                        <input type="text" class="form-control" placeholder="Expiration date">
+                      </div>
+                    </div>
+                  <div class="col-5 col-md-5">
+                  <div class="form-group">
+                      <label>CVV</label>
+                      <input type="number" class="form-control" placeholder="CVV">
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div> -->
+
+          <div class="col-md-12 text-center mt-3">
+            <button class="btn red-btn"  (click)="AddNewCard()">{{LanguageText.txt_checkout_addnewcard}}</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL FOR Add Card METHOD -->
+<div class="modal fade" id="addcard" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body modalbodypinlocation">
+        <div class="btnbutton_modals">
+          <a href="" target="_self" data-dismiss="modal" class="btn_modal_cancel">{{LanguageText.txt_checkout_cancel}}</a>
+        </div>
+        <h5 class="title_modalcheckout text-center">{{LanguageText.txt_checkout_addcard}}</h5>
+        <iframe [hidden]="iframestate=='ready'" [src]="iframesrc" frameBorder="0" (load)="currentUrl()" id="ifff" height="500px" width="100%" title="Iframe Example"></iframe>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</main>
+<app-footer [LanguageText]="LanguageText" [isLanguageLoaded]="isLanguageLoaded"></app-footer>

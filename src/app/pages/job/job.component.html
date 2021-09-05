@@ -1,0 +1,160 @@
+<app-header class="riderheader"></app-header>
+<main *ngIf="isLanguageLoaded" class="job career riderbody">
+<div class="container">
+<div class="top-btn"><a href="#" routerLink="/career"><i class="fas fa-arrow-left"></i> {{LanguageText.txt_job_viewopenings}}</a></div>
+<div class="job-info-box">
+<div class="row">
+<div class="col-12 col-sm-7 col-md-9">
+<div class="name">Sales Manager / Sales Staff</div>
+<div class="location"><i class="fas fa-map-marker-alt"></i> Calamba City Branch</div>
+</div>
+<div class="col-12 col-sm-5 col-md-3 text-right"><a href="#">{{LanguageText.txt_career_fulltime}}</a></div>
+</div>
+</div>
+<div class="box">
+<div class="title">{{LanguageText.txt_job_aboutus}}</div>
+<p>Food To Dine is a fast and reliable food delivery service in Calamba. We connect people with the best restaurants in the city. We do this by empowering local businesses and in turn, generate new ways for people to earn, work and live. We started by facilitating door-to-door delivery, but we see this as just the beginning of connecting people with possibility — easier evenings, happier days, bigger savings accounts, wider nets and stronger communities. </p>
+</div>
+<div class="box">
+<div class="title">{{LanguageText.txt_career_keycompetencies}}</div>
+<p>We are looking for a high-performing Sales Manager to help us meet our customer acquisition and revenue growth targets by keeping our company competitive and innovative. You will be responsible for maximizing our sales team potential, crafting sales plans and justifying those to plans to the upper management.</p>
+<ul class="red-dot-list">
+<li>Achieve growth and hit sales targets by successfully managing the sales team</li>
+<li>Design and implement a strategic business plan that expands company’s merchant base and ensure it’s strong presence</li>
+<li>Objectives setting, coaching and performance monitoring of sales representatives</li>
+<li>Build and promote strong, long-lasting merchant relationships by partnering with them and understanding their needs</li>
+<li>Present sales, revenue and expenses reports and realistic forecasts to the management team</li>
+<li>Identify emerging markets and market shifts while being fully aware of new products and competition status</li>
+<li>Create daily/ weekly in-depth sales report</li>
+</ul>
+</div>
+<div class="box">
+<div class="title">{{LanguageText.txt_job_respo}}</div>
+<ul class="red-dot-list">
+  <li>Schedule sales call and sales visit </li>
+  <li>Pitch & win clients for KalanBanga</li>
+  <li>Build & maintain high-level relationships with the merchant</li>
+  <li>Pipeline management, sales forecasting and key sales reports with business KPIs</li>
+  <li>Go through the company's CRM tool to check everything planned for that day is perfectly running.</li>
+  <li>Coordinate with the Marketing team about ongoing promotion</li>
+  <li>Coordinate with the Customer Support team about any new leads on merchants from social media or email.</li>
+  <li>Make a report about achievements &  improvements</li>
+  </ul>
+</div>
+<div class="box">
+<div class="title">{{LanguageText.txt_job_skillsedu}}</div>
+<ul class="red-dot-list">
+  <li>Thai Nationality</li>
+  <li>Male/Female only, Age 24-40 yrs old.</li>
+  <li>2-3 years of digital media sales experience in Thailand</li>
+  <li>5 years of successful previous experience as a sales representative or sales manager, consistently meeting or exceeding targets</li>
+  <li>Experience of working & selling to senior marketing leaders on agency & brand side</li>
+  <li>Committed to continuous education through workshops, seminars and conferences</li>
+  <li>Demonstrated ability to communicate, present and influence credibly and effectively at all levels of the organization</li>
+  <li>Proven ability to drive the sales process from plan to close</li>
+  <li>Strong business sense and industry expertise</li>
+  <li>Excellent mentoring, coaching and people management skills</li>
+  <li>Good communication & presentation skills in Thai & English</li>
+  <li>Analytical with a strong bias for data-based decisions</li>
+  <li>Team Player with the ability to work across a matrix environment in a fast-paced environment</li>
+  <li>Strong organizational skills with the ability to manage multiple accounts</li>
+  <li>Previous sales forecasting experience, product sales or service sales.</li>
+  <li>Proven track record of delivering against targets</li>
+  </ul>
+  <p class="mt-3">*(English resume will be accepted and only shortlisted candidates will be notified)</p>
+  <p class="mb-0">Interested applicants are invited to attach your CV indicating expected salary, transcript and recent photograph by clicking <b>APPLY NOW</b></p>
+  <p>Interested in this amazing role? Please call: 082-695-6070, E-mail: hr@kalanbanga.co.th</p>
+</div>
+<div class="box">
+  <div class="title">{{LanguageText.txt_job_companyinfo}}</div>
+  <p>Food To Dine Co., Ltd.</p>
+  <p>117/12 Sukhumvit 55 Soi, Sukhumvit Rd., Klongton Nua, Wattana, Bangkok 10110</p>
+  <p>www.foodtodine.com</p>
+</div>
+<div class="btn-box text-center">
+<a href="#" class="red-btn">{{LanguageText.txt_job_applynow}}</a>
+</div>
+
+</div>
+
+<section class="openposition section mt-5 pb-0">
+    <div class="careerphotos">
+        <div class="container-fluid">
+        <div class="row">
+        <div class="col-sm-4 col-md-4 p-0">
+        <!-- <img src="../../../assets/images/careerfoot1.jpg" class="w-100"/>
+        </div>
+        <div class="col-sm-4 col-md-4 p-0">
+        <img src="../../../assets/images/careerfoot2.jpg" class="w-100"/>
+        </div>
+        <div class="col-sm-4 col-md-4 p-0">
+        <img src="../../../assets/images/careerfoot3.jpg" class="w-100"/> -->
+        </div>
+        </div>
+        </div>
+        </div>
+        <div class="howwehire section">
+          <div class="container">
+          <h2 class="head center">
+          <div class="bgicon"><img src="../../../assets/images/location.png" class="w-100" /></div>
+          <div class="name">{{LanguageText.txt_career_howwehire}}</div>
+          </h2>
+          <ul>
+          <li>
+          <div class="icon"><img src="../../../assets/images/icon-bill-white.png" class="w-100"/></div>
+          <div class="headerhire">{{LanguageText.txt_career_steps}} 1</div>
+          <div class="name">{{LanguageText.txt_career_step1}}</div>
+          <p>{{LanguageText.txt_career_step1desc}}.</p>
+          </li>
+          <li>
+          <div class="icon"><img src="../../../assets/images/icon-bill-white.png" class="w-100"/></div>
+          <div class="headerhire">{{LanguageText.txt_career_steps}} 2</div>
+          <div class="name">{{LanguageText.txt_career_step2}}</div>
+          <p>{{LanguageText.txt_career_step2desc}}.</p>
+          </li>
+          <li>
+          <div class="icon"><img src="../../../assets/images/icon-bill-white.png" class="w-100"/></div>
+          <div class="headerhire">{{LanguageText.txt_career_steps}} 3</div>
+          <div class="name">{{LanguageText.txt_career_step3}}</div>
+          <p>{{LanguageText.txt_career_step3desc}}.</p>
+          </li>
+          <li>
+          <div class="icon"><img src="../../../assets/images/icon-bill-white.png" class="w-100"/></div>
+          <div class="headerhire">{{LanguageText.txt_career_steps}} 4</div>
+          <div class="name">{{LanguageText.txt_career_step4}}</div>
+          <p>{{LanguageText.txt_career_step4desc}}.</p>
+          </li>
+          <li>
+          <div class="icon"><img src="../../../assets/images/icon-bill-white.png" class="w-100"/></div>
+          <div class="headerhire">{{LanguageText.txt_career_steps}} 5</div>
+          <div class="name">{{LanguageText.txt_career_step5}}</div>
+          <p>{{LanguageText.txt_career_step5desc}}.</p>
+          </li>
+          </ul>
+          </div>
+          </div>
+</section>
+<section class="downloadapp">
+    <div class="container">
+    <h2 class="head center"><div class="name">{{LanguageText.txt_career_download}}</div></h2>
+    <div class="box">
+    <div class="row">
+    <div class="col-sm-6 col-md-6">
+    <div class="label"> {{LanguageText.txt_career_scanqrcode}}</div>
+    <div class="qr"><img src="../../../assets/images/qrcode.png" class="w-100"/></div>
+    </div>
+    <div class="col-sm-6 col-md-6">
+    <div class="label"> {{LanguageText.txt_career_downloadapp}}</div>
+    <div class="store-btn">
+        <a href="https://play.google.com/store/apps/details?id=com.kalanbanga.customer&hl=en_IN" target="_blank"><img src="../../../assets/images/googleplay.png" class="w-100"/></a>
+<a href="https://apps.apple.com/us/app/kalan-banga/id1494106731?ls=1" target="_blank"><img src="../../../assets/images/appstore.png" class="w-100"/></a>
+
+    </div>
+    </div>
+
+    </div>
+    </div>
+    </div>
+    </section>
+</main>
+<app-footer *ngIf="isLanguageLoaded"></app-footer>

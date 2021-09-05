@@ -1,0 +1,167 @@
+<app-header class="riderheader"></app-header>
+<main *ngIf="isLanguageLoaded" class="riderbody merchantstep">
+  <section class="main processpage mt-2">
+    <div class="container">
+      <div class="horizontal-process text-center">
+        <ul>
+          <li class="active"><a routerLink="/merchantstep"><div class="icon"><img src="../../../assets/images/icon-hotel-grey.png" class="w-100 active-hide"/><img src="../../../assets/images/icon-hotel-white.png" class="w-100 active-show"/></div>
+            <div class="name">{{LanguageText.txt_merchant_company}} {{LanguageText.txt_merchant_information}}</div>
+            </a>
+            </li>
+            <li class="active"><a routerLink="/merchantstep2"><div class="icon"><img src="../../../assets/images/icon-resto-grey.png" class="w-100 active-hide"/><img src="../../../assets/images/icon-resto-white.png" class="w-100 active-show"/></div>
+            <div class="name">{{LanguageText.txt_merchant_restaurantinfo}}</div>
+            </a>
+            </li>
+            <li class="active"><a routerLink="/merchantstep3"><div class="icon"><img src="../../../assets/images/icon-personal-grey.png" class="w-100 active-hide"/><img src="../../../assets/images/icon-personal-white.png" class="w-100 active-show"/></div>
+            <div class="name">{{LanguageText.txt_merchant_ownerinfolower}}</div>
+            </a></li>
+            <li class="active"><a routerLink="/merchantstep4"><div class="icon"><img src="../../../assets/images/icon-list-grey.png" class="w-100 active-hide"/><img src="../../../assets/images/icon-list-white.png" class="w-100 active-show"/></div>
+            <div class="name">{{LanguageText.txt_merchant_signincontact}}</div>
+            </a></li>
+        </ul>
+      </div>
+      <form>
+        <div class="step-1">
+          <div class="red-title">{{LanguageText.txt_merchant_termsandonditionsttl}}</div>
+          <div class="custom-tab">
+            <div class="tab-card">
+              <div class="text-right">
+                <div class="container">
+                  <div class="lable">{{LanguageText.txt_merchant_selectlanguage}}</div>
+                  <div class="tab-card-header">
+
+                    <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                      <li class="nav-item">
+                          <a class="nav-link active" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="One" aria-selected="true">{{LanguageText.txt_merchant_eng}}</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="Two" aria-selected="false">{{LanguageText.txt_merchant_thai}}</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="one" role="tabpanel" aria-labelledby="one-tab">
+                  <div class="container">
+                    <div class="term-box">
+                      <div class="box">
+                        <div class="name">{{LanguageText.txt_merchant_installationuse}}</div>
+                        <p>{{LanguageText.txt_merchant_installationusedesc}}.</p>
+                      </div>
+                      <div class="box">
+                        <div class="name">{{LanguageText.txt_merchant_licence}}</div>
+                        <p>{{LanguageText.txt_merchant_licencedesc}}</p>
+                      </div>
+                      <div class="box">
+                        <div class="name">{{LanguageText.txt_merchant_internetbased}}</div>
+                        <p>{{LanguageText.txt_merchant_internetbaseddesc}}.</p>
+                      </div>
+                      <div class="box">
+                        <div class="name">{{LanguageText.txt_merchant_supportservices}}</div>
+                        <p>{{LanguageText.txt_merchant_supportservicesdesc}}</p>
+                      </div>
+                      <div class="box">
+                        <div class="name">{{LanguageText.txt_merchant_privacy}}</div>
+                        <p>{{LanguageText.txt_merchant_privacydesc}}</p>
+                      </div>
+                      <div class="box">
+                        <div class="name">{{LanguageText.txt_merchant_confidentiality}}</div>
+                        <p>{{LanguageText.txt_merchant_confidentialitydesc}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="container">
+                    <div class="checkbox">
+                      <div class="row">
+                        <div class="form-group col-12 col-xl-12 col-sm-12 col-md-12 colxs-12">
+                          <div class="label"> {{datetoday}}</div>
+                        </div>
+                        <div class="col-12 col-xl-12 col-sm-12 col-md-12 colxs-12">
+                          <div class="round-btn">
+                            <div class="selection-tick custom-checkbox">
+                              <input type="checkbox"  name="offers" id="agree1" [(ngModel)]="agree1"
+                              [ngModelOptions]="{standalone: true}"
+                               >
+                              <span class="checkmark"></span>
+                            </div>
+                            <span class="lable">{{LanguageText.txt_merchant_optionpar1}}.</span>
+                          </div>
+                        </div>
+                        <div class="col-12 col-xl-12 col-sm-12 col-md-12 colxs-12">
+                          <div class="round-btn">
+                            <div class="selection-tick custom-checkbox">
+                              <input type="checkbox"  name="offers" id="agree2" [(ngModel)]="agree2"
+                              [ngModelOptions]="{standalone: true}">
+                              <span class="checkmark"></span>
+                            </div>
+                            <span class="lable">{{LanguageText.txt_merchant_optionpar2}}.</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="two" role="tabpanel" aria-labelledby="two-tab"></div>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-xl-12 btn-box text-center">
+            <a *ngIf="agree1&&agree2" (click)="finish()">{{LanguageText.txt_merchant_finishreg}}</a>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </section>
+  <section class="riderfaq">
+    <div class="container">
+      <h2 class="head center"><div class="bgicon"><img src="../../../assets/images/location.png" class="w-100"></div><div class="name">{{LanguageText.txt_merchant_faqs}}</div></h2>
+      <div class="slider">
+        <div class="panel panel-primary mt-5">
+          <div class="row">
+            <div class="col-md-5 col-lg-5 col-xl-5">
+              <div class=" tab-menu-heading p-0">
+                <div class="tabs-menu1 ">
+                  <!-- Tabs -->
+                  <ul class="faqquation nav panel-tabs">
+                    <li class="box "><a href="#rider1" target="_self" data-toggle="tab">{{LanguageText.txt_faqs_mer_f1}}? <a class="more-btn"><i class="fas fa-arrow-right"></i></a></a></li>
+                    <li class="box"><a href="#rider2" target="_self" data-toggle="tab">{{LanguageText.txt_faqs_mer_f2}}? <a class="more-btn"><i class="fas fa-arrow-right"></i></a></a></li>
+                    <li class="box"><a href="#rider3" target="_self" data-toggle="tab">{{LanguageText.txt_faqs_mer_f3}}? <a class="more-btn"><i class="fas fa-arrow-right"></i></a></a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-7  col-lg-7 col-xl-7">
+              <div class="panel-body tabs-menu-body">
+                <div class="tab-content">
+                  <div class="tab-pane active " id="rider1">
+                    <div class="answer">
+                      <div class="name">{{LanguageText.txt_faqs_mer_f1}}</div>
+                      <p>{{LanguageText.txt_faqs_mer_f1_q}}</p>
+                    </div>
+                  </div>
+                  <div class="tab-pane " id="rider2">
+                    <div class="answer">
+                      <div class="name">{{LanguageText.txt_faqs_mer_f2}}?</div>
+                      <p>{{LanguageText.txt_faqs_mer_f2_q}}!</p>
+                    </div>
+                  </div>
+                  <div class="tab-pane " id="rider3">
+                    <div class="answer">
+                      <div class="name">{{LanguageText.txt_faqs_mer_f3}}?</div>
+                      <p>{{LanguageText.txt_faqs_mer_f3_q}}.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<app-footer *ngIf="isLanguageLoaded"></app-footer>

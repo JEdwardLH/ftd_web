@@ -1,0 +1,223 @@
+<app-header class="riderheader"></app-header>
+<main *ngIf="isLanguageLoaded" class="riderbody merchantstep">
+<section class="main processpage mt-2">
+<div class="container">
+<div class="horizontal-process text-center">
+<ul>
+<li class="active"><a routerLink="/merchantstep"><div class="icon"><img src="../../../assets/images/icon-hotel-grey.png" class="w-100 active-hide"/><img src="../../../assets/images/icon-hotel-white.png" class="w-100 active-show"/></div>
+<div class="name">{{LanguageText.txt_merchant_company}} {{LanguageText.txt_merchant_information}}</div>
+</a>
+</li>
+<li><a routerLink="/merchantstep2"><div class="icon"><img src="../../../assets/images/icon-resto-grey.png" class="w-100 active-hide"/><img src="../../../assets/images/icon-resto-white.png" class="w-100 active-show"/></div>
+<div class="name">{{LanguageText.txt_merchant_restaurantinfo}}</div>
+</a>
+</li>
+<li><a routerLink="/merchantstep2"><div class="icon"><img src="../../../assets/images/icon-personal-grey.png" class="w-100 active-hide"/><img src="../../../assets/images/icon-personal-white.png" class="w-100 active-show"/></div>
+<div class="name">{{LanguageText.txt_merchant_ownerinfolower}}</div>
+</a></li>
+<li><a routerLink="/merchantstep4"><div class="icon"><img src="../../../assets/images/icon-list-grey.png" class="w-100 active-hide"/><img src="../../../assets/images/icon-list-white.png" class="w-100 active-show"/></div>
+<div class="name">{{LanguageText.txt_merchant_signincontact}}</div>
+</a></li>
+</ul>
+</div>
+<form>
+<div class="step-1">
+<div class="red-title">{{LanguageText.txt_merchant_companyinfo}}</div>
+<div class="row">
+<div class="col-md-6 col-lg-4 col-xl-4">
+<div class="form-group">
+    <label>{{LanguageText.txt_merchant_companyname}}</label>
+    <input type="text" class="form-control" placeholder="" [(ngModel)]="companyname"
+    [ngModelOptions]="{standalone: true}"/>
+  </div>
+</div>
+<div class="col-md-6 col-lg-4 col-xl-4">
+<div class="form-group">
+    <label>{{LanguageText.txt_merchant_phone}}</label>
+    <input type="text" class="form-control" placeholder="" [(ngModel)]="phonenumber"
+    [ngModelOptions]="{standalone: true}"/>
+  </div>
+</div>
+<div class="col-md-6 col-lg-4 col-xl-4">
+<div class="form-group">
+    <label>{{LanguageText.txt_merchant_email}}</label>
+    <input type="text" class="form-control" placeholder="" [(ngModel)]="email"
+    [ngModelOptions]="{standalone: true}"/>
+  </div>
+</div>
+<div class="col-md-6 col-lg-4 col-xl-4">
+<div class="form-group">
+    <label>{{LanguageText.txt_merchant_vatno}}</label>
+    <input type="text" class="form-control" placeholder="" [(ngModel)]="vatno"
+    [ngModelOptions]="{standalone: true}"/>
+  </div>
+</div>
+<div class="col-md-6 col-lg-4 col-xl-4">
+<div class="form-group">
+    <label>{{LanguageText.txt_merchant_taxid}}</label>
+    <input type="text" class="form-control" placeholder="" [(ngModel)]="taxid"
+    [ngModelOptions]="{standalone: true}"/>
+  </div>
+</div>
+<div class="col-md-12 col-lg-12 col-xl-12">
+  <div class="form-group">
+    <label>{{LanguageText.txt_merchant_uploaddbd}}</label>
+    <div class="custom-upload">
+      <div class="icon"><i class="fa fa-cloud-upload" aria-hidden="true"></i></div>
+      <div class="label">{{showfilename(dbddocs)}}</div>
+      <input type="file" class="inputfile_invi" id="profileimage" (change)="handleFileInput($event.target.files)">
+
+    </div>
+   <label *ngIf="hasfiledbddocs" for="profileimage" style="color: brown;cursor: pointer;">Change</label>
+  </div>
+</div>
+<div class="col-md-12 col-lg-12 col-xl-12">
+<div class="subtitle">{{LanguageText.txt_merchant_addnewaddress}}</div>
+</div>
+<div class="col-md-6 col-lg-4 col-xl-4">
+<div class="form-group">
+    <label>{{LanguageText.txt_merchant_selectbuildingtype}}</label>
+    <input type="text" class="form-control" placeholder=""  [(ngModel)]="buildingtype"
+    [ngModelOptions]="{standalone: true}"/>
+  </div>
+</div>
+<div class="col-md-6 col-lg-4 col-xl-4">
+<div class="form-group">
+    <label>{{LanguageText.txt_merchant_nameofbuilding}}</label>
+    <input type="text" class="form-control" placeholder=""  [(ngModel)]="buildingname"
+    [ngModelOptions]="{standalone: true}"/>
+  </div>
+</div>
+<div class="col-md-6 col-lg-4 col-xl-4">
+<div class="form-group">
+    <label>{{LanguageText.txt_merchant_floorhouse}}.</label>
+    <input type="text" class="form-control" placeholder=""  [(ngModel)]="houseno"
+    [ngModelOptions]="{standalone: true}"/>
+  </div>
+</div>
+<div class="col-md-12 col-lg-12 col-xl-12">
+<div class="form-group">
+    <label>{{LanguageText.txt_merchant_address}}</label>
+    <input type="text" class="form-control" placeholder=""  [(ngModel)]="address"
+    [ngModelOptions]="{standalone: true}"/>
+  </div>
+</div>
+<div class="col-md-6 col-lg-4 col-xl-4">
+<div class="form-group">
+    <label>{{LanguageText.txt_merchant_soi}}</label>
+    <input type="text" class="form-control" placeholder=""  [(ngModel)]="soi"
+    [ngModelOptions]="{standalone: true}"/>
+  </div>
+</div>
+<div class="col-md-6 col-lg-4 col-xl-4">
+  <div class="form-group">
+      <label>{{LanguageText.txt_merchant_moo}}</label>
+      <input type="text" class="form-control" placeholder=""  [(ngModel)]="moo"
+      [ngModelOptions]="{standalone: true}"/>
+    </div>
+  </div>
+
+<div class="col-md-6 col-lg-4 col-xl-4">
+<div class="form-group selectarrow">
+    <label>{{LanguageText.txt_merchant_province}}</label>
+    <select class="form-control selectbox" [(ngModel)]="province" id="province"
+    [ngModelOptions]="{standalone: true}" (change)="provinceChage(province)">
+    <option value="0" selected>Province</option>
+    <option value="{{getMetaName(provinceitem)}}"
+      *ngFor="let provinceitem of provinceList; let i = index;">{{getMetaName(provinceitem)}}
+    </option>
+
+  </select>
+  </div>
+</div>
+<div class="col-md-6 col-lg-4 col-xl-4">
+<div class="form-group selectarrow">
+    <label>{{LanguageText.txt_merchant_district}}</label>
+    <select class="form-control selectbox" [(ngModel)]="district" id="district"
+    [ngModelOptions]="{standalone: true}" (change)="districtChage(district)">
+    <option value="0" selected>District</option>
+    <option value="{{getMetaName(districtitem)}}"
+      *ngFor="let districtitem of districtList; let i = index;">{{getMetaName(districtitem)}}
+    </option>
+  </select>
+  </div>
+</div>
+<div class="col-md-6 col-lg-4 col-xl-4">
+<div class="form-group selectarrow">
+    <label>{{LanguageText.txt_merchant_subdistrict}}</label>
+    <select class="form-control selectbox" [(ngModel)]="subdistrict"
+    [ngModelOptions]="{standalone: true}" id="subdistrict">
+    <option value="0" selected>Sub District</option>
+    <option value="{{getMetaName(subdistrictitem)}}"
+      *ngFor="let subdistrictitem of subdistrictList; let i = index;">
+      {{getMetaName(subdistrictitem)}}</option>
+  </select>
+  </div>
+</div>
+<div class="col-md-6 col-lg-4 col-xl-4">
+<div class="form-group">
+    <label>{{LanguageText.txt_merchant_postalcode}}</label>
+    <input type="text" class="form-control" placeholder="" [(ngModel)]="postalcode"
+    [ngModelOptions]="{standalone: true}"/>
+  </div>
+</div>
+<div class="col-12 col-xl-12 btn-box text-center">
+<a (click)="updateCompanyInfo()">{{LanguageText.txt_merchant_next}}</a>
+</div>
+</div>
+</div>
+</form>
+</div>
+
+</section>
+<section class="riderfaq">
+<div class="container">
+<h2 class="head center"><div class="bgicon"><img src="../../../assets/images/location.png" class="w-100"></div><div class="name">{{LanguageText.txt_merchant_faqs}}</div></h2>
+<div class="slider">
+  <div class="slider">
+    <div class="panel panel-primary mt-5">
+      <div class="row">
+        <div class="col-md-5 col-lg-5 col-xl-5">
+          <div class=" tab-menu-heading p-0">
+            <div class="tabs-menu1 ">
+              <!-- Tabs -->
+              <ul class="faqquation nav panel-tabs">
+                <li class="box "><a href="#rider1" target="_self" data-toggle="tab">{{LanguageText.txt_faqs_mer_f1}}? <a class="more-btn"><i class="fas fa-arrow-right"></i></a></a></li>
+                <li class="box"><a href="#rider2" target="_self" data-toggle="tab">{{LanguageText.txt_faqs_mer_f2}}? <a class="more-btn"><i class="fas fa-arrow-right"></i></a></a></li>
+                <li class="box"><a href="#rider3" target="_self" data-toggle="tab">{{LanguageText.txt_faqs_mer_f3}}? <a class="more-btn"><i class="fas fa-arrow-right"></i></a></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-7  col-lg-7 col-xl-7">
+          <div class="panel-body tabs-menu-body">
+            <div class="tab-content">
+              <div class="tab-pane active " id="rider1">
+                <div class="answer">
+                  <div class="name">{{LanguageText.txt_faqs_mer_f1}}</div>
+                  <p>{{LanguageText.txt_faqs_mer_f1_q}}</p>
+                </div>
+              </div>
+              <div class="tab-pane " id="rider2">
+                <div class="answer">
+                  <div class="name">{{LanguageText.txt_faqs_mer_f2}}?</div>
+                  <p>{{LanguageText.txt_faqs_mer_f2_q}}!</p>
+                </div>
+              </div>
+              <div class="tab-pane " id="rider3">
+                <div class="answer">
+                  <div class="name">{{LanguageText.txt_faqs_mer_f3}}?</div>
+                  <p>{{LanguageText.txt_faqs_mer_f3_q}}.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+</main>
+<app-footer *ngIf="isLanguageLoaded"></app-footer>

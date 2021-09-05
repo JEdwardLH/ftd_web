@@ -1,0 +1,797 @@
+
+<!-- <app-topnav></app-topnav> -->
+<main *ngIf="isLanguageLoaded&&!pagenotfound">
+  <app-authheader *ngIf="isUserMode()" [loadstring]=1 [isLanguageLoaded]="isLanguageLoaded" [LanguageText]="LanguageText" class="header-show-search"></app-authheader>
+  <app-header *ngIf="!isUserMode()" [loadstring]=1 [isLanguageLoaded]="isLanguageLoaded"  [LanguageText]="LanguageText" id="home" class="header-show-search"></app-header>
+  <div class="product-info">
+    <div class="container">
+      <div class="row rowidth100">
+        <div class="col-md-4 col-lg-5 col-xl-5">
+          <div class="product-image">
+            <ngx-skeleton-loader *ngIf="restoImage==''" animation="progress"
+              [theme]="{ width: '100%', 'border-radius': '0', height: '218px' }"></ngx-skeleton-loader>
+            <img [defaultImage]="'https://foodtogodeliveryph.com/public/foodtodineimage/default%20store.png'" [lazyLoad]="restoImage" *ngIf="restoImage!=''" class="w-100" style="height: 218px;" />
+          </div>
+        </div>
+        <div class="col-md-8 col-lg-7 col-xl-7">
+          <div class="product-detail">
+            <div class="row rowidth100">
+              <div class="col-10 col-sm-10 col-md-9">
+                <ngx-skeleton-loader *ngIf="restoImage==''" animation="progress"
+                  [theme]="{ width: '300px', 'border-radius': '0', height: '30px' }"></ngx-skeleton-loader>
+                <ngx-skeleton-loader *ngIf="restoImage==''" animation="progress"
+                  [theme]="{ width: '150px', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                <ngx-skeleton-loader *ngIf="restoImage==''" animation="progress"
+                  [theme]="{ width: '200px', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                <div class="name" *ngIf="restoImage!=''">{{restoName}}</div>
+                <div class="tag" *ngIf="restoImage!=''">{{restoCategory}}</div>
+                <p>
+                  <ngx-skeleton-loader *ngIf="restoImage==''" animation="progress"
+                    [theme]="{ width: '300px', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                  <ngx-skeleton-loader *ngIf="restoImage==''" animation="progress"
+                    [theme]="{ width: '300px', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                  <ngx-skeleton-loader *ngIf="restoImage==''" animation="progress"
+                    [theme]="{ width: '300px', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                  {{showDescription(restoDesc)}} <a style="color: brown;cursor: pointer;font-weight: bold;"
+                    (click)="showMoreDesc()"
+                    *ngIf="isdescriptionMore(restoDesc)">{{LanguageText.txt_product_showmore}}</a>
+                </p>
+              </div>
+              <div class="col-2 col-sm-2 col-md-3 text-right">
+                <a class="like-btn">
+                  <!-- IF THE CUSTOMER CLICK THE FAVORITE BUTTON -->
+                  <!-- <i class="fa fa-heart" aria-hidden="true"></i> -->
+                  <!-- IF THE CUSTOMER DIDNT CLICK FAVORITE BUTTON -->
+                  <i class="far fa-heart" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
+            <div class="row rowidth100">
+              <div class="col-md-8 col-lg-9 col-xl-9">
+                <ul>
+                  <li>
+                    <div class="text rating"><i class="fas fa-star"></i> {{rating}}</div>
+                    <div class="label">{{LanguageText.txt_product_rating}}</div>
+                  </li>
+                  <li>
+                    <div class="text">{{deliverytime}}</div>
+                    <div class="label">{{LanguageText.txt_product_deliverytime}}</div>
+                  </li>
+                  <li>
+                    <div class="text">Free</div>
+                    <div class="label">{{LanguageText.txt_prooduct_deliveryfee}}</div>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-md-4 col-lg-3 col-xl-3">
+                <div class="view-btn">
+                  <a href="#" data-toggle="modal"
+                    data-target="#restaurantprofile">{{LanguageText.txt_product_viewmore}}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="product-list-box">
+    <div class="container">
+      <div class="row rowidth100">
+        <div class="col-sm-4 col-md-4 col-lg-2 col-xl-2">
+          <div class="product-menu">
+            <ul>
+              <li *ngFor="let category of categoryNameList; let i = index;"><a
+                  class="{{isCategoryActive(category.categoryid)}}"
+                  (click)="scrollToCategory(category.categoryid,categoryNameList[0].categoryid)"
+                  style="cursor: pointer;">{{category.categoryname}}</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4" *ngIf="hasCart"> -->
+          <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 order-sm-8 largepadr0_resp15">
+            <div class="checkout" *ngIf="cartDetails.length==0&&checcartdone" align="center">
+              <div class="box" align="center">
+                <img src="../assets/images/ico_empty_cart.png" />
+                <p class="desc_nocart mb-0" style="color: #666666;">{{LanguageText.txt_cart_shoppingcart}}</p>
+                <p class="title_nocart" style="color: #666666;"> {{LanguageText.txt_cart_emptycart}}</p>
+
+
+              </div>
+            </div>
+            <div class="checkout" *ngIf="cartDetails.length!=0">
+              <div class="box">
+                <div class="icon"><img src="../../../assets/images/order_here.png" class="w-100" /></div>
+                <div class="text">{{LanguageText.txt_product_your_order_from}}
+                  {{cartstorename}}</div>
+
+
+              </div>
+
+              <div class="box" *ngFor="let cartItem of cartDetails; let i = index;">
+                <div class="main_dish_ttl">
+                  <div class="count d-inline-block">
+                    <span (click)="carItemDec(cartItem)">-</span> {{cartItem.cart_quantity}} <span
+                      (click)="carItemInc(cartItem)">+</span>
+                  </div>
+                  <div class="right-text text-mute">{{cartItem.product_name}}
+                    {{showRequiredOptionName(cartItem.order_option_items)}}</div>
+                  <div class="price">{{cartItem.cart_currency}} {{showRequiredOptionPrice(cartItem)}}</div>
+                </div>
+                <div class="extra_selection" *ngFor="let optionID of cartItem.order_option_items; let j = index;">
+                  <div class="text_extra text-mute">{{showOptonName(optionID)}}</div>
+                  <div class="extra_price">{{showOptonPrice(optionID,cartItem.cart_currency)}}</div>
+                </div>
+                <div class="extra_selection">
+                  <div class="extra_delete" (click)="removeItemOnCart(cartItem.cart_id)"><i class="fas fa-trash"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="box">
+                <div class="mb-1 overflow-hidden">
+
+
+                  <!-- Show input when voucher link is clicked -->
+                  <div class="value" [hidden]="!hasVouch">
+                    <input type="text" class="input_discount" maxlength="1" id="vouchercode" [(ngModel)]="vouchercode"
+                      [ngModelOptions]="{standalone: true}" (keyup.enter)="ValidateCode(vouchercode)">
+                    <input type="text" class="input_discount" maxlength="1" />
+                    <input type="text" class="input_discount" maxlength="1" />
+                    <input type="text" class="input_discount" maxlength="1" />
+                    <input type="text" class="input_discount" maxlength="1" />
+                    <input type="text" class="input_discount" maxlength="1" />
+                  </div>
+                </div>
+                <div class="mb-1 overflow-hidden">
+                  <div class="label text-uppercase float-left">{{LanguageText.txt_product_subtotal}}</div>
+                  <div class="value  float-right">{{cartSubTotal}}</div>
+                </div>
+
+                <div class="mb-1 line  overflow-hidden" *ngIf="hasDiscout">
+                  <div class="label text-uppercase float-left">Voucher: ({{vouchercode}})</div>
+                  <div class="value  float-right"><a (click)="removeVoucher()"
+                      style="cursor: pointer;color:brown;">{{LanguageText.txt_product_changecode}}?</a></div>
+                </div>
+                <div class="mb-1 line  overflow-hidden" *ngIf="hasDiscout">
+                  <div class="label text-uppercase float-left">{{LanguageText.txt_product_discount}}</div>
+                  <div class="value  float-right">- {{discountValue}}</div>
+                </div>
+              </div>
+              <div class="box border-none">
+                <div class="mb-1 overflow-hidden total">
+                  <div class="label text-uppercase float-left">{{LanguageText.txt_product_totalinclvat}}</div>
+                  <div class="value  float-right">{{cartGrandTotal}}</div>
+                </div>
+                <div class="btn-box">
+                  <a href="/checkout">{{LanguageText.txt_product_proceedtocheckout}}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <div class="col-sm-8 col-md-8 col-lg-6 col-xl-6 order-sm-1" [hidden]="showExtra">
+          <div class="menu-item-scroll" id="product-data-list" (scroll)="onScroll($event)">
+
+            <div class="slider-list-box" *ngIf="discountList.length!=0">
+              <div class="row">
+                <div class="col-md-12">
+                  <h5 class="pro_title_slider">{{LanguageText.txt_product_hotpromotions}}</h5>
+                  <a (click)="showproduct('promo',true)" *ngIf="!promoshowall&&discountList.length>3"
+                    style="cursor: pointer;" target="_self" class="product_seeall">{{LanguageText.txt_home_seeall}}</a>
+                  <a (click)="showproduct('promo',false)" *ngIf="promoshowall&&discountList.length>3"
+                    style="cursor: pointer;" target="_self"
+                    class="product_seeall">{{LanguageText.txt_product_seeless}}</a>
+                </div>
+                <div class="col-md-12">
+                  <ul class="slider-list-ul">
+
+                    <li *ngFor="let product of discountList;let i = index" (click)="AddProductToCart(product,'')"
+                      [hidden]="!promoshowall&&i>3">
+                      <div class="item" style="cursor: pointer;">
+                        <div class="mainmenu-title">
+                          <a class="active">
+
+                            <div class="sliderimg"><img [defaultImage]="'https://foodtogodeliveryph.com/public/foodtodineimage/default%20store.png'" [lazyLoad]="getCompressurl(product.item_image)" /></div>
+                            <span class="slider_menu">{{getProductname(product.item_name)}}</span>
+                            <div class="d-flex justify-content-between price">
+                              <span class="discount">{{getPriceDiscount(product)}}</span>
+                              <span class="discounted">{{getPrice(product)}}</span>
+                            </div>
+                            <span *ngIf="product.promotion_text!=''"
+                              style="background-color: #FBE619;color: #AF231D;font-size: 10px;"
+                              class="productpromos">{{product.promotion_text}}</span>
+                            <!-- PROMO -->
+                            <!-- <span class="productpromos">25% OFF</span> -->
+                          </a>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="slider-list-box" *ngIf="topProducts.length!=0">
+              <div class="row">
+                <div class="col-md-12">
+                  <h5 class="pro_title_slider">{{LanguageText.txt_product_mostpopular}}</h5>
+                  <a (click)="showproduct('popular',true)" *ngIf="!popularshowall&&topProducts.length>3"
+                    style="cursor: pointer;" target="_self" class="product_seeall">{{LanguageText.txt_home_seeall}}</a>
+                  <a (click)="showproduct('popular',false)" *ngIf="popularshowall&&topProducts.length>3"
+                    style="cursor: pointer;" target="_self"
+                    class="product_seeall">{{LanguageText.txt_product_seeless}}</a>
+                </div>
+                <div class="col-md-12">
+                  <ul class="slider-list-ul">
+                    <li *ngFor="let product of topProducts;let i = index" (click)="AddProductToCart(product,'')"
+                      [hidden]="!popularshowall&&i>2">
+                      <div class="item" style="cursor: pointer;">
+                        <div class="mainmenu-title">
+                          <a class="active">
+                            <div class="sliderimg"><img [defaultImage]="'https://foodtogodeliveryph.com/public/foodtodineimage/default%20store.png'" [lazyLoad]="getCompressurl(product.item_image)" /></div>
+                            <span class="slider_menu">{{getProductname(product.item_name)}}</span>
+                            <div class="d-flex justify-content-between price">
+                              <span class="discount">{{getPriceDiscount(product)}}</span>
+                              <span class="discounted">{{getPrice(product)}}</span>
+                            </div>
+                            <!-- PROMO -->
+                            <!-- <span class="productpromos">25% OFF</span> -->
+                          </a>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- SLIDER -->
+            <div class="slider-list-box" *ngIf="discountList.length!=0&&false">
+              <div class="row">
+                <div class="col-md-12">
+                  <h5 class="pro_title_slider">{{LanguageText.txt_product_hotpromotions}}</h5>
+                </div>
+                <div class="col-md-12">
+                  <owl-carousel [options]="hotpromotionscarousel" [items]="discountList"
+                    [carouselClasses]="['owl-theme home-nav', 'sliding']">
+
+                    <div class="item" style="cursor: pointer;" *ngFor="let product of discountList;let i = index"
+                      (click)="AddProductToCart(product,'')">
+                      <div class="mainmenu-title">
+                        <a class="active">
+                          <span><img [defaultImage]="'https://foodtogodeliveryph.com/public/foodtodineimage/default%20store.png'" [lazyLoad]="getCompressurl(product.item_image)" /></span>
+                          <span class="slider_menu">{{getProductname(product.item_name)}}</span>
+                          <div class="d-flex justify-content-between price">
+                            <span class="discount">{{getPriceDiscount(product)}}</span>
+                            <span class="discounted">{{getPrice(product)}}</span>
+                          </div>
+                          <!-- PROMO -->
+                          <span *ngIf="product.promotion_text!=''"
+                            class="productpromos">{{product.promotion_text}}</span>
+                        </a>
+                      </div>
+                    </div>
+                  </owl-carousel>
+                </div>
+              </div>
+            </div>
+
+            <div class="slider-list-box pt-3" *ngIf="topProducts.length!=0&&false">
+              <div class="row">
+                <div class="col-md-12">
+                  <h5 class="pro_title_slider">{{LanguageText.txt_product_mostpopular}}</h5>
+                </div>
+                <div class="col-md-12">
+                  <owl-carousel [options]="mostpopularcarousel" [items]="topProducts"
+                    [carouselClasses]="['owl-theme home-nav', 'sliding']">
+
+                    <div class="item" style="cursor: pointer;" *ngFor="let product of topProducts;let i = index"
+                      (click)="AddProductToCart(product,'')">
+                      <div class="mainmenu-title">
+                        <a class="active">
+                          <span><img [defaultImage]="'https://foodtogodeliveryph.com/public/foodtodineimage/default%20store.png'" [lazyLoad]="getCompressurl(product.item_image)" /></span>
+                          <span class="slider_menu">{{getProductname(product.item_name)}}</span>
+                          <div class="d-flex justify-content-between price">
+                            <span class="discount">{{getPriceDiscount(product)}}</span>
+                            <span class="discounted">{{getPrice(product)}}</span>
+                          </div>
+                          <!-- PROMO -->
+                          <!-- <span class="productpromos">Buy 1 Get 1</span> -->
+                        </a>
+                      </div>
+                    </div>
+                  </owl-carousel>
+                </div>
+              </div>
+            </div>
+            <!-- END SLIDER -->
+
+            <div class="product-list" *ngFor="let productListData of productListWithCategory; let i = index;">
+              <div class="menu-title" id="cate-{{productListData.category_id}}">
+                {{getCategoryname(productListData.category_id)}}</div>
+              <div class="product-box" *ngFor="let product of productListData.item; let i = index;"
+                style="cursor: pointer;"
+                (click)="AddProductToCart(product,getCategoryname(productListData.category_id))">
+                <div class="row rowidth100">
+                  <div class="col-3 col-md-3">
+                    <div class="img"><img [defaultImage]="'https://foodtogodeliveryph.com/public/foodtodineimage/default%20store.png'" [lazyLoad]="getCompressurl(product.item_image)" class="w-100 mainimg_hover" />
+                    </div>
+                  </div>
+                  <div class="col-7 col-md-7">
+                    <div class="name">{{product.item_name}}</div>
+                    <p>{{product.item_desc}}</p>
+                    <div class="chilicons">
+                      <div *ngFor="let item of product.item_include">
+                        <img *ngIf="item.item_inc_id=='1'" src="../../../assets/images/productfeature1.png" alt="">
+                        <img *ngIf="item.item_inc_id=='2'" src="../../../assets/images/productfeature2.png" alt="">
+                        <img *ngIf="item.item_inc_id=='3'" src="../../../assets/images/productfeature3.png" alt="">
+                        <img *ngIf="item.item_inc_id=='4'" src="../../../assets/images/productfeature4.png" alt="">
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="col-2 col-md-2 text-right">
+                    <div class="price">
+                      <div class="original">{{getPriceDiscount(product)}}</div>
+                      <div class="discount">{{getPrice(product)}}</div>
+                    </div>
+                    <div class="add-btn">
+                      <a (click)="AddProductToCart(product,getCategoryname(productListData.category_id))">+
+                        {{LanguageText.txt_product_add}}</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- IF THE DISH DOESN'T HAVE AN EXTRA SELECTION  -->
+        <div class="col-sm-8 col-md-8 col-lg-6 col-xl-6 col-xs-12" *ngIf="showExtra&&!productisLoaded">
+          <ngx-skeleton-loader animation="progress" [theme]="{ width: '100px', 'border-radius': '5', height: '100px' }">
+          </ngx-skeleton-loader> &nbsp;
+          <ngx-skeleton-loader animation="progress" [theme]="{ width: '300px', 'border-radius': '5', height: '20px' }">
+          </ngx-skeleton-loader>
+          <ngx-skeleton-loader animation="progress" [theme]="{ width: '300px', 'border-radius': '5', height: '20px' }">
+          </ngx-skeleton-loader>
+          <ngx-skeleton-loader animation="progress" [theme]="{ width: '525px', 'border-radius': '5', height: '400px' }">
+          </ngx-skeleton-loader>
+        </div>
+        <div class="col-sm-8 col-md-8 col-lg-6 col-xl-6 col-xs-12" *ngIf="showExtra&&productisLoaded">
+          <div class="menu-title">{{selectedCategoryName}}</div>
+          <div class="menu-item-scroll">
+            <div class="product-list">
+              <div class="product-box">
+                <div class="row rowidth100">
+                  <div class="col-3 col-sm-4 col-md-3">
+                    <app-zoom [img]="img" [zoom]="1" (mouseenter)="showMagnify(true)" (mouseleave)="showMagnify(false)"
+                      [lenSize]="50" [imgWidth]="100" [divZoomed]="divZoomed"></app-zoom>
+
+                    <div [hidden]="!magnify">
+                      <div #divZoomed class="img-zoom-result"></div>
+                    </div>
+
+                  </div>
+                  <div class="col-7 col-sm-6 col-md-6">
+                    <div class="name">{{selectedProName}}</div>
+                    <p>{{selectedProDesc}}</p>
+                    <div class="chilicons">
+                      <div *ngFor="let item of selectedProduct.itemt_info.item_include">
+                        <img *ngIf="item.item_inc_id=='1'" src="../../../assets/images/productfeature1.png" alt="">
+                        <img *ngIf="item.item_inc_id=='2'" src="../../../assets/images/productfeature2.png" alt="">
+                        <img *ngIf="item.item_inc_id=='3'" src="../../../assets/images/productfeature3.png" alt="">
+                        <img *ngIf="item.item_inc_id=='4'" src="../../../assets/images/productfeature4.png" alt="">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-2 col-sm-2 col-md-3 text-right">
+                    <div class="price">
+                      <div class="original">{{getPriceDiscount(selectedProduct.itemt_info)}}</div>
+                      <div class="discount">{{getPrice(selectedProduct.itemt_info)}}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="review_section_prod text-right">
+                  <button class="btn red-btn" data-toggle="modal" data-target="#reviewprod" *ngIf="isUserMode()">{{LanguageText.txt_product_review}}
+                    ({{productreviewcount}})</button>
+                </div>
+                <div class="selection">
+                  <div class="box" *ngFor="let extraOption of selectedProduct.product_options; let i = index;">
+                    <div class="title">{{getOptionName(extraOption)}} <p style="cursor: #777777;font-size: small;">
+                        {{Showlimit(extraOption,LanguageText.txt_product_max)}}</p>
+                    </div>
+                    <ul *ngFor="let option of extraOption.items; let j = index;">
+                      <li>
+                        <div class="selection-tick custom-checkbox" *ngIf="isRequired(extraOption)">
+                          <input type="radio" name="radio-{{extraOption.id}}" [value]="option.id"
+                            [ngModel]="selectedRequiredOpt[extraOption.id]"
+                            (change)="onRadioChange(option.id,extraOption.id)">
+                          <span class="checkmark"></span>
+                        </div>
+                        <div class="selection-tick custom-checkbox" *ngIf="!isRequired(extraOption)">
+                          <input type="checkbox" id="checkbox-{{option.id}}" [value]="option.id"
+                            [disabled]="isDisable(extraOption,option.id)" [checked]="isOptionSelected(option.id)"
+                            (change)="onCheckboxChange($event)">
+                          <span class="checkmark"></span>
+
+                        </div>
+                        <div class="name-price-box">
+                          <div class="row rowidth100">
+                            <div class="col-9 col-sm-9 col-md-9">
+                              <div class="label">{{getOptionName(option)}}</div>
+                            </div>
+                            <div class="col-3 col-sm-3 col-md-3 text-right">
+                              <div class="price">
+                                {{getOptionPrice(option,extraOption,selectedProduct.itemt_info.item_currency)}}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+
+                    </ul>
+                  </div>
+
+                  <div class="box">
+                    <div class="title">{{LanguageText.txt_product_specialinstructochef}}</div>
+                    <textarea placeholder="Write your message here" [(ngModel)]="specialinstruction"
+                      [ngModelOptions]="{standalone: true}">
+      </textarea>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="extraselection">
+            <div class="row">
+              <div class="col-2 col-sm-4 col-md-4" (click)="backToProdutList()"><a class="back-btn"><i
+                    class="fas fa-arrow-left"></i> <span>{{LanguageText.txt_product_back}}</span></a></div>
+              <div class="col-10 col-sm-8 col-md-8" align="right">
+
+                <!-- <div class="count d-inline-block"><span (click)="decreaseOrder()">-</span>{{orderQty}}<span (click)="increaseOrder()">+</span></div>  -->
+                <div class="btn-box">
+                  <div class="qtysec">
+                    <div class="count d-inline-block"><span (click)="decreaseOrder()">-</span>{{orderQty}}<span
+                        (click)="increaseOrder()">+</span></div>
+                  </div>
+                  <a *ngIf="cartid==0" (click)="addItemToCart()" style="cursor: pointer;"><i class="fa fa-shopping-cart"
+                      aria-hidden="true"></i>&nbsp;
+                    {{LanguageText.txt_product_addtocart}}</a>
+                  <a *ngIf="cartid!=0" (click)="updatItemToCart()" style="cursor: pointer;"><i
+                      class="fa fa-shopping-cart"
+                      aria-hidden="true"></i>&nbsp;{{LanguageText.txt_product_updatecart}}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+
+      </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="restaurantprofile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg  modal-dialog-centered">
+        <div class="modal-content border-none">
+          <div class="modal-body p-0">
+            <button type="button"  class="close btnclosemodal" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="div_headermodal">
+              <h5 class="info_title" id="exampleModalLabel">{{restoName}}</h5>
+              <ul class="list_main_categ">
+                <li *ngFor="let category of categorylist; let i = index;">{{category}}</li>
+
+              </ul>
+            </div>
+            <div class="restau_map">
+              <agm-map style="height: 300px;" id="trackmap" [latitude]="restolatitude" [longitude]="restolongitude"
+                [zoom]="zoom" [mapTypeControl]='true'>
+
+                <agm-marker [latitude]="restolatitude" [longitude]="restolongitude" [markerDraggable]="false"
+                  [iconUrl]="merchantmarker"></agm-marker>
+              </agm-map>
+            </div>
+            <div class="panel panel-primary">
+              <div class=" tab-menu-heading p-0">
+                <div class="tabs-menu1 ">
+                  <!-- Tabs -->
+                  <ul class="nav panel-tabs navbar_profile2">
+                    <li class=""><a href="#tab5" target="_self" class="btn_navprofile active"
+                        data-toggle="tab">{{LanguageText.txt_product_restaurantinfo}}</a></li>
+                    <li><a href="#tab6" target="_self" class="btn_navprofile"
+                        data-toggle="tab">{{LanguageText.txt_product_reviews}}</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="panel-body tabs-menu-body">
+                <div class="tab-content">
+                  <div class="tab-pane active " id="tab5">
+                    <div class="row rowidth100" id="disp_resinfo">
+                      <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                        <p class="modalinfo_text">{{restoDesc}}</p>
+                      </div>
+                      <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                        <h5 class="modalinfo_title">{{LanguageText.txt_product_openinghours}}</h5>
+                        <table class="tbl_openinghrs w-100">
+                          <tr *ngFor="let work of workingHours; let i = index;">
+                            <td>{{work.working_date}}</td>
+                            <td *ngIf="work.available_status=='Available'">{{work.working_from_time}} -
+                              {{work.working_end_time}}</td>
+                            <td *ngIf="work.available_status!='Available'" class="text-red">CLOSE</td>
+                          </tr>
+
+                        </table>
+
+                        <!-- <p class="modalinfo_text">Mon - Sun 11:00 AM - 7:30 PM, 11:00 AM - 7:30 PM</p> -->
+                      </div>
+                      <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                        <h5 class="modalinfo_title">{{LanguageText.txt_product_preparetime}}</h5>
+                        <p class="modalinfo_text">{{deliverytime}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div [hidden]="false" class="tab-pane " id="tab6">
+                    <div class="row rowidth100" id="disp_resreviews">
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="reviews">
+                          <div class="custom-tab tab-card">
+                            <div class="tab-content pt-0" id="reviewtabs">
+                              <div class="tab-pane fade show active" id="one" role="tabpanel" aria-labelledby="one-tab">
+                                <span class="rating_result_prod">{{avgrating}}</span>
+                                <button class="btn red-btn btn_writerev" *ngIf="mycomment!='--'&&isUserMode()"
+                                  (click)="writeRestoReview()">{{LanguageText.txt_product_editreview}}</button>
+                                <button class="btn red-btn btn_writerev" *ngIf="mycomment=='--'&&isUserMode()"
+                                  (click)="writeRestoReview()">WRITE REVIEW</button>
+                                <div class="box" *ngIf="mycomment!='--'">
+                                  <div class="rev_date">
+                                    <div class="rating">
+                                      <div class="icon"><i class="fas fa-star dark"></i></div> {{myrating}}
+                                    </div>
+                                  </div>
+                                  <span class="loc">
+                                    <div class="icon"></div>
+                                  </span>
+                                  <p>"{{mycomment}}"</p>
+                                  <div class="bottomreview d-flex justify-content-between">
+                                    <span class="namerev">Your review</span>
+                                    <span>{{getdisplaydate(mycreate_time)}}</span>
+                                  </div>
+                                </div>
+                                <div class="box mt-3" *ngFor="let review of restoreviewlist">
+                                  <div class="rev_date">
+                                    <div class="rating">
+                                      <div class="icon"><i class="fas fa-star dark"></i></div> {{review.rating}}
+                                    </div>
+                                  </div>
+                                  <!-- <div class="name">Star Restaurant</div> -->
+                                  <span class="loc">
+                                    <div class="icon"><img src="../../../assets/images/lp_title-icon.png"
+                                        class="w-100" /></div> Calamba
+                                  </span>
+                                  <p>"{{review.comment}}"</p>
+                                  <div class="bottomreview d-flex justify-content-between">
+                                    <span class="namerev">{{review.cus_fname}}</span>
+                                    <span>{{getdisplaydate(review.create_time)}}</span>
+                                  </div>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<main class="authpages forgotpassword" *ngIf="pagenotfound">
+  <div class="container">
+    <section class="paymentstatus">
+      <div class="thankyousection">
+        <div class="row rowidth100">
+          <div class="tyregistersec col-md-6 col-sm-6 col-xs-12" align="center">
+            <div class="sec_img_payment">
+              <div class="bgtxtty">
+                <p class="title_payment">{{LanguageText.txt_product_pagenotfound}}</p>
+                <p class="desc_payment mb-4">{{LanguageText.txt_product_pagenotfoundp1}}</p>
+
+                <div class="text-center"><button type="submit" (click)="gotohomepage()" class="btn red-btn">{{LanguageText.txt_product_gobackhome}}</button></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+
+<!-- MODAL FOR EXTRA SELECTION -->
+<div class="modal fade" id="extraselectionmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content" style="border: 3px solid #ffcc00;">
+      <div class="modal-body text-center p-4">
+        <div class="warningheader">
+          <div class="warninghd_img">
+            <img src="../../../assets/images/icon-resto-white.png" alt="" class="w-100">
+          </div>
+        </div>
+        <h2 class="mt-4 mb-4">{{LanguageText.txt_product_pleasechooseflavor}}</h2>
+        <button type="button" class="btn red-btn" data-dismiss="modal">{{LanguageText.txt_product_close}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL FOR REVIEW PRODUCT -->
+<button id="openmodalreview" [hidden]="true" data-toggle="modal" data-target="#reviewrite"></button>
+<button id="openmodalreviewfood" [hidden]="true" data-toggle="modal" data-target="#reviewritefood"></button>
+<div class="modal fade" id="reviewprod" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border: 3px solid #ffcc00;">
+      <div class="modal-body p-4 prodrev_scrollable">
+        <div class="product-display-rev">
+          <div class="media">
+            <img [defaultImage]="'https://foodtogodeliveryph.com/public/foodtodineimage/default%20store.png'" [lazyLoad]="selectedProdImg" class="mr-3" style="width: 100px;">
+            <div class="media-body">
+              <p class="prodname_review">{{selectedProName}}</p>
+              <p class="rr_review_prod">{{LanguageText.txt_product_ratingreview}} </p>
+              <div class="d-flex justify-content-between" style="position: relative;">
+                <span class="rating_result_prod">{{foodavgrating}}</span>
+                <button class="btn red-btn" *ngIf="myfoodcomment!='--'&&isUserMode()" (click)="writeFoodReview()">{{LanguageText.txt_product_editreview}}</button>
+                <button class="btn red-btn" *ngIf="myfoodcomment=='--'&&isUserMode()" (click)="writeFoodReview()">{{LanguageText.txt_product_writereview}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reviews">
+          <div class="box" *ngIf="myfoodcomment!='--'">
+            <div class="rev_date">
+              <div class="rating">
+                <div class="icon"><i class="fas fa-star dark"></i></div> {{myfoodrating}}
+              </div>
+            </div>
+
+            <p>"{{myfoodcomment}}"</p>
+            <div class="bottomreview d-flex justify-content-between">
+              <span class="namerev">{{LanguageText.txt_product_yourreview}}</span>
+
+              <span>{{getdisplaydate(mycfoodreate_time)}}</span>
+            </div>
+          </div>
+          <div class="box" *ngFor="let review of foodviewlist">
+            <div class="rev_date">
+              <div class="rating">
+                <div class="icon"><i class="fas fa-star dark"></i></div> {{review.rating}}
+              </div>
+            </div>
+
+            <p>"{{review.comment}}"</p>
+            <div class="bottomreview d-flex justify-content-between">
+              <span class="namerev">{{review.cus_fname}} {{review.cus_lname}}</span>
+
+              <span>{{getdisplaydate(review.create_time)}}</span>
+            </div>
+          </div>
+        </div>
+        <!-- <button type="button" class="btn red-btn" data-dismiss="modal">Cancel</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="reviewrite" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content" style="border: 3px solid #ffcc00;">
+      <div class="modal-body p-4">
+        <button type="button" id="closereview" class="close btnclosemodal" data-dismiss="modal"
+          aria-label="Close"></button>
+        <div class="sec_rev_badgter">
+          <div class="rev_badgestar">
+            <img src="../../../assets/images/badgestar.png" class="w-100">
+          </div>
+        </div>
+        <div class="rev-textttl text-center">
+          <p>{{LanguageText.txt_product_reviewq01}}<br>{{LanguageText.txt_product_reviewq02}}?</p>
+          <div class="text rating prodrev">
+            <i class="fas fa-star{{star1}}" (click)="ratestar(1)"></i>
+            <i class="fas fa-star{{star2}}" (click)="ratestar(2)"></i>
+            <i class="fas fa-star{{star3}}" (click)="ratestar(3)"></i>
+            <i class="fas fa-star{{star4}}" (click)="ratestar(4)"></i>
+            <i class="fas fa-star{{star5}}" (click)="ratestar(5)"></i>
+          </div>
+          <p class="mt-3">{{LanguageText.txt_product_praisereview}}.</p>
+
+          <!-- <textarea row="5" [(ngModel)]="reviewcomment"  class="form-control" rows="4" cols="50"></textarea> -->
+          <input type="text" class="form-control" placeholder="Comment" id="fname" [(ngModel)]="reviewcomment"
+            [ngModelOptions]="{standalone: true}">
+          <button class="btn red-btn mt-3" (click)="submitrating()">{{LanguageText.txt_product_submitreview}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="reviewritefood" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content" style="border: 3px solid #ffcc00;">
+      <div class="modal-body p-4">
+        <button type="button" id="foodclosereview" class="close btnclosemodal" data-dismiss="modal"
+          aria-label="Close"></button>
+        <div class="sec_rev_badgter">
+          <div class="rev_badgestar">
+            <img src="../../../assets/images/badgestar.png" class="w-100">
+          </div>
+        </div>
+        <div class="rev-textttl text-center">
+          <p>{{LanguageText.txt_product_enjoyfoodrev}}?<br>{{LanguageText.txt_product_enjoyfoodrev2}}?</p>
+          <div class="text rating prodrev">
+            <i class="fas fa-star{{star1}}" (click)="ratestarfood(1)"></i>
+            <i class="fas fa-star{{star2}}" (click)="ratestarfood(2)"></i>
+            <i class="fas fa-star{{star3}}" (click)="ratestarfood(3)"></i>
+            <i class="fas fa-star{{star4}}" (click)="ratestarfood(4)"></i>
+            <i class="fas fa-star{{star5}}" (click)="ratestarfood(5)"></i>
+          </div>
+          <p class="mt-3">{{LanguageText.txt_product_leavereview}}.</p>
+
+          <!-- <textarea row="5" [(ngModel)]="reviewcomment"  class="form-control" rows="4" cols="50"></textarea> -->
+          <input type="text" class="form-control" placeholder="Comment" id="foodreviewcomment"
+            [(ngModel)]="foodreviewcomment" [ngModelOptions]="{standalone: true}">
+          <button class="btn red-btn mt-3" (click)="submitfoodrating()">{{LanguageText.txt_product_submitreview}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<button id="openmodalsuccess" [hidden]="true" data-toggle="modal" data-target="#reviewsuccess"></button>
+<div class="modal fade" id="reviewsuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content" style="border: 3px solid #ffcc00;">
+      <div class="modal-body p-4">
+        <button type="button" id="closereview" class="close btnclosemodal" data-dismiss="modal"
+          aria-label="Close"></button>
+        <div class="sec_rev_badgter">
+          <div class="rev_badgestar">
+            <img src="../../../assets/images/badgestar.png" class="w-100">
+          </div>
+        </div>
+        <div class="rev-textttl text-center">
+
+          <div class="text rating prodrev">
+            <i class="fas fa-star{{star1}}"></i>
+            <i class="fas fa-star{{star2}}"></i>
+            <i class="fas fa-star{{star3}}"></i>
+            <i class="fas fa-star{{star4}}"></i>
+            <i class="fas fa-star{{star5}}"></i>
+          </div>
+          <p class="mt-3">{{reviewsuccessmessage}}</p>
+
+
+          <button class="btn red-btn mt-3" type="button" id="closereview" data-dismiss="modal"
+            aria-label="Close">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer [LanguageText]="LanguageText" [isLanguageLoaded]="isLanguageLoaded"></app-footer>
+

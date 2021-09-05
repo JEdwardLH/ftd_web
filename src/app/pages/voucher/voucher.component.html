@@ -1,0 +1,102 @@
+<app-authheader *ngIf="isUserMode()"  class="header-show-search hometrans"></app-authheader>
+<app-header *ngIf="!isUserMode()" id="home" class="header-show-search hometrans"></app-header>
+<main *ngIf="isLanguageLoaded" class="voucherbody">
+  <section class="main voucherpage">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-sm-12 col-xs-12">
+          <div class="hn_voucher_banner">
+            <img src="../../../assets/images/voucher_banner.jpg" alt="" class="w-100">
+          </div>
+          <!-- FOR NEW USERS -->
+          <!-- <div class="hn_title_voucher">
+            <h1>New Users</h1>
+          </div>
+          <div class="table-responsive">
+            <table class="table table_voucher_list table-bordered">
+              <thead>
+                <tr>
+                  <th>{{LanguageText.txt_voucher_restaurant}}</th>
+                  <th>{{LanguageText.txt_voucher_offer}}</th>
+                  <th class="text-center">{{LanguageText.txt_voucher_code}}</th>
+                  <th>{{LanguageText.txt_voucher_validuntil}}</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr *ngFor="let coupon of couponlist2">
+                  <td class="align-middle" width="40%" data-toggle="tooltip" data-placement="bottom" title="Click to order"><a href="{{VisitStore(coupon.id)}}">{{coupon.st_store_name}}</a></td>
+                  <td class="align-middle" width="25%">{{showOffer(coupon)}}<br>{{showMinimum(coupon)}}</td>
+                  <td class="align-middle text-center td_coupon" width="15%">
+                    <button class="btn_coupon_code" data-toggle="tooltip" data-placement="bottom"  title="Click to copy" (click)="copyInputMessage(coupon.coupon_code)" value="EMFC20">{{coupon.coupon_code}}</button>
+                  </td>
+                  <td class="align-middle" width="20%">{{getdisplaydate(coupon.coupon_expires)}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div> -->
+
+          <div class="mobile_view_voucher">
+            <ul *ngFor="let coupon of couponlist">
+              <li>
+                <div class="row">
+                  <div class="col-8 col-md-8">
+                    <a href="{{VisitStore(coupon.id)}}"><h4 class="mobvouc_restaurant">{{coupon.st_store_name}}</h4></a>
+                    <p class="mobvouc_off">{{showOffer(coupon)}}</p>
+                    <span class="mobvouc_minimum">{{showMinimum(coupon)}}</span>
+                  </div>
+                  <div class="col-4 col-md-4 text-right">
+                    <button class="btn_coupon_code2" data-toggle="tooltip" data-placement="bottom"  title="Click to copy" (click)="copyInputMessage(coupon.coupon_code)" value="EMFC20">{{coupon.coupon_code}}</button>
+                    <p class="mobvouc_validtil">Valid Until</p>
+                    <span class="mobvouc_expires">{{getdisplaydate(coupon.coupon_expires)}}</span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- FOR OLD USERS -->
+          <div class="hn_title_voucher mt-2">
+            <h1>Coupon Code</h1>
+          </div>
+          <div class="table-responsive">
+            <table class="table table_voucher_list table-bordered">
+              <thead>
+                <tr>
+                  <th>{{LanguageText.txt_voucher_restaurant}}</th>
+                  <th>{{LanguageText.txt_voucher_offer}}</th>
+                  <th class="text-center">{{LanguageText.txt_voucher_code}}</th>
+                  <th>{{LanguageText.txt_voucher_validuntil}}</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr *ngFor="let coupon of couponlist">
+                  <td class="align-middle" width="40%" data-toggle="tooltip" data-placement="bottom" title="Click to order"><a href="{{VisitStore(coupon.id)}}">{{coupon.st_store_name}}<p class="txt_vcher_warn" *ngIf="coupon.usertype==1">*New Users Only</p><p class="txt_vcher_warn" *ngIf="coupon.usertype==0">*All Users</p></a></td>
+                  <td class="align-middle" width="25%">{{showOffer(coupon)}}<br>{{showMinimum(coupon)}}</td>
+                  <td class="align-middle text-center td_coupon" width="15%">
+                    <button class="btn_coupon_code" data-toggle="tooltip" data-placement="bottom"  title="Click to copy" (click)="copyInputMessage(coupon.coupon_code)" value="EMFC20">{{coupon.coupon_code}}</button>
+                  </td>
+                <td class="align-middle" width="20%">{{getdisplaydate(coupon.coupon_expires)}}</td>
+                </tr>
+
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-sm-12 col-xs-12 mt-5">
+          <h2 class="head center">
+            <div class="bgicon"><img src="../../../assets/images/location.png" class="w-100" /></div>
+            <div class="name">{{LanguageText.txt_index_howtouse}}</div>
+          </h2>
+          <!-- <img src="../../../assets/images/voucher_how.jpg" class="w-100"> -->
+          <img src="../../../assets/images/How-to-use-the-voucher_Eng.jpg" *ngIf="isEnglish" class="w-100">
+          <img src="../../../assets/images/How-to-use-the-voucher_Thai.jpg" *ngIf="!isEnglish" class="w-100">
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+<app-footer *ngIf="isLanguageLoaded"></app-footer>

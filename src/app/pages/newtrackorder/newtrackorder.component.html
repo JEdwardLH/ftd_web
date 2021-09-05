@@ -1,0 +1,158 @@
+<!-- <app-authheader class="header-show-search"></app-authheader> -->
+<app-header id="home" class="header-show-search"></app-header>
+<main *ngIf="isLanguageLoaded" class="trackorder">
+
+  <div class="process">
+    <div class="container">
+      <div class="horizontal-process text-center">
+        <div class="stagevideos stagevideo1">
+          <video autoplay loop>
+            <source src="../../../assets/images/v_t1.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container time">
+    <div class="cancelorder_timer">
+      <span class="timertrack">{{LanguageText.txt_trackorder_estimated_arrival_time}}</span>
+      <div class="value">13:23 - 13:28</div>
+      <hr>
+      <div class="to_status">
+        <h2><div class="greenstats_to"></div>&nbsp;Preparing your food</h2>
+        <p>The rider will arrive to pick up your food</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container tbltrackset">
+    <div class="job-info-box orders">
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-12">
+        <div class="name">{{LanguageText.txt_trackorder_here_receipt}}</div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12">
+          <div class="location">Harry Bakery</div>
+          <div class="location">CARD-1014321667</div>
+          <div class="location">293/10 Soi Bua Khaow 15, Soi Bua Khaow 15, 293/10, Na Kluea, Amphoe Bang Lamung, Chon Buri-provinsen</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table tbltrack">
+
+        <tr>
+          <td class="productname">2x Cinamon Almond
+            <div class="trackextraname">
+              <div class="extrainv d-flex justify-content-between">
+                <span class="inv_product_name mt-0" style="text-decoration:underline">Extra Name</span>
+              </div>
+              <div class="extrainv d-flex justify-content-between">
+                <span class="inv_product_name mt-0">➤&nbsp;Extra Name</span>
+              </div>
+            </div>
+          </td>
+          <td class="productprice">₱45
+            <div class="trackextraprice">
+              <span class="inv_product_price" >&nbsp;</span><br>
+              <span class="inv_product_price">₱45<br></span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- TOTALS -->
+        <tr class="totalstrack">
+          <td class="totalttl">{{LanguageText.txt_trackorder_subtotal}}</td>
+          <td class="totalamounts">₱ 174</td>
+        </tr>
+        <tr class="totalstrack">
+          <td class="totalttl first">{{LanguageText.txt_trackorder_discountoffer}}</td>
+          <td class="totalamounts first">- ₱ 174</td>
+        </tr>
+        <tr class="totalstrack">
+          <td class="totalttl">{{LanguageText.txt_trackorder_deliveryfee}}</td>
+          <td class="totalamounts">₱ 174</td>
+        </tr>
+        <tr class="totalstrack">
+          <td class="totalttl">{{LanguageText.txt_trackorder_grandtotal}}</td>
+          <td class="totalamounts">₱ 174</td>
+        </tr>
+
+        <!-- PAYMENT -->
+        <tr>
+          <td class="text-left to_paymentfont">Payment Type</td>
+          <td class="text-right to_paymentfont">Cash</td>
+        </tr>
+        <tr>
+          <td class="text-left to_paymentfont">Payment ID</td>
+          <td class="text-right to_paymentfont">Cash</td>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+
+
+
+  <div class="modal fade" id="cancelorder" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content" style="border: 3px solid #ffcc00;">
+      <div class="modal-body p-4">
+        <div class="rev-textttl pt-0">
+          <p class="text-center">{{LanguageText.txt_trackorder_reason_cancel}}?</p>
+          <div class="round-btn">
+            <div class="selection-tick2 custom-radio">
+              <input type="radio" name="pricerangeval" value="">
+              <span class="checkmark"></span>
+            </div>
+            <span class="lable">{{LanguageText.txt_trackorder_duplicate_order}}</span>
+          </div>
+          <div class="round-btn">
+            <div class="selection-tick2 custom-radio">
+              <input type="radio" name="pricerangeval" value="">
+              <span class="checkmark"></span>
+            </div>
+            <span class="lable">{{LanguageText.txt_trackorder_order_diff_food}}</span>
+          </div>
+          <div class="round-btn">
+            <div class="selection-tick2 custom-radio">
+              <input type="radio" name="pricerangeval" value="">
+              <span class="checkmark"></span>
+            </div>
+            <span class="lable">{{LanguageText.txt_trackorder_order_later}}</span>
+          </div>
+          <div class="round-btn">
+            <div class="selection-tick2 custom-radio">
+              <input type="radio" name="pricerangeval" value="">
+              <span class="checkmark"></span>
+            </div>
+            <span class="lable">{{LanguageText.txt_trackorder_wrong_order}}</span>
+          </div>
+          <div class="round-btn">
+            <div class="selection-tick2 custom-radio">
+              <input type="radio" name="pricerangeval" value="">
+              <span class="checkmark"></span>
+            </div>
+            <span class="lable">{{LanguageText.txt_trackorder_delivery_taking_time}}</span>
+          </div>
+          <div class="round-btn">
+            <div class="selection-tick2 custom-radio">
+              <input type="radio" name="pricerangeval" value="">
+              <span class="checkmark"></span>
+            </div>
+            <span class="lable">{{LanguageText.txt_trackorder_other_reason}}</span>
+          </div>
+
+          <textarea row="5" class="form-control mt-3" rows="2" cols="50"></textarea>
+          <div class="text-center w-100">
+            <button class="btn red-btn mt-3" data-toggle="modal" data-target="#reviewprod" data-dismiss="modal">{{LanguageText.txt_trackorder_submit}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+<app-footer *ngIf="isLanguageLoaded"></app-footer>

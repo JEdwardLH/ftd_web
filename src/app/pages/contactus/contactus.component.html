@@ -1,0 +1,43 @@
+<app-authheader *ngIf="isUserMode()" class="header-show-search hometrans"></app-authheader>
+<app-header *ngIf="!isUserMode()" id="home" class="header-show-search hometrans"></app-header>
+<main *ngIf="isLanguageLoaded" class="authpages contactpage">
+<div class="container">
+<div class="form-box">
+<div class="title">{{LanguageText.txt_contact_contactus}}</div>
+<div class="form-group icon-left mb-4">
+    <div class="iconbox">
+        <div class="iconcls"><img src="../../../assets/images/icon-phone-white.png" class="w-100"/></div>  Soon to be ready!</div>
+</div>
+ <form action="#" #form="ngForm">
+  <div class="form-group icon-left">
+    <div class="icon"><img class="w-100" src="../../../assets/images/icon-user-grey.png"/></div>
+    <input type="text" class="form-control" placeholder="{{LanguageText.txt_contact_name}}" [(ngModel)]="name" [ngModelOptions]="{standalone: true}">
+  </div>
+  <div class="form-group icon-left">
+    <div class="icon"><img class="w-100" src="../../../assets/images/icon-mail-grey.png"/></div>
+    <input type="email" class="form-control" placeholder="{{LanguageText.txt_invoice_emailadd}}" [(ngModel)]="email" [ngModelOptions]="{standalone: true}">
+  </div>
+  <div class="form-group icon-left">
+    <div class="icon"><img src="../../../assets/images/icon-phone-grey.png"  class="w-100"/></div>
+<input type="text" placeholder="{{LanguageText.txt_merchant_phone}}" [(ngModel)]="phone" [ngModelOptions]="{standalone: true}" class="form-control inputsupport"/>
+  </div>
+  <div class="form-group icon-left">
+    <div class="icon"><i class="fa fa-comment-o" aria-hidden="true"></i></div>
+    <textarea style="height: 89px;" class="form-control" [(ngModel)]="message" [ngModelOptions]="{standalone: true}" placeholder="{{LanguageText.txt_contact_message}}"></textarea>
+  </div>
+  <div class="form-group input-group">
+    <span class="captcha" id="captcha_mer" style="background-color: cornsilk;" #captcha_mer></span>
+    <button type="button" class="btn " (click)="createCaptcha('mer')"><i class="fa fa-refresh" id="refresh"></i></button>
+  </div>
+  <div class="form-group icon-left">
+    <div class="icon otpicon"><img style="opacity: 0.66;" src="../../../assets/images/otp.png" class="w-100"/></div>
+    <input type="text" class="form-control" placeholder="Please Enter Captcha" id="verification code"  [(ngModel)]="captcha" [ngModelOptions]="{standalone: true}" >
+    <div class="text-danger" *ngIf="invalidcaptcha">Wrong Captcha</div>
+  </div>
+  <button type="submit" (click)="sendInquiry()" class="btn btn-primary">{{LanguageText.txt_contact_sendmessage}}</button>
+</form>
+
+</div>
+</div>
+</main>
+<app-footer *ngIf="isLanguageLoaded"></app-footer>

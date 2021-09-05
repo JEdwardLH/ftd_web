@@ -1,0 +1,69 @@
+<footer *ngIf="isLanguageLoaded">
+    <div class="container">
+    <div class="row">
+    <div class="col-md-12"><div class="top-btn">
+    <a (click)="gotoTop()"><i class="fas fa-angle-up"></i></a>
+    </div></div>
+    </div>
+    <div class="row">
+    <div class="col-4 col-sm-6 col-md-6  col-lg-3 col-xl-3">
+      <div class="footer-logo">
+        <img src="../../../assets/images/footer-logo.jpg" class="w-100"/>
+      </div>
+    <div class="widget" hidden>
+    <ul>
+    <li><a href="" routerLink="/">{{LanguageText.txt_footer_home}}</a></li>
+    <li><a href="/aboutus">{{LanguageText.txt_footer_aboutus}}</a></li>
+    <!-- <li><a href="/press">{{LanguageText.txt_footer_press}}</a></li> -->
+    <li><a href="/support">{{LanguageText.txt_footer_support}}</a></li>
+
+    <li><a href="/contactus">{{LanguageText.txt_footer_contactus}}</a></li>
+    </ul>
+    </div>
+    </div>
+    <div class="col-8 col-sm-6 col-md-6  col-lg-2  col-xl-2" hidden>
+
+    <div class="widget" style="padding-top: 50px;">
+    <ul>
+    <li><a href="/career">{{LanguageText.txt_footer_career}}</a></li>
+    <li><a href="/faq">{{LanguageText.txt_footer_faq}}</a></li>
+    <!-- <li><a href="#">{{LanguageText.txt_footer_becomearider}}</a></li>
+    <li><a href="#">{{LanguageText.txt_footer_merchant}}</a></li>
+    <li><a href="#">{{LanguageText.txt_footer_foundation}} </a></li> -->
+    <li><a href="/termandconditions">{{LanguageText.txt_footer_termsonconditon}} </a></li>
+    <li><a href="/privacypolicy">{{LanguageText.txt_footer_privacypolicy}}</a></li>
+    </ul>
+    </div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-6  col-lg-4  col-xl-4" hidden>
+      <div class="widget">
+        <h3>{{LanguageText.txt_footer_dlourapp}}</h3>
+        <p>{{LanguageText.txt_footer_dldesc}}</p>
+        <!-- <div class="app-btn-box" *ngIf="isEnglish">
+          <a href="" target="_blank" class="widthmore"><img class="w-100" src="../../../assets/images/google_en.png" /></a>
+          <a href="" target="_blank"><img class="w-100" src="../../../assets/images/app_en.png" /></a>
+        </div> -->
+        <div class="app-btn-box" *ngIf="!isEnglish">
+          <a href="" target="_blank" class="widthmore"><img class="w-100" src="../../../assets/images/google_th.png" /></a>
+          <a href="" target="_blank"><img class="w-100" src="../../../assets/images/app_th.png" /></a>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-6 col-lg-3  col-xl-3" hidden>
+
+    <div class="widget" hidden>
+    <h3>{{LanguageText.txt_footer_followus}}</h3>
+    <ul class="social">
+    <li><a href="https://www.facebook.com/KalanBanga.TH/" target="_blank"><img src="../../../assets/images/social-facebook.png" class="w-100 hover-hide"/><img src="../../../assets/images/social-facebook-hover.png" class="w-100 hover-show"/></a></li>
+    <!-- <li><a href="https://www.youtube.com/channel/UCwq_ETwG8hRSrnwItHeJhNw?view_as=subscriber" target="_blank"><img src="../../../assets/images/social-youtube.png" class="w-100 hover-hide"/><img src="../../../assets/images/social-youtube-hover.png" class="w-100 hover-show"/></a></li>
+    <li><a href="https://twitter.com/kalanbanga_TH" target="_blank"><img src="../../../assets/images/social-twitter.png" class="w-100 hover-hide"/><img src="../../../assets/images/social-twitter-hover.png" class="w-100 hover-show"/></a></li>
+    <li><a href="https://www.instagram.com" target="_blank"><img src="../../../assets/images/social-instagram.png" class="w-100 hover-hide"/><img src="../../../assets/images/social-instagram-hover.png" class="w-100 hover-show"/></a></li>
+    <li><a href="" target="_blank"><img src="../../../assets/images/line.png" class="w-100 hover-hide"/><img src="../../../assets/images/line1.png" class="w-100 hover-show"/></a></li>
+    <li><a href="https://www.tiktok.com/@kalanbanga.th?lang=en" target="_blank"><img src="../../../assets/images/tiktok1.png" class="w-100 hover-hide"/><img src="../../../assets/images/tiktok.png" class="w-100 hover-show"/></a></li> -->
+    </ul>
+    <div class="copyrights">@2020 Food To Dine co.ltd.</div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </footer>

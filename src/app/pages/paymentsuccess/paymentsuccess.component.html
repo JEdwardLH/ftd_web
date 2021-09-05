@@ -1,0 +1,21 @@
+<app-header class="header-show-search"></app-header>
+<main *ngIf="isLanguageLoaded" class="paymentstatus riderbody">
+<section>
+    <div class="paymentstatus_sec section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-sm-6 col-xs-12" align="center">
+                    <div class="sec_img_payment">
+                        <img src="../assets/images/paymentsuccess.png"/>
+                    </div>
+                    <p class="title_payment">{{LanguageText.txt_payment_payment_success}}!</p>
+                    <p class="desc_payment">{{LanguageText.txt_payment_thankyou_pm}}.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+
+</main>
+<app-footer *ngIf="isLanguageLoaded"></app-footer>
+

@@ -1,0 +1,24 @@
+<app-authheader *ngIf="isUserMode()" class="header-show-search"></app-authheader>
+<app-header *ngIf="!isUserMode()" id="home" class="header-show-search"></app-header>
+<main *ngIf="isLanguageLoaded" class="cart riderbody">
+
+<section>
+    <div class="nocart section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-sm-6 col-xs-12" align="center">
+                    <img src="../assets/images/emptycart.png"/>
+                    <p class="title_nocart">{{LanguageText.txt_cart_empty}}</p>
+                    <p class="desc_nocart">{{LanguageText.txt_cart_cartdecription}}</p>
+                    <button class="red-btn" (click)="gotoHome()">{{LanguageText.txt_cart_addsomefood}}</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    </section>
+
+</main>
+<app-footer *ngIf="isLanguageLoaded"></app-footer>
+

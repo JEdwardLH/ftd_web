@@ -1,0 +1,130 @@
+<app-authheader *ngIf="isUserMode()" class="header-show-search"></app-authheader>
+<app-header *ngIf="!isUserMode()" id="home" class="header-show-search"></app-header>
+<main *ngIf="isLanguageLoaded" class="page-padding">
+  <div class="container">
+    <div class="red-page-title d-none d-md-block">{{LanguageText.txt_profile_myprofile}}</div>
+    <div class="red-page-title text-center mobile d-md-none"><a class="titleback-btn"><i
+          class="fas fa-arrow-left"></i></a> {{LanguageText.txt_profile_myfave}}</div>
+    <app-profileshort></app-profileshort>
+    <div class="row">
+      <div class="col-md-5 col-lg-4 col-xl-3 d-md-block">
+        <app-profilenav></app-profilenav>
+      </div>
+      <div class="col-md-7 col-lg-8 col-xl-9" *ngIf="false">
+        <div class="favorites">
+          <div class="row">
+            <div class="col-12 col-lg-6 col-xl-6">
+              <div class="box">
+                <div class="row">
+                  <div class="col-4 col-md-4 col-lg-5 col-xl-4"><img src="../../../assets/images/recentimage1.jpg"
+                      class="w-100" /></div>
+                  <div class="col-6 col-md-6 col-lg-5 col-xl-6 pl-0">
+                    <div class="name">Rice with young green
+                      peas</div>
+                    <div class="price">$230</div>
+                    <a class="boder-btn">{{LanguageText.txt_profile_ordernow}}</a>
+                  </div>
+                  <div class="col-2 col-md-2 col-lg-2 col-xl-2 text-right">
+                    <a class="like"><i class="fas fa-heart"></i></a>
+                    <a class="delete"><i class="fa fa-trash-alt"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6 col-xl-6">
+              <div class="box">
+                <div class="row">
+                  <div class="col-4 col-md-4 col-lg-5 col-xl-4"><img src="../../../assets/images/recentimage1.jpg"
+                      class="w-100" /></div>
+                  <div class="col-6 col-md-6 col-lg-5 col-xl-6 pl-0">
+                    <div class="name">Rice with young green
+                      peas</div>
+                    <div class="price">$230</div>
+                    <a class="boder-btn">{{LanguageText.txt_profile_ordernow}}</a>
+                  </div>
+                  <div class="col-2 col-md-2 col-lg-2 col-xl-2 text-right">
+                    <a class="like"><i class="fas fa-heart"></i></a>
+                    <a class="delete"><i class="fa fa-trash-alt"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6 col-xl-6">
+              <div class="box">
+                <div class="row">
+                  <div class="col-4 col-md-4 col-lg-5 col-xl-4"><img src="../../../assets/images/recentimage1.jpg"
+                      class="w-100" /></div>
+                  <div class="col-6 col-md-6 col-lg-5 col-xl-6 pl-0">
+                    <div class="name">Rice with young green
+                      peas</div>
+                    <div class="price">$230</div>
+                    <a class="boder-btn">{{LanguageText.txt_profile_ordernow}}</a>
+                  </div>
+                  <div class="col-2 col-md-2 col-lg-2 col-xl-2 text-right">
+                    <a class="like"><i class="fas fa-heart"></i></a>
+                    <a class="delete"><i class="fa fa-trash-alt"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6 col-xl-6">
+              <div class="box">
+                <div class="row">
+                  <div class="col-4 col-md-4 col-lg-5 col-xl-4"><img src="../../../assets/images/recentimage1.jpg"
+                      class="w-100" /></div>
+                  <div class="col-6 col-md-6 col-lg-5 col-xl-6 pl-0">
+                    <div class="name">Rice with young green
+                      peas</div>
+                    <div class="price">$230</div>
+                    <a class="boder-btn">{{LanguageText.txt_profile_ordernow}}</a>
+                  </div>
+                  <div class="col-2 col-md-2 col-lg-2 col-xl-2 text-right">
+                    <a class="like"><i class="fas fa-heart"></i></a>
+                    <a class="delete"><i class="fa fa-trash-alt"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6 col-xl-6">
+              <div class="box">
+                <div class="row">
+                  <div class="col-4 col-md-4 col-lg-5 col-xl-4"><img src="../../../assets/images/recentimage1.jpg"
+                      class="w-100" /></div>
+                  <div class="col-6 col-md-6 col-lg-5 col-xl-6 pl-0">
+                    <div class="name">Rice with young green
+                      peas</div>
+                    <div class="price">$230</div>
+                    <a class="boder-btn">{{LanguageText.txt_profile_ordernow}}</a>
+                  </div>
+                  <div class="col-2 col-md-2 col-lg-2 col-xl-2 text-right">
+                    <a class="like"><i class="fas fa-heart"></i></a>
+                    <a class="delete"><i class="fa fa-trash-alt"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6 col-xl-6">
+              <div class="box">
+                <div class="row">
+                  <div class="col-4 col-md-4 col-lg-5 col-xl-4"><img src="../../../assets/images/recentimage1.jpg"
+                      class="w-100" /></div>
+                  <div class="col-6 col-md-6 col-lg-5 col-xl-6 pl-0">
+                    <div class="name">Rice with young green
+                      peas</div>
+                    <div class="price">$230</div>
+                    <a class="boder-btn">{{LanguageText.txt_profile_ordernow}}</a>
+                  </div>
+                  <div class="col-2 col-md-2 col-lg-2 col-xl-2 text-right">
+                    <a class="like"><i class="fas fa-heart"></i></a>
+                    <a class="delete"><i class="fa fa-trash-alt"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<app-footer *ngIf="isLanguageLoaded"></app-footer>

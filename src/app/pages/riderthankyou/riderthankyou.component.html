@@ -1,0 +1,125 @@
+<app-header class="riderheader"></app-header>
+<main *ngIf="isLanguageLoaded" class="riderbody">
+<section class="main thankyou">
+<div class="container">
+<div class="logo"><img src="../../../assets/images/thankyou.png" class="w-100"/></div>
+<div class="maintitle">{{LanguageText.txt_rider_thanksfor}}<span>{{LanguageText.txt_rider_apply}}!</span></div>
+<p>{{LanguageText.txt_rider_thanksapplyhn}}
+<br />{{LanguageText.txt_rider_youshouldreceive}}.</p>
+<div class="btn-box text-center">
+<a>{{LanguageText.txt_rider_gohome}}</a>
+</div>
+</div>
+<div class="bike"><img src="../../../assets/images/bigmotorcycle.png" class="w-100"/></div>
+</section>
+<section class="riderfaq">
+<div class="container">
+<h2 class="head center"><div class="bgicon"><img src="../../../assets/images/location.png" class="w-100"></div><div class="name">{{LanguageText.txt_rider_faqs}}</div></h2>
+<div class="slider">
+  <div class="panel panel-primary mt-5">
+    <owl-carousel [options]="riderfaqOptions" [carouselClasses]="['owl-theme riderfaqslist', 'sliding']">
+        <div class="row">
+          <div class="col-md-5 col-lg-5 col-xl-5">
+            <div class=" tab-menu-heading p-0">
+              <div class="tabs-menu1 ">
+                <!-- Tabs -->
+                <ul class="faqquation nav panel-tabs">
+                  <li class="box active"><a href="#rider1" target="_self" data-toggle="tab">{{LanguageText.txt_faqs_r_f1}}? <a class="more-btn"><i class="fas fa-arrow-right"></i></a></a></li>
+                  <li class="box"><a href="#rider2" target="_self" data-toggle="tab">{{LanguageText.txt_faqs_r_f2}}? <a class="more-btn"><i class="fas fa-arrow-right"></i></a></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-7  col-lg-7 col-xl-7">
+            <div class="panel-body tabs-menu-body">
+              <div class="tab-content">
+                <div class="tab-pane active " id="rider1">
+                  <div class="answer">
+                    <div class="name">{{LanguageText.txt_faqs_r_f1}}?</div>
+                    <p>{{LanguageText.txt_faqs_r_f1_q}}.</p>
+                  </div>
+                </div>
+                <div class="tab-pane " id="rider2">
+                  <div class="answer">
+                    <div class="name">{{LanguageText.txt_faqs_r_f2}}?</div>
+                    <p>{{LanguageText.txt_faqs_r_f2_q}}. </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-5 col-lg-5 col-xl-5">
+            <div class=" tab-menu-heading p-0">
+              <div class="tabs-menu1 ">
+                <!-- Tabs -->
+                <ul class="faqquation nav panel-tabs">
+                  <li class="box active"><a href="#rider3" target="_self" data-toggle="tab">{{LanguageText.txt_faqs_r_f3}}? <a class="more-btn"><i class="fas fa-arrow-right"></i></a></a></li>
+                  <li class="box"><a href="#rider4" target="_self" data-toggle="tab">{{LanguageText.txt_faqs_r_f4}}? <a class="more-btn"><i class="fas fa-arrow-right"></i></a></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-7  col-lg-7 col-xl-7">
+            <div class="panel-body tabs-menu-body">
+              <div class="tab-content">
+                <div class="tab-pane active" id="rider3">
+                  <div class="answer">
+                    <div class="name">{{LanguageText.txt_faqs_r_f3}}?</div>
+                    <p>{{LanguageText.txt_faqs_r_f4_q}}!</p>
+                  </div>
+                </div>
+                <div class="tab-pane " id="rider4">
+                  <div class="answer">
+                    <div class="name">{{LanguageText.txt_faqs_r_f4}}?</div>
+                    <p>{{LanguageText.txt_faqs_r_f5_q}}.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-5 col-lg-5 col-xl-5">
+            <div class=" tab-menu-heading p-0">
+              <div class="tabs-menu1 ">
+                <!-- Tabs -->
+                <ul class="faqquation nav panel-tabs">
+                  <li class="box active"><a href="#rider5" target="_self" data-toggle="tab">{{LanguageText.txt_faqs_r_f6}}? <a class="more-btn"><i class="fas fa-arrow-right"></i></a></a></li>
+                  <li class="box"><a href="#rider6" target="_self" data-toggle="tab">{{LanguageText.txt_faqs_r_f7}}? <a class="more-btn"><i class="fas fa-arrow-right"></i></a></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-7  col-lg-7 col-xl-7">
+            <div class="panel-body tabs-menu-body">
+              <div class="tab-content">
+                <div class="tab-pane active" id="rider5">
+                  <div class="answer">
+                    <div class="name">{{LanguageText.txt_faqs_r_f6}}?</div>
+                    <p>{{LanguageText.txt_faqs_r_f6_q}}.</p>
+                  </div>
+                </div>
+                <div class="tab-pane " id="rider6">
+                  <div class="answer">
+                    <div class="name">{{LanguageText.txt_faqs_r_f7}}?</div>
+                    <p>{{LanguageText.txt_faqs_r_f7_q}}:</p>
+                    <p>
+                      {{LanguageText.txt_faqs_r_f7_q1}}<br>
+                      {{LanguageText.txt_faqs_r_f7_q2}}<br>
+                      {{LanguageText.txt_faqs_r_f7_q3}}.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </owl-carousel>
+    </div>
+</div>
+</div>
+</section>
+</main>
+<app-footer *ngIf="isLanguageLoaded"></app-footer>

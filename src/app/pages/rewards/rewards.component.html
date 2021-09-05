@@ -1,0 +1,141 @@
+<app-authheader *ngIf="isUserMode()" class="header-show-search"></app-authheader>
+<app-header *ngIf="!isUserMode()" id="home" class="header-show-search"></app-header>
+<main *ngIf="isLanguageLoaded" class="page-padding">
+  <div class="container">
+    <div class="red-page-title d-none d-md-block">{{LanguageText.txt_profile_myprofile}}</div>
+    <div class="red-page-title text-center mobile d-md-none"><a class="titleback-btn"><i
+          class="fas fa-arrow-left"></i></a> {{LanguageText.txt_profile_myrewards}}</div>
+    <app-profileshort></app-profileshort>
+    <div class="row">
+      <div class="col-md-5 col-lg-4 col-xl-3 d-none d-md-block">
+        <app-profilenav></app-profilenav>
+      </div>
+      <button id="openmodal" [hidden]="true" data-toggle="modal" data-target="#rewardcongrats">{{LanguageText.txt_profile_ok}}</button>
+      <div class="col-md-7 col-lg-8 col-xl-9" >
+        <div class="wallet-box rewards singlereward">
+          <div class="ballance">
+            <div class="row">
+              <div class="col-12 col-md-12 text-center">
+                <div class="value">{{totalpoints}}</div>
+                <div class="valuesub">{{LanguageText.txt_profile_total_reward_points}}</div>
+              </div>
+            </div>
+            <div class="ttlimgrewardsec"><img class="imgtotalreward" src="../../../assets/images/stars.png" alt=""></div>
+          </div>
+          <div class="rewardpoint">
+            <div class="pointsec pts2k_sec {{reward1statusstep}}">
+              <div class="row no-gutters">
+                <div class="col-6 col-md-6" align="right">
+                  <div class="pointsbox">
+                    <img src="../../../assets/images/rewardsstep.png" alt="" style="width: 100px;">
+                    <div class="pt">{{points1}}<br><span>{{LanguageText.txt_profile_points}}</span></div>
+                  </div>
+                </div>
+                <div class="col-6 col-md-6 pl-4">
+                  <div class="rewardtextheight">
+                    <div class="rewardmoney">{{reward1}} THB</div>
+                    <button class="unlock {{reward1status}}" (click)="claimRewards(1,reward1status)"><i class="fas fa-lock" *ngIf="codetext1=='Unlock Reward'"></i> {{codetext1}}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pointsec pts5k_sec {{reward2statusstep}}">
+              <div class="row no-gutters">
+                <div class="col-6 col-md-6 pr-4" align="right">
+                  <div class="rewardtextheight">
+                    <div class="rewardmoney first">{{reward2}} THB</div>
+                    <button class="unlock {{reward2status}}" (click)="claimRewards(2,reward2status)"><i class="fas fa-lock" *ngIf="codetext2=='Unlock Reward'"></i> {{codetext2}}</button>
+                  </div>
+                </div>
+                <div class="col-6 col-md-6">
+                  <div class="pointsbox">
+                    <img src="../../../assets/images/rewardsstep.png" alt="" style="width: 100px;">
+                    <div class="pt">{{points2}}<br><span>{{LanguageText.txt_profile_points}}</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pointsec pts10k_sec {{reward3statusstep}}">
+              <div class="row no-gutters">
+                <div class="col-6 col-md-6" align="right">
+                  <div class="pointsbox">
+                    <img src="../../../assets/images/rewardsstep.png" alt="" style="width: 100px;">
+                    <div class="pt">{{points3}}<br><span>{{LanguageText.txt_profile_points}}</span></div>
+                  </div>
+                </div>
+                <div class="col-6 col-md-6 pl-4">
+                  <div class="rewardtextheight">
+                    <div class="rewardmoney">{{reward3}} THB</div>
+                    <button class="unlock {{reward3status}}" (click)="claimRewards(3,reward3status)"><i class="fas fa-lock" *ngIf="codetext3=='Unlock Reward'"></i> {{codetext3}}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pointsec pts15k_sec {{reward4statusstep}}">
+              <div class="row no-gutters">
+                <div class="col-6 col-md-6 pr-4" align="right">
+                  <div class="rewardtextheight">
+                    <div class="rewardmoney first">{{reward4}} THB</div>
+                   <button class="unlock {{reward4status}}" (click)="claimRewards(4,reward4status)"><i class="fas fa-lock" *ngIf="codetext4=='Unlock Reward'"></i> {{codetext4}}</button>
+                  </div>
+                </div>
+                <div class="col-6 col-md-6">
+                  <div class="pointsbox">
+                    <img src="../../../assets/images/rewardsstep.png" alt="" style="width: 100px;">
+                    <div class="pt">{{points4}}<br><span>{{LanguageText.txt_profile_points}}</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pointsec pts20k_sec {{reward5statusstep}}">
+              <div class="row no-gutters">
+                <div class="col-6 col-md-6" align="right">
+                  <div class="pointsbox">
+                    <img src="../../../assets/images/rewardsstep.png" alt="" style="width: 100px;">
+                    <div class="pt">{{points5}}<br><span>{{LanguageText.txt_profile_points}}</span></div>
+                  </div>
+                </div>
+                <div class="col-6 col-md-6 pl-4">
+                  <div class="rewardtextheight">
+                    <div class="rewardmoney">{{reward5}} THB</div>
+                    <button class="unlock {{reward5status}}" (click)="claimRewards(5,reward5status)"><i class="fas fa-lock" *ngIf="codetext5=='Unlock Reward'"></i> {{codetext5}}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal rewards -->
+  <div class="modal fade" id="rewardcongrats" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+      <div class="modal-content" style="border: none; border-radius: 10px;">
+        <div class="modal-body md_rewards">
+          <img src="../../../assets/images/stars2.png" class="starsdesign">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <div class="reward_sectext">
+            <h2>{{LanguageText.txt_profile_congrats}},</h2>
+            <p class="r_earned">{{codemessage}}.</p>
+            <p class="r_code">{{LanguageText.txt_profile_enterthecode}}</p>
+            <ul class="rewardbox">
+              <li>{{code1}}</li>
+              <li>{{code2}}</li>
+              <li>{{code3}}</li>
+              <li>{{code4}}</li>
+              <li>{{code5}}</li>
+              <li>{{code6}}</li>
+            </ul>
+            <p class="r_nextime">{{LanguageText.txt_profile_next_time_order}}</p>
+            <p class="r_valid">*{{LanguageText.txt_profile_code_valid_til}} {{codevalid}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<app-footer *ngIf="isLanguageLoaded"></app-footer>

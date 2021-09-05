@@ -1,0 +1,93 @@
+<app-authheader *ngIf="isUserMode()" class="header-show-search"></app-authheader>
+<app-header *ngIf="!isUserMode()" id="home" class="header-show-search"></app-header>
+<main *ngIf="isLanguageLoaded">
+    <div class="referafriend_sec" align="center">
+        <div class="container">
+            <div class="rf_sec">
+                <div class="referfriend_imagesec">
+                    <img src="../../../assets/images/refer_friendimg.png" class="w-100"/>
+                </div>
+                <div class="rf_texts">
+                    <h1>{{LanguageText.txt_referfriend_ttl1}}<br><span class="getyellow">{{LanguageText.txt_referfriend_ttl2}}</span></h1>
+                    <p>{{message}}.</p>
+                </div>
+                <div class="rf_textfield" align="center">
+                    <input type="email" class="form-control" placeholder="Your friends email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}"/>
+                    <button class="mt-3 btn red-btn" (click)="sendRefer()">{{LanguageText.txt_referfriend_send}}</button>
+
+                    <br>
+                    <h2 class="mt-4" style="color: #383733;">OR Share via</h2>
+                    <div id="share-buttons" *ngIf="referallink!=''">
+
+                    <!-- Buffer -->
+                    <!-- <a href="fb-messenger://share/?link={{referallink}}" target="_blank">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTrNdRpHpsLYPaVoEkNBeUyMCU-BGX8xrOQXiqLHCQ&usqp=CAU" alt="Buffer" />
+                    </a> -->
+
+                    <!-- Digg -->
+                    <a href="http://www.digg.com/submit?url={{referallink}}" target="_blank">
+                        <img src="https://simplesharebuttons.com/images/somacro/diggit.png" alt="Digg" />
+                    </a>
+
+
+
+                    <!-- Facebook -->
+                    <a href="http://www.facebook.com/sharer.php?u={{referallink}}" target="_blank">
+                        <img src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" />
+                    </a>
+
+                    <!-- Google+ -->
+                    <a href="https://plus.google.com/share?url={{referallink}}" target="_blank">
+                        <img src="https://simplesharebuttons.com/images/somacro/google.png" alt="Google" />
+                    </a>
+
+                    <!-- LinkedIn -->
+                    <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url={{referallink}}" target="_blank">
+                        <img src="https://simplesharebuttons.com/images/somacro/linkedin.png" alt="LinkedIn" />
+                    </a>
+
+
+
+                    <!-- Print -->
+                    <a href="javascript:;" onclick="window.print()">
+                        <img src="https://simplesharebuttons.com/images/somacro/print.png" alt="Print" />
+                    </a>
+
+                    <!-- Reddit -->
+                    <a href="http://reddit.com/submit?url={{referallink}}" target="_blank">
+                        <img src="https://simplesharebuttons.com/images/somacro/reddit.png" alt="Reddit" />
+                    </a>
+
+                    <!-- StumbleUpon-->
+                    <a href="http://www.stumbleupon.com/submit?url={{referallink}}" target="_blank">
+                        <img src="https://simplesharebuttons.com/images/somacro/stumbleupon.png" alt="StumbleUpon" />
+                    </a>
+
+                    <!-- Tumblr-->
+                    <a href="http://www.tumblr.com/share/link?url={{referallink}}" target="_blank">
+                        <img src="https://simplesharebuttons.com/images/somacro/tumblr.png" alt="Tumblr" />
+                    </a>
+
+                    <!-- Twitter -->
+                    <a href="https://twitter.com/share?url={{referallink}}" target="_blank">
+                        <img src="https://simplesharebuttons.com/images/somacro/twitter.png" alt="Twitter" />
+                    </a>
+
+                    <!-- VK -->
+                    <a href="http://vkontakte.ru/share.php?url={{referallink}}" target="_blank">
+                        <img src="https://simplesharebuttons.com/images/somacro/vk.png" alt="VK" />
+                    </a>
+
+                    <!-- Yummly -->
+                    <a href="http://www.yummly.com/urb/verify?url={{referallink}}" target="_blank">
+                        <img src="https://simplesharebuttons.com/images/somacro/yummly.png" alt="Yummly" />
+                    </a>
+
+                </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+<app-footer *ngIf="isLanguageLoaded"></app-footer>

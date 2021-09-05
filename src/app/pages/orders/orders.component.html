@@ -1,0 +1,170 @@
+<app-authheader *ngIf="isUserMode()" class="header-show-search"></app-authheader>
+<main *ngIf="isLanguageLoaded">
+  <div class="container">
+    <div class="orderstatus orders position-relative">
+      <a href="#" class="btn red-btn back backbtn">
+        <div class="icon back">
+          <img src="../../../assets/images/icon-undo-grey.png" class="w-100" />
+        </div> {{LanguageText.txt_order_back}}
+      </a>
+      <div class="title"><span>{{LanguageText.txt_orders_myorders}}</span></div>
+      <div class="custom-tab">
+        <div class="tab-card">
+          <div class="tab-card-header">
+            <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+              <li class="nav-item" (click)="clickative()">
+                <a class="nav-link {{isActiveStatus}}" id="one-tab" data-toggle="tab" href="#one" role="tab"
+                  aria-controls="One" aria-selected="true">{{LanguageText.txt_orders_activeorders}}</a>
+              </li>
+              <li class="nav-item" (click)="clickcomplete()">
+                <a class="nav-link {{isCompleteStatus}}" id="two-tab" data-toggle="tab" href="#two" role="tab"
+                  aria-controls="Two" aria-selected="false">{{LanguageText.txt_orders_completeorder}}</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="tab-content" id="myTabContent">
+            <div class="{{firsttab}}" id="one" role="tabpanel" aria-labelledby="one-tab">
+              <div class="row" *ngIf="activeList.length==0&&orderList.length==0">
+                <div class="" *ngFor="let order of [0,1,2,3,4,5,6,7]" >
+                  <ngx-skeleton-loader animation="pulse"
+                    [theme]="{ width: '50', 'border-radius': '0', height: '50' }"></ngx-skeleton-loader>
+                  <ngx-skeleton-loader animation="pulse"
+                    [theme]="{ width: '650px', 'border-radius': '0', height: '174px' }"></ngx-skeleton-loader>
+                </div>
+              </div>
+
+
+              <div class="box" *ngFor="let order of activeList">
+                <div class="top">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <!-- <div class="label">{{LanguageText.txt_orders_from}}</div> -->
+                      <div class="name">{{getStoreName(order)}}</div>
+                    </div>
+                    <div class="col-md-6 text-right">
+                      <div class="date"><span>{{showOrderDate(order.orderDate)}}</span> {{order.orderTime}}</div>
+                      <div class="price">{{order.ordCurrency}}{{order.orderAmount}}</div>
+                    </div>
+                  </div>
+                </div>
+                <ul>
+
+                  <li><a class="btn" (click)="seeInvoice(order)">
+                      <div class="icon"><img src="../../../assets/images/icon-bill-grey.png"
+                          class="w-100  active-hide" /><img src="../../../assets/images/icon-bill-white.png"
+                          class="w-100 active-show" /></div>{{LanguageText.txt_orders_seeinvoice}}
+                    </a></li>
+                  <li><a class="btn" (click)="repeatOrder(order)">
+                      <div class="icon"><img src="../../../assets/images/icon-undo-grey.png"
+                          class="w-100  active-hide" /><img src="../../../assets/images/icon-undo-white.png"
+                          class="w-100 active-show" /></div>{{LanguageText.txt_orders_repeatorder}}
+                    </a></li>
+                  <li><a class="btn" (click)="trackOrder(order)">
+                      <div class="icon"><img src="../../../assets/images/icon-track-grey.png"
+                          class="w-100  active-hide" /><img src="../../../assets/images/icon-track-white.png"
+                          class="w-100 active-show" /></div>{{LanguageText.txt_orders_trackorder}}
+                    </a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="{{secondtab}}" id="two" role="tabpanel" aria-labelledby="two-tab">
+              <div class="box" *ngFor="let order of orderList">
+                <div class="top">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <!-- <div class="label">{{LanguageText.txt_orders_from}}</div> -->
+                      <div class="name">{{getStoreName(order)}}</div>
+                    </div>
+                    <div class="col-md-6 text-right">
+                      <div class="date"><span>{{showOrderDate(order.orderDate)}}</span> {{order.orderTime}}</div>
+                      <div class="price">{{order.ordCurrency}}{{order.orderAmount}}</div>
+                    </div>
+                  </div>
+                </div>
+                <ul>
+
+                  <li><a class="btn" (click)="seeInvoice(order)">
+                      <div class="icon"><img src="../../../assets/images/icon-bill-grey.png"
+                          class="w-100  active-hide" /><img src="../../../assets/images/icon-bill-white.png"
+                          class="w-100 active-show" /></div>{{LanguageText.txt_orders_seeinvoice}}
+                    </a></li>
+                  <li><a class="btn" (click)="repeatOrder(order)">
+                      <div class="icon"><img src="../../../assets/images/icon-undo-grey.png"
+                          class="w-100  active-hide" /><img src="../../../assets/images/icon-undo-white.png"
+                          class="w-100 active-show" /></div>{{LanguageText.txt_orders_repeatorder}}
+                    </a></li>
+                  <!-- <li><a class="btn" data-toggle="modal" data-target="#modal_review">
+                      <div class="icon"><img src="../../../assets/images/icon-revieworder-grey.svg"
+                          class="w-100  active-hide" /><img src="../../../assets/images/icon-revieworder-white.svg"
+                          class="w-100 active-show" /></div>{{LanguageText.txt_orders_revieworder}}
+                    </a></li> -->
+                  <li><a class="btn" (click)="trackOrder(order)">
+                      <div class="icon"><img src="../../../assets/images/icon-track-grey.png"
+                          class="w-100  active-hide" /><img src="../../../assets/images/icon-track-white.png"
+                          class="w-100 active-show" /></div>{{LanguageText.txt_orders_trackorder}}
+                    </a></li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <section [hidden]="!isactiveTab">
+    <div class="nocart section">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-6 col-sm-6 col-xs-12" align="center">
+            <img src="../assets/images/emptycart.png" />
+            <p class="title_nocart">{{LanguageText.txt_cart_empty}}</p>
+            <p class="desc_nocart">{{LanguageText.txt_cart_cartdecription}}</p>
+            <button class="red-btn" (click)="gotoHome()">{{LanguageText.txt_cart_addsomefood}}</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- MODAL FOR ORDER REVIEW -->
+  <div class="modal fade" id="modal_review" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content modalcontentreview">
+        <div class="modal-body">
+          <div class="badgestar">
+            <img src="../../../assets/images/badgestar.png" class="w-100" />
+          </div>
+          <h3>What's your Rate?</h3>
+          <div class="rate_stars">
+            <i class="active fas fa-star"></i>
+            <i class="active fas fa-star"></i>
+            <i class="active fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <div class="result_rating">
+            <span>3.0</span>
+          </div>
+          <div class="sec_writereview">
+            <h3>Write Review</h3>
+            <textarea class="form-control"></textarea>
+          </div>
+          <div class="rw_btnsubmit">
+            <button class="btn btn-success">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END MODAL ORDER REVIEW -->
+</main>
+<div style="max-height: 500px;" *ngIf="activeList.length==0"></div>
+<app-footer *ngIf="isLanguageLoaded"></app-footer>

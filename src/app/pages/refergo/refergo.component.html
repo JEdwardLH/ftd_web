@@ -1,0 +1,25 @@
+
+<main *ngIf="isLanguageLoaded">
+    <div class="refergo_sec">
+        <div class="container">
+            <div class="row">
+                <div class="refergocontect col-md-8 col-xl-8 col-lg-8 col-xs-12">
+                    <h1 class="refergotitle">Get Started by creating your KalanBanga account</h1>
+                    <div class="img_refergo2">
+                        <img src="../../../assets/images/hungry-market.png" class="w-100"/>
+                    </div>
+                    <h3 class="refersubtitle">Order food you love and use CODE: <b style="color: brown;font-size: xx-large;">100THB</b> on your first order</h3>
+                    <p class="refergoptext">Create an account and start order food you love, online or with the app.</p>
+                      <p>We deliver from your favorite restaurants right to your doorstep.</p>
+                    <button class="btn btnrefergo red-btn" (click)="gotoRegister()">Proceed to KalanBanga Registration</button>
+                </div>
+                <div class="col-md-4 col-xl-4 col-lg-4 col-xs-12 d-xs-none">
+                    <div class="img_refergo">
+                        <img src="../../../assets/images/hungry-market.png" class="w-100"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<app-footer *ngIf="isLanguageLoaded"></app-footer>

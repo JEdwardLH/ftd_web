@@ -1,0 +1,63 @@
+<app-authheader *ngIf="isUserMode()&&ismobile" class="header-show-search hometrans"></app-authheader>
+<app-header *ngIf="!isUserMode()&&ismobile" id="home" class="header-show-search hometrans"></app-header>
+<main class="termandconditions" *ngIf="isLanguageLoaded" style="padding-top: {{paddingtop}};">
+<section class="innerpagetitle d-table">
+<div class="container d-table-cell align-middle">
+<div class="title">{{LanguageText.txt_termscondi_termsconditions}}</div>
+</div>
+</section>
+<section class="body">
+<div class="container">
+<div class="row">
+<div class="col-md-3">
+<div class="name">{{LanguageText.txt_termscondi_introduction}}</div>
+</div>
+<div class="col-md-9">
+<div class="right-box">
+<p>{{LanguageText.txt_termscondi_intro1}}</p>
+<p>{{LanguageText.txt_termscondi_intro2}}</p>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-md-3">
+<div class="name">{{LanguageText.txt_termscondi_purpose}}</div>
+</div>
+<div class="col-md-9">
+<div class="right-box">
+<p>{{LanguageText.txt_termscondi_purp1}}</p>
+<p>{{LanguageText.txt_termscondi_purp2}} </p>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-md-3">
+<div class="name">{{LanguageText.txt_termscondi_useofthewebsite}} </div>
+</div>
+<div class="col-md-9">
+<div class="right-box">
+<p>{{LanguageText.txt_termscondi_uow1}}</p>
+<p>{{LanguageText.txt_termscondi_uow2}}</p>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-md-3">
+<div class="name">{{LanguageText.txt_termscondi_paymentandoffers}} </div>
+</div>
+<div class="col-md-9">
+<div class="right-box">
+<p>{{LanguageText.txt_termscondi_pao1}} </p>
+<p>{{LanguageText.txt_termscondi_pao2}} </p>
+<p>{{LanguageText.txt_termscondi_pao3}} </p>
+<p>{{LanguageText.txt_termscondi_pao4}} </p>
+<p>{{LanguageText.txt_termscondi_pao5}} </p>
+</div>
+</div>
+</div>
+
+
+</div>
+</section>
+</main>
+<app-footer *ngIf="isLanguageLoaded&&ismobile"></app-footer>

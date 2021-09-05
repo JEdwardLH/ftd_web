@@ -1,0 +1,52 @@
+<app-header class="header-without-search hometrans"></app-header>
+<main *ngIf="isLanguageLoaded" class="riderbody">
+  <section class="main downloadpage">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-sm-12 col-xs-12 d-sm-none2 d-xs-none">
+          <div class="dl_image_sec">
+            <img src="../../../assets/images/hand_en.png" alt="" *ngIf="isEnglish" class="w-100">
+            <img src="../../../assets/images/hand_download.png"  *ngIf="!isEnglish"  class="w-100">
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-sm-12 col-xs-12 respo_dl_bot">
+          <div class="download_text_sec">
+            <h1>{{LanguageText.txt_lp_downloadhnapp}}!</h1>
+          </div>
+          <div class="row">
+            <div class="col-md-5 col-sm-12 col-xs-12">
+              <div class="scan_sec">
+                <img src="../../../assets/images/scan_qr.png" alt="" class="w-100">
+              </div>
+            </div>
+            <div class="col-md-2 col-sm-12 col-xs-12 text-center">
+              <div class="text_or_sec">
+                <span class="text_or">or</span>
+              </div>
+            </div>
+            <div class="col-md-5 col-sm-12 col-xs-12">
+              <div class="badges_en" *ngIf="isEnglish">
+                <div class="badges_imgs">
+                  <a href="https://kalanbanga.onelink.me/AHAB/KalanBangaDownload" target="_blank"><img src="../../../assets/images/app_en.png" alt="" class="w-100"></a>
+                </div>
+                <div class="badges_imgs">
+                  <a href="https://kalanbanga.onelink.me/AHAB/KalanBangaDownload" target="_blank"><img src="../../../assets/images/google_en.png" alt="" class="w-100"></a>
+                </div>
+              </div>
+              <div class="badges_th" *ngIf="!isEnglish">
+                <div class="badges_imgs">
+                  <a href="https://kalanbanga.onelink.me/AHAB/KalanBangaDownload" target="_blank"><img src="../../../assets/images/app_th.png" alt="" class="w-100"></a>
+                </div>
+                <div class="badges_imgs">
+                  <a href="https://kalanbanga.onelink.me/AHAB/KalanBangaDownload" target="_blank"><img src="../../../assets/images/google_th.png" alt="" class="w-100"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+<app-footer *ngIf="isLanguageLoaded"></app-footer>

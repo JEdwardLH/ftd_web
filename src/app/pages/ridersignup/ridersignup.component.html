@@ -1,0 +1,384 @@
+<app-header  class="header-show-search"></app-header>
+<main *ngIf="isLanguageLoaded" class="riderbody">
+<section class="signupform section">
+<div class="container">
+<div class="row">
+<div class="col-md-6 col-lg-7 col-xl-7">
+<div class="image">
+<img src="../../../assets/images/rideronroad.png" class="w-100"/>
+</div>
+</div>
+<div class="col-md-6  col-lg-5 col-xl-5">
+<div class="form-box">
+<div class="title">
+<span>{{LanguageText.txt_rider_header}} {{LanguageText.txt_rider_header2}} - {{LanguageText.txt_rider_header3}}</span></div>
+ <form action="#">
+  <div class="row">
+    <div class="col-6 pr-2">
+    <div class="form-group icon-left">
+     <div class="icon"><img src="../../../assets/images/icon-user-grey.png"  class="w-100"/></div>
+     <input type="text" class="form-control" placeholder="{{LanguageText.txt_register_placeholderfname}}" (focusout)="firstnamechange()" id="fname" [(ngModel)]="fname" [ngModelOptions]="{standalone: true}">
+
+     <div class="text-danger font12" *ngIf="firstnameerror()||firstnameerrorshow">{{LanguageText.txt_register_firstmissing}}</div>
+   </div>
+   </div>
+   <div class="col-6 pl-2">
+    <div class="form-group icon-left">
+     <div class="icon"><img src="../../../assets/images/icon-user-grey.png"  class="w-100"/></div>
+     <input type="text" class="form-control" placeholder="{{LanguageText.txt_register_placeholderlname}}"  (focusout)="lastnamechange()" (change)="lastnamechange()" id="lname" [(ngModel)]="lname" [ngModelOptions]="{standalone: true}">
+
+     <div class="text-danger font12" *ngIf="lastnameerror()||lastnameerrorshow">{{LanguageText.txt_register_lastmissing}}</div>
+   </div>
+   </div>
+   </div>
+  <div class="form-group icon-left">
+    <div class="icon"><img src="../../../assets/images/icon-mail-grey.png"  class="w-100"/></div>
+    <input type="email" class="form-control" placeholder="{{LanguageText.txt_merchant_email}}" id="email" [(ngModel)]="email" (focusout)="emailchange(email)" (change)="emailchange(email)" [ngModelOptions]="{standalone: true}">
+    <div class="text-danger font12" *ngIf="invalidemailaddress">{{LanguageText.txt_rider_email_required}}</div>
+  </div>
+  <div class="form-group icon-left">
+    <div class="icon"><img src="../../../assets/images/icon-phone-grey.png"  class="w-100"/></div>
+    <input type="text" class="form-control" placeholder="{{LanguageText.txt_merchant_mobile_number}}" id="mobilenumber"  (focusout)="phoneNumberChange(cus_phone1)"  (change)="phoneNumberChange(cus_phone1)" [(ngModel)]="cus_phone1" [ngModelOptions]="{standalone: true}">
+    <div class="errortriangle" *ngIf="invalidPhone"><img src="../../../assets/images/error.png" class="w-100"/> </div>
+    <div class="text-danger" *ngIf="invalidPhone">{{LanguageText.txt_rider_invalidphone}}</div>
+    <div class="dropdown">
+  <a class="dropdown-toggle" data-toggle="dropdown">
+    {{cus_phone_code}}<i class="fas fa-angle-down"></i>
+  </a>
+  <div class="dropdown-menu menu-item-scroll" style="height: 300px;overflow-y: auto;">
+    <a class="dropdown-item" style="height: 50px;" target="_self"  ><div class="icon insearch"><img src="../../../assets/images/icon-search-red.png"  class="w-100"/></div><input type="text"  (keyup)="checkfield()" (keydown)="checkfield()"  class="form-control" placeholder="Search" id="search"  [(ngModel)]="searchcode" [ngModelOptions]="{standalone: true}" maxlength="6"></a>
+    <a class="dropdown-item" target="_self"  [hidden]="isMatched(country)" (click)="selectCode(country.country_dial)" *ngFor="let country of countryCodeList; let i = index;"><span class="pull-left" style="width: 50px;">{{country.country_dial}} </span> <span class="pull-left">{{country.country_name}}</span></a>
+
+  </div>
+</div>
+    <!-- <a class="border-btn">{{LanguageText.txt_rider_verify}}</a> -->
+  </div>
+  <div class="form-group selectarrow icon-left">
+  <div class="icon"><img src="../../../assets/images/icon-pin-grey.png" class="w-100"/></div>
+  <select class="form-control selectbox" [(ngModel)]="areacover"  [ngModelOptions]="{standalone: true}">
+    <option value="" >{{LanguageText.txt_rider_servicearea}}</option>
+  <option value="{{area.name}}" *ngFor="let area of areaList; let i = index;">{{area.name}}</option>
+  </select>
+  </div>
+
+
+
+  <div class="form-group input-group">
+    <span class="captcha" id="captcha_mer" style="background-color: cornsilk;" #captcha_mer></span>
+    <button type="button" class="btn " (click)="createCaptcha('mer')"><i class="fa fa-refresh" id="refresh"></i></button>
+  </div>
+  <div class="form-group icon-left">
+    <div class="icon otpicon"><img style="opacity: 0.66;" src="../../../assets/images/otp.png" class="w-100"/></div>
+    <input type="text" class="form-control" placeholder="Please Enter Captcha" id="verification code"  [(ngModel)]="captcha" [ngModelOptions]="{standalone: true}" >
+    <div class="text-danger" *ngIf="invalidcaptcha">Wrong Captcha</div>
+  </div>
+  <p class="mb-0">{{LanguageText.txt_rider_signup}}</p>
+
+  <button type="submit" class="btn btn-primary" (click)="signUp()">{{LanguageText.txt_rider_btnsignup}}</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="signupdetail section">
+<div class="container">
+<h2 class="head center"><div class="bgicon"><img src="../../../assets/images/location.png" class="w-100"></div><div class="name">{{LanguageText.txt_rider_whydeliveryhn}}</div></h2>
+<div class="row justify-content-center">
+<!-- <div class="col-md-6"> -->
+<!-- <div class="mobile-screen">
+<img src="../../../assets/images/loginscreen.png" class="w-100"/>
+</div>
+</div> -->
+<div class="col-md-12">
+  <div class="rider-process">
+    <ul class="d-xs-none">
+      <li class="signupcolumn active"></li>
+      <li class="signupcolumn"></li>
+      <li class="signupcolumn"></li>
+      <li class="signupcolumn"></li>
+      <li class="signupcolumn"></li>
+    </ul>
+    <div class="row">
+      <div class="col-md-2-5 col-lg-2-5 col-sm-12">
+        <div class="title">{{LanguageText.txt_rider_htsu1}}</div>
+        <div class="subtitle">{{LanguageText.txt_rider_htsu1desc}}.</div>
+      </div>
+      <div class="col-md-2-5 col-lg-2-5 col-sm-12">
+        <div class="title">{{LanguageText.txt_rider_htsu2}}</div>
+        <div class="subtitle">{{LanguageText.txt_rider_htsu2desc}}.</div>
+      </div>
+      <div class="col-md-2-5 col-lg-2-5 col-sm-12">
+        <div class="title">{{LanguageText.txt_rider_htsu3}}</div>
+        <div class="subtitle">{{LanguageText.txt_rider_htsu3desc}}.</div>
+      </div>
+      <div class="col-md-2-5 col-lg-2-5 col-sm-12">
+        <div class="title">{{LanguageText.txt_rider_htsu4}}</div>
+        <div class="subtitle">{{LanguageText.txt_rider_htsu4desc}}.</div>
+      </div>
+      <div class="col-md-2-5 col-lg-2-5 col-sm-12">
+        <div class="title">{{LanguageText.txt_rider_htsu5}}</div>
+        <div class="subtitle">{{LanguageText.txt_rider_htsu5desc}}.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="row flow">
+<div class="col-md-4">
+<h2 class="head">
+<div class="bgicon"><img src="../../../assets/images/location.png" class="w-100" /></div>
+<div class="name">{{LanguageText.txt_rider_deliver_kalanbanga}}</div>
+</h2>
+</div>
+<div class="col-md-8">
+<div class="image"><img src="../../../assets/images/riderprocess.png" class="w-100"/></div>
+<ul>
+<li>{{LanguageText.txt_rider_earnmore}}</li>
+<li>{{LanguageText.txt_rider_safety}}</li>
+<li>{{LanguageText.txt_rider_community}}</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section class="riderfeature">
+<div class="feature-1">
+<div class="container">
+<div class="row">
+<div class="col-md-3">
+<h2 class="head">
+<div class="bgicon"><img src="../../../assets/images/location.png" class="w-100" /></div>
+<div class="name">{{LanguageText.txt_rider_ridewithkalanbanga}} <br />{{LanguageText.txt_rider_kalanbanga}}</div>
+</h2>
+</div>
+<div class="col-md-7" hidden>
+<div class="img">
+<a href="https://www.youtube.com/watch?v=wwxCsPon7rc" target="_blank" class="play-btn"><i class="far fa-play-circle"></i></a>
+<img src="../../../assets/images/riderimage.jpg" class="w-100"/></div>
+</div>
+<div class="col-md-2">
+<div class="logo"><img src="../../../assets/images/funfact-logo.jpg" class="w-100"/></div>
+</div>
+</div>
+</div>
+</div>
+<div class="feature-3">
+<div class="container">
+<div class="box">
+<div class="icon"><img src="../../../assets/images/quate.png" class="w-100"/></div>
+<div class="name"><div class="light">{{LanguageText.txt_rider_choose}}</div> {{LanguageText.txt_rider_yourtime}} </div>
+<p>{{LanguageText.txt_rider_pararg3}}</p>
+</div>
+</div>
+</div>
+</section>
+<section class="downloadapp" hidden>
+<div class="container">
+<h2 class="head center"><div class="name">{{LanguageText.txt_rider_download}}!</div></h2>
+<div class="box">
+<div class="row">
+<div class="col-md-6">
+<div class="label"> {{LanguageText.txt_rider_scan}}</div>
+<div class="qr"><img src="../../../assets/images/qrcode.png" class="w-100"/></div>
+</div>
+<div class="col-md-6">
+<div class="label"> {{LanguageText.txt_rider_downloadapp}}</div>
+<div class="store-btn">
+<a><img src="../../../assets/images/googleplay.png" class="w-100"/></a>
+<a><img src="../../../assets/images/appstore.png" class="w-100"/></a>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</section>
+<section class="section">
+<div class="container">
+<h2 class="head center"><div class="bgicon"><img src="../../../assets/images/location.png" class="w-100"></div><div class="name">{{LanguageText.txt_rider_htsuttl}} </div></h2>
+<div class="row justify-content-center mt-5">
+  <div class="col-md-12 col-lg-5">
+    <div class="rightab mb-3 mb-md-0">
+        <div class="tab-content">
+          <div class="tab-pane in active" id="ride_su1">
+            <img src="../../../assets/images/index1.png">
+          </div>
+          <div class="tab-pane fade" id="ride_su2">
+              <img src="../../../assets/images/index2.png">
+          </div>
+          <div class="tab-pane fade" id="ride_su3">
+              <img src="../../../assets/images/index3.png">
+          </div>
+          <div class="tab-pane fade" id="ride_su4">
+              <img src="../../../assets/images/index4.png">
+          </div>
+        </div>
+     </div>
+</div>
+  <div class="col-md-12 col-lg-4">
+      <div class="vrtwiz">
+          <ul class="verticalwiz part3 resp_hts">
+              <li class="active">
+                  <a href="#ride_su1" data-toggle="tab" class="active d-flex">
+                  <span class="step mr-3">1</span>
+                  <div class="title">
+                    <h5>{{LanguageText.txt_rider_submitapp1}}</h5>
+                  </div>
+                  </a>
+              </li>
+              <li class="">
+                  <a href="#ride_su2" data-toggle="tab" class="d-flex">
+                  <span class="step mr-3">1</span>
+                  <div class="title">
+                    <h5>{{LanguageText.txt_rider_submitapp2}}</h5>
+                  </div>
+                  </a>
+              </li>
+              <li class="">
+                  <a href="#ride_su3" data-toggle="tab" class="d-flex">
+                    <span class="step mr-3">1</span>
+                  <div class="title">
+                    <h5>{{LanguageText.txt_rider_submitapp3}}</h5>
+                  </div>
+                  </a>
+              </li>
+              <li class="">
+                <a href="#ride_su4" data-toggle="tab" class="d-flex">
+                  <span class="step mr-3">1</span>
+                <div class="title">
+                  <h5>{{LanguageText.txt_rider_submitapp4}}</h5>
+                </div>
+                </a>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+      </div>
+  </div>
+</div>
+</div>
+</section>
+<section class="benefits section">
+  <div class="container">
+  <h2 class="head center"><div class="bgicon"><img src="../../../assets/images/location.png" class="w-100"></div><div class="name">{{LanguageText.txt_rider_our_req}}</div></h2>
+  <ul>
+  <li><div class="icon"><img src="../../../assets/images/correct-green.png" class="w-100" /></div> <span>{{LanguageText.txt_rider_rqrmnts1}}</span></li>
+  <li><div class="icon"><img src="../../../assets/images/correct-green.png" class="w-100" /></div> <span>{{LanguageText.txt_rider_rqrmnts2}}</span></li>
+  <li><div class="icon"><img src="../../../assets/images/correct-green.png" class="w-100" /></div> <span>{{LanguageText.txt_rider_rqrmnts3}}</span></li>
+  <li><div class="icon"><img src="../../../assets/images/correct-green.png" class="w-100" /></div> <span>{{LanguageText.txt_rider_rqrmnts4}}</span></li>
+  <li><div class="icon"><img src="../../../assets/images/correct-green.png" class="w-100" /></div> <span>{{LanguageText.txt_rider_rqrmnts5}}</span></li>
+  </ul>
+  </div>
+</section>
+<section class="riderfaq">
+<div class="container">
+<h2 class="head center"><div class="bgicon"><img src="../../../assets/images/location.png" class="w-100"></div><div class="name">{{LanguageText.txt_rider_faqs}}</div></h2>
+<div class="slider">
+  <div class="panel panel-primary mt-5">
+<owl-carousel [options]="riderfaqOptions" [carouselClasses]="['owl-theme riderfaqslist', 'sliding']">
+    <div class="row">
+      <div class="col-md-5 col-lg-5 col-xl-5">
+        <div class=" tab-menu-heading p-0">
+          <div class="tabs-menu1 ">
+            <!-- Tabs -->
+            <ul class="faqquation nav panel-tabs">
+              <li class="box active"><a href="#rider1" target="_self" data-toggle="tab">{{LanguageText.txt_faqs_r_f1}}? <a class="more-btn"><i class="fas fa-arrow-right"></i></a></a></li>
+              <li class="box"><a href="#rider2" target="_self" data-toggle="tab">{{LanguageText.txt_faqs_r_f2}}? <a class="more-btn"><i class="fas fa-arrow-right"></i></a></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-7  col-lg-7 col-xl-7">
+        <div class="panel-body tabs-menu-body">
+          <div class="tab-content">
+            <div class="tab-pane active " id="rider1">
+              <div class="answer">
+                <div class="name">{{LanguageText.txt_faqs_r_f1}}?</div>
+                <p>{{LanguageText.txt_faqs_r_f1_q}}.</p>
+              </div>
+            </div>
+            <div class="tab-pane " id="rider2">
+              <div class="answer">
+                <div class="name">{{LanguageText.txt_faqs_r_f2}}?</div>
+                <p>{{LanguageText.txt_faqs_r_f2_q}}. </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-5 col-lg-5 col-xl-5">
+        <div class=" tab-menu-heading p-0">
+          <div class="tabs-menu1 ">
+            <!-- Tabs -->
+            <ul class="faqquation nav panel-tabs">
+              <li class="box active"><a href="#rider3" target="_self" data-toggle="tab">{{LanguageText.txt_faqs_r_f3}}? <a class="more-btn"><i class="fas fa-arrow-right"></i></a></a></li>
+              <li class="box"><a href="#rider4" target="_self" data-toggle="tab">{{LanguageText.txt_faqs_r_f4}}? <a class="more-btn"><i class="fas fa-arrow-right"></i></a></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-7  col-lg-7 col-xl-7">
+        <div class="panel-body tabs-menu-body">
+          <div class="tab-content">
+            <div class="tab-pane active" id="rider3">
+              <div class="answer">
+                <div class="name">{{LanguageText.txt_faqs_r_f3}}?</div>
+                <p>{{LanguageText.txt_faqs_r_f4_q}}!</p>
+              </div>
+            </div>
+            <div class="tab-pane " id="rider4">
+              <div class="answer">
+                <div class="name">{{LanguageText.txt_faqs_r_f4}}?</div>
+                <p>{{LanguageText.txt_faqs_r_f5_q}}.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-5 col-lg-5 col-xl-5">
+        <div class=" tab-menu-heading p-0">
+          <div class="tabs-menu1 ">
+            <!-- Tabs -->
+            <ul class="faqquation nav panel-tabs">
+              <li class="box active"><a href="#rider5" target="_self" data-toggle="tab">{{LanguageText.txt_faqs_r_f6}}? <a class="more-btn"><i class="fas fa-arrow-right"></i></a></a></li>
+              <li class="box"><a href="#rider6" target="_self" data-toggle="tab">{{LanguageText.txt_faqs_r_f7}}? <a class="more-btn"><i class="fas fa-arrow-right"></i></a></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-7  col-lg-7 col-xl-7">
+        <div class="panel-body tabs-menu-body">
+          <div class="tab-content">
+            <div class="tab-pane active" id="rider5">
+              <div class="answer">
+                <div class="name">{{LanguageText.txt_faqs_r_f6}}?</div>
+                <p>{{LanguageText.txt_faqs_r_f6_q}}.</p>
+              </div>
+            </div>
+            <div class="tab-pane " id="rider6">
+              <div class="answer">
+                <div class="name">{{LanguageText.txt_faqs_r_f7}}?</div>
+                <p>{{LanguageText.txt_faqs_r_f7_q}}:</p>
+                <p>
+                  {{LanguageText.txt_faqs_r_f7_q1}}<br>
+                  {{LanguageText.txt_faqs_r_f7_q2}}<br>
+                  {{LanguageText.txt_faqs_r_f7_q3}}.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</owl-carousel>
+</div>
+
+</div>
+</div>
+</section>
+</main>
+<app-footer *ngIf="isLanguageLoaded"></app-footer>

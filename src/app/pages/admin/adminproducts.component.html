@@ -1,0 +1,470 @@
+
+<main *ngIf="isLanguageLoaded">
+
+
+<div class="product-list-box">
+<div class="container">
+<div class="row rowidth100">
+<div class="col-sm-4 col-md-4 col-lg-2 col-xl-2">
+<div class="product-menu">
+<ul>
+
+<li *ngFor="let category of categoryNameList; let i = index;"><a class="{{isCategoryActive(category.categoryid)}}" (click)="scrollToCategory(category.categoryid,categoryNameList[0].categoryid)" style="cursor: pointer;" >{{category.categoryname}}</a></li>
+
+</ul>
+
+</div>
+
+</div>
+<div class="col-sm-8 col-md-8 col-lg-6 col-xl-6" [hidden]="showExtra">
+
+
+<div class="menu-item-scroll" id="product-data-list"  (scroll)="onScroll($event)">
+
+<!-- SLIDER -->
+<div class="slider-list-box">
+    <div class="row">
+      <div class="col-md-12">
+        <h5 class="pro_title_slider">{{LanguageText.txt_product_hotpromotions}}</h5>
+      </div>
+      <div class="col-md-12">
+        <owl-carousel [options]="hotpromotionscarousel" [items]="discountList" [carouselClasses]="['owl-theme home-nav', 'sliding']">
+
+            <div class="item" style="cursor: pointer;" *ngFor="let product of discountList;let i = index" (click)="AddProductToCart(product,'')">
+              <div class="mainmenu-title">
+                <a  class="active">
+                  <span><img src="{{product.item_image}}"/></span>
+                  <span class="slider_menu">{{product.item_name}}</span>
+                  <div class="d-flex justify-content-between price">
+                    <span class="discount">{{getPriceDiscount(product)}}</span>
+                    <span class="discounted">{{getPrice(product)}}</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+         </owl-carousel>
+      </div>
+    </div>
+</div>
+
+<div class="slider-list-box pt-3">
+    <div class="row">
+      <div class="col-md-12">
+        <h5 class="pro_title_slider">{{LanguageText.txt_product_mostpopular}}</h5>
+      </div>
+      <div class="col-md-12">
+        <owl-carousel [options]="mostpopularcarousel" [items]="topProducts" [carouselClasses]="['owl-theme home-nav', 'sliding']">
+
+          <div class="item" style="cursor: pointer;" *ngFor="let product of topProducts;let i = index" (click)="AddProductToCart(product,'')">
+            <div class="mainmenu-title">
+              <a  class="active">
+                <span><img src="{{product.item_image}}"/></span>
+                <span class="slider_menu">{{product.item_name}}</span>
+                <div class="d-flex justify-content-between price">
+                  <span class="discount">{{getPriceDiscount(product)}}</span>
+                  <span class="discounted">{{getPrice(product)}}</span>
+                </div>
+              </a>
+            </div>
+          </div>
+         </owl-carousel>
+      </div>
+    </div>
+</div>
+<!-- END SLIDER -->
+
+<div class="product-list" *ngFor="let productListData of productListWithCategory; let i = index;">
+    <div class="menu-title" id="cate-{{productListData.category_id}}">{{getCategoryname(productListData.category_id)}}</div>
+<div class="product-box"  *ngFor="let product of productListData.item; let i = index;">
+<div class="row">
+<div class="col-3 col-md-3">
+<div class="img"><img src="{{product.item_image}}" class="w-100 mainimg_hover"/></div>
+</div>
+<div class="col-7 col-md-7"><div class="name">{{product.item_name}}</div>
+<p>{{product.item_desc}}</p>
+<ul class="producttooltip">
+<li tooltip="Spicy" placement="bottom"><img src="../../../assets/images/productfeature1.png" class="w-100 onhovericon"/></li>
+<li tooltip="Gluten Free" placement="bottom"><img src="../../../assets/images/productfeature2.png" class="w-100 onhovericon"/></li>
+<li tooltip="Lactose Free" placement="bottom"><img src="../../../assets/images/productfeature3.png" class="w-100 onhovericon"/></li>
+<li tooltip="Have Nuts" placement="bottom"><img src="../../../assets/images/productfeature4.png" class="w-100 onhovericon"/></li>
+</ul>
+</div>
+<div class="col-2 col-md-2 text-right">
+<div class="price">
+<div class="original">{{getPriceDiscount(product)}}</div>
+<div class="discount">{{getPrice(product)}}</div>
+</div>
+<div class="add-btn">
+<a (click)="AddProductToCart(product,getCategoryname(productListData.category_id))">+ {{LanguageText.txt_product_add}}</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- IF THE DISH DOESN'T HAVE AN EXTRA SELECTION  -->
+<div class="col-8 col-sm-8 col-md-8 col-lg-6 col-xl-6" *ngIf="showExtra&&productisLoaded">
+
+  <div class="menu-title">{{selectedCategoryName}}</div>
+  <div class="menu-item-scroll" >
+    <div class="product-list">
+      <div class="product-box">
+      <div class="row rowidth100">
+      <div class="col-3 col-sm-4 col-md-3">
+      <div class="img"><img src="{{selectedProdImg}}" class="w-100"/></div>
+      </div>
+      <div class="col-6 col-sm-6 col-md-6"><div class="name">{{selectedProName}}</div>
+      <p>{{selectedProDesc}}</p>
+      <ul>
+      <li><img src="../../../assets/images/productfeature1.png" class="w-100"/></li>
+      <li><img src="../../../assets/images/productfeature2.png" class="w-100"/></li>
+      <li><img src="../../../assets/images/productfeature3.png" class="w-100"/></li>
+      <li><img src="../../../assets/images/productfeature4.png" class="w-100"/></li>
+      </ul>
+      </div>
+      <div class="col-3 col-sm-2 col-md-3 text-right">
+      <div class="price">
+      <div class="original">{{getPriceDiscount(selectedProduct.itemt_info)}}</div>
+      <div class="discount">{{getPrice(selectedProduct.itemt_info)}}</div>
+      </div>
+      </div>
+      </div>
+      <div class="selection">
+      <div class="box" *ngFor="let extraOption of selectedProduct.product_options; let i = index;">
+      <div class="title">{{getOptionName(extraOption)}}</div>
+      <ul *ngFor="let option of extraOption.items; let j = index;">
+      <li><div class="selection-tick custom-checkbox" *ngIf="isRequired(extraOption)">
+       <input type="radio"   name="radio-{{extraOption.id}}" [value]="option.id" [ngModel]="selectedRequiredOpt[extraOption.id]" (change)="onRadioChange(option.id,extraOption.id)">
+        <span class="checkmark"></span>
+      </div>
+      <div class="selection-tick custom-checkbox" *ngIf="!isRequired(extraOption)">
+        <input type="checkbox"  id="checkbox-{{option.id}}" [value]="option.id" [checked]="isOptionSelected(option.id)" (change)="onCheckboxChange($event)">
+        <span class="checkmark"></span>
+
+      </div>
+      <div class="name-price-box">
+      <div class="row rowidth100">
+      <div class="col-9 col-sm-9 col-md-9"><div class="label">{{getOptionName(option)}}</div></div>
+      <div class="col-3 col-sm-3 col-md-3 text-right"><div class="price">{{getOptionPrice(option,extraOption,selectedProduct.itemt_info.item_currency)}}</div></div>
+      </div>
+      </div>
+      </li>
+
+      </ul>
+      </div>
+
+      <div class="box">
+      <div class="title">{{LanguageText.txt_product_specialinstructochef}}</div>
+      <textarea placeholder="eg. I want extra Burger" [(ngModel)]="specialinstruction" [ngModelOptions]="{standalone: true}">
+      </textarea>
+      </div>
+      </div>
+      </div>
+
+      </div>
+  </div>
+  <div class="extraselection">
+    <div class="row rowidth100">
+    <div class="col-2 col-sm-4 col-md-4" (click)="backToProdutList()"><a class="back-btn"><i class="fas fa-arrow-left"></i> <span>{{LanguageText.txt_product_back}}</span></a></div>
+    <div class="col-10 col-sm-8 col-md-8"><div class="qty-text d-inline-block"></div> <div class="count d-inline-block"><span (click)="decreaseOrder()">-</span>{{orderQty}}<span (click)="increaseOrder()">+</span></div> <div class="btn-box d-inline-block">
+    <a *ngIf="cartid==0" (click)="addItemToCart()" style="cursor: pointer;"><div class="icon"><img src="../../../assets/images/receipt-white.png" class="w-100"/></div>{{LanguageText.txt_product_addtocart}}</a>
+  <a *ngIf="cartid!=0" (click)="updatItemToCart()" style="cursor: pointer;"><div class="icon"><img src="../../../assets/images/receipt-white.png" class="w-100"/></div>{{LanguageText.txt_product_updatecart}}</a>
+    </div></div>
+    </div>
+    </div>
+
+  </div>
+
+
+<!-- <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4" *ngIf="hasCart"> -->
+<div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 largepadr0_resp15">
+<div class="checkout">
+<div class="box">
+<div class="icon"><img src="../../../assets/images/receipt.png" class="w-100"/></div><div class="text">{{LanguageText.txt_product_your_order_from}}
+{{cartstorename}}</div>
+</div>
+<div class="box"  *ngFor="let cartItem of cartDetails; let i = index;">
+    <div class="main_dish_ttl">
+      <div class="count d-inline-block">
+          <span (click)="carItemDec(cartItem)">-</span> {{cartItem.cart_quantity}} <span (click)="carItemInc(cartItem)">+</span>
+        </div>
+        <div class="right-text text-mute">{{cartItem.product_name}} {{showRequiredOptionName(cartItem.order_option_items)}}</div>
+        <div class="price">{{cartItem.cart_currency}} {{showRequiredOptionPrice(cartItem)}}</div>
+    </div>
+    <div class="extra_selection">
+      <div class="text_extra text-mute">&nbsp;</div>
+      <div class="extra_delete" (click)="removeItemOnCart(cartItem.cart_id)"><i class="fas fa-trash"></i></div>
+    </div>
+    <div class="extra_selection" *ngFor="let optionID of cartItem.order_option_items; let j = index;">
+        <div class="text_extra text-mute">{{showOptonName(optionID)}}</div>
+        <div class="extra_price">{{showOptonPrice(optionID,cartItem.cart_currency)}}</div>
+    </div>
+  </div>
+<div class="box">
+    <div class="mb-1 overflow-hidden">
+
+
+      <!-- Show input when voucher link is clicked -->
+      <div class="value" [hidden]="!hasVouch">
+        <input type="text" class="input_discount" maxlength="1" id="vouchercode" [(ngModel)]="vouchercode" [ngModelOptions]="{standalone: true}" (keyup.enter)="ValidateCode(vouchercode)">
+        <input type="text" class="input_discount" maxlength="1" />
+        <input type="text" class="input_discount" maxlength="1" />
+        <input type="text" class="input_discount" maxlength="1" />
+        <input type="text" class="input_discount" maxlength="1" />
+        <input type="text" class="input_discount" maxlength="1" />
+      </div>
+  </div>
+  <div class="mb-1 overflow-hidden">
+  <div class="label text-uppercase float-left">{{LanguageText.txt_product_subtotal}}</div>
+  <div class="value  float-right">{{cartSubTotal}}</div>
+  </div>
+
+  <div class="mb-1 line  overflow-hidden"  *ngIf="hasDiscout">
+    <div class="label text-uppercase float-left">Voucher: ({{vouchercode}})</div>
+    <div class="value  float-right"><a (click)="removeVoucher()" style="cursor: pointer;color:brown;">{{LanguageText.txt_product_changecode}}?</a></div>
+  </div>
+  <div class="mb-1 line  overflow-hidden" *ngIf="hasDiscout">
+    <div class="label text-uppercase float-left">{{LanguageText.txt_product_discount}}</div>
+    <div class="value  float-right">- {{discountValue}}</div>
+  </div>
+  <!-- Delivery fee -->
+  <!-- <div class="line  overflow-hidden">
+  <div class="label text-uppercase float-left">{{LanguageText.txt_product_delivery_fee}}</div>
+  <div class="value  float-right">$0</div>
+  </div> -->
+  </div>
+  <div class="box border-none">
+  <div class="mb-1 overflow-hidden total">
+  <div class="label text-uppercase float-left">{{LanguageText.txt_product_totalinclvat}}</div>
+  <div class="value  float-right">{{cartGrandTotal}}</div>
+  </div>
+  <div class="btn-box">
+    <a href="/admincheckout">{{LanguageText.txt_product_proceedtocheckout}}</a>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="restaurantprofile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg  modal-dialog-centered">
+    <div class="modal-content border-none">
+      <div class="modal-body p-0">
+        <button type="button" class="close btnclosemodal" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="div_headermodal">
+          <h5 class="info_title" id="exampleModalLabel">Two Lions</h5>
+          <ul class="list_main_categ">
+            <li>Asian</li>
+            <li>Pizza</li>
+            <li>Chicken</li>
+          </ul>
+        </div>
+        <div class="restau_map">
+          <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom"></agm-map>
+        </div>
+        <div class="panel panel-primary">
+          <div class=" tab-menu-heading p-0">
+            <div class="tabs-menu1 "> <!-- Tabs -->
+              <ul class="nav panel-tabs navbar_profile2">
+                <li class=""><a href="#tab5" target="_self" class="btn_navprofile active" data-toggle="tab">{{LanguageText.txt_product_restaurantinfo}}</a></li>
+                <li><a href="#tab6" target="_self" class="btn_navprofile" data-toggle="tab">{{LanguageText.txt_product_reviews}}</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="panel-body tabs-menu-body">
+            <div class="tab-content">
+              <div class="tab-pane active " id="tab5">
+                <div class="row rowidth100" id="disp_resinfo">
+                  <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                    <p class="modalinfo_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                  </div>
+                  <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                    <h5 class="modalinfo_title">Opening Hours</h5>
+                    <table class="tbl_openinghrs w-100">
+                      <tr>
+                        <td>Monday</td>
+                        <td>11:00 AM - 7:30 PM</td>
+                      </tr>
+                      <tr>
+                        <td>Tuesday</td>
+                        <td>11:00 AM - 7:30 PM</td>
+                      </tr>
+                      <tr>
+                        <td>Wednesday</td>
+                        <td>11:00 AM - 7:30 PM</td>
+                      </tr>
+                      <tr>
+                        <td>Thursday</td>
+                        <td>11:00 AM - 7:30 PM</td>
+                      </tr>
+                      <tr>
+                        <td>Friday</td>
+                        <td>11:00 AM - 7:30 PM</td>
+                      </tr>
+                      <tr>
+                        <td>Saturday</td>
+                        <td class="text-red">CLOSE</td>
+                      </tr>
+                      <tr>
+                        <td>Sunday</td>
+                        <td class="text-red">CLOSE</td>
+                      </tr>
+                    </table>
+
+                    <!-- <p class="modalinfo_text">Mon - Sun 11:00 AM - 7:30 PM, 11:00 AM - 7:30 PM</p> -->
+                  </div>
+                  <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                    <h5 class="modalinfo_title">Prepare Time</h5>
+                    <p class="modalinfo_text">30 minutes</p>
+                  </div>
+                  <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                    <h5 class="modalinfo_title">Delivery Radius</h5>
+                    <p class="modalinfo_text">15 km</p>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane " id="tab6">
+                <div class="row rowidth100" id="disp_resreviews">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="table-responsive scrollablereview">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <td class="title_review">10 Reviews</td>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="tr_reviews">
+                              <p class="name_review">Hanah Salazar</p>
+                              <span class="rating_review"><i class="fa fa-star" aria-hidden="true"></i> 5/5</span>
+                              <p class="date_review">June 20, 2020</p>
+                              <p class="comment_review">MUST TRYYY!!! Tastes really good and at a very affordable price</p>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="tr_reviews">
+                              <p class="name_review">Hanah Salazar</p>
+                              <span class="rating_review"><i class="fa fa-star" aria-hidden="true"></i> 5/5</span>
+                              <p class="date_review">June 20, 2020</p>
+                              <p class="comment_review">MUST TRYYY!!! Tastes really good and at a very affordable price</p>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="tr_reviews">
+                              <p class="name_review">Hanah Salazar</p>
+                              <span class="rating_review"><i class="fa fa-star" aria-hidden="true"></i> 5/5</span>
+                              <p class="date_review">June 20, 2020</p>
+                              <p class="comment_review">MUST TRYYY!!! Tastes really good and at a very affordable price</p>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="tr_reviews">
+                              <p class="name_review">Hanah Salazar</p>
+                              <span class="rating_review"><i class="fa fa-star" aria-hidden="true"></i> 5/5</span>
+                              <p class="date_review">June 20, 2020</p>
+                              <p class="comment_review">MUST TRYYY!!! Tastes really good and at a very affordable price</p>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="card cardmodal_restprofile">
+          <div class="card-body">
+            <div class="row no-gutters rowidth100">
+              <div class="col-md-12 cl-sm-12 col-xs-12">
+                <div class="navbar_profile2">
+                  <a target="_self" id="tabprof" class="btn_navprofile active">Restaurant Info</a>
+                  <a target="_self" id="tabrev" class="btn_navprofile">Reviews</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <!-- <div class="row rowidth100" id="disp_resinfo">
+          <div class="form-group col-md-12 col-sm-12 col-xs-12">
+            <p class="modalinfo_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </div>
+          <div class="form-group col-md-12 col-sm-12 col-xs-12">
+            <h5 class="modalinfo_title">Opening Hours</h5>
+            <p class="modalinfo_text">Mon - Sun 11:00 AM - 7:30 PM, 11:00 AM - 7:30 PM</p>
+          </div>
+          <div class="form-group col-md-12 col-sm-12 col-xs-12">
+            <h5 class="modalinfo_title">Contact Person</h5>
+            <p class="modalinfo_text">Hanah Salazar - <span class="restau_num">+66 0 0000000</span></p>
+          </div>
+          <div class="form-group col-md-12 col-sm-12 col-xs-12">
+            <h5 class="modalinfo_title">Prepare Time</h5>
+            <p class="modalinfo_text">30 minutes</p>
+          </div>
+          <div class="form-group col-md-12 col-sm-12 col-xs-12">
+            <h5 class="modalinfo_title">Delivery Radius</h5>
+            <p class="modalinfo_text">15 km</p>
+          </div>
+        </div>
+        <div class="row rowidth100" id="disp_resreviews">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <td class="title_review">10 Reviews</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="tr_reviews">
+                      <p class="name_review">Hanah Salazar</p>
+                      <span class="rating_review"><i class="fa fa-star" aria-hidden="true"></i> 5/5</span>
+                      <p class="date_review">June 20, 2020</p>
+                      <p class="comment_review">MUST TRYYY!!! Tastes really good and at a very affordable price</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="tr_reviews">
+                      <p class="name_review">Hanah Salazar</p>
+                      <span class="rating_review"><i class="fa fa-star" aria-hidden="true"></i> 5/5</span>
+                      <p class="date_review">June 20, 2020</p>
+                      <p class="comment_review">MUST TRYYY!!! Tastes really good and at a very affordable price</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="tr_reviews">
+                      <p class="name_review">Hanah Salazar</p>
+                      <span class="rating_review"><i class="fa fa-star" aria-hidden="true"></i> 5/5</span>
+                      <p class="date_review">June 20, 2020</p>
+                      <p class="comment_review">MUST TRYYY!!! Tastes really good and at a very affordable price</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="tr_reviews">
+                      <p class="name_review">Hanah Salazar</p>
+                      <span class="rating_review"><i class="fa fa-star" aria-hidden="true"></i> 5/5</span>
+                      <p class="date_review">June 20, 2020</p>
+                      <p class="comment_review">MUST TRYYY!!! Tastes really good and at a very affordable price</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</main>
+

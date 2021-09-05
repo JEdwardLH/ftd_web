@@ -1,0 +1,10 @@
+<div *ngIf="isLanguageLoaded" class="profilenav">
+<ul>
+<li [ngClass]="{active: href=='/favorites'}"><a (click)="favorites()"><div class="icon"><img src="../../../assets/images/icon-heart-grey.png" class="w-100 active-hide"/><img src="../../../assets/images/icon-heart-red.png" class="w-100 active-show"/></div> {{LanguageText.txt_profile_favorites}}</a></li>
+<li [ngClass]="{active: href=='/changepassword'}"><a (click)="changepassword()"><div class="icon"><img src="../../../assets/images/icon-key-grey.png" class="w-100 active-hide"/> <img src="../../../assets/images/icon-key-red.png" class="w-100 active-show"/></div> {{LanguageText.txt_profile_changepass}}</a></li>
+<!-- <li [ngClass]="{active: href=='/paymentmethod'}"><a (click)="paymentmethod()"><div class="icon"><img src="../../../assets/images/icon-paymethod-grey.svg" class="w-100 active-hide"/><img src="../../../assets/images/icon-paymethod-red.svg" class="w-100 active-show"/></div> {{LanguageText.txt_profile_paymentmethod}}</a></li> -->
+<li [ngClass]="{active: href=='/addresses'}"><a (click)="addresses()"><div class="icon"><img src="../../../assets/images/icon-pin-grey.png" class="w-100 active-hide"/><img src="../../../assets/images/icon-pin-red.png" class="w-100 active-show"/></div> {{LanguageText.txt_profile_addresses}}</a></li>
+<li [ngClass]="{active: href=='/reviews'}"><a (click)="reviews()"><div class="icon"><img src="../../../assets/images/icon-review-grey.png" class="w-100 active-hide"/><img src="../../../assets/images/icon-review-red.png" class="w-100 active-show"/></div> {{LanguageText.txt_profile_myreviews}}</a></li>
+<li [ngClass]="{active: href=='/rewards'}" ><a (click)="rewards()"><div class="icon"><img src="../../../assets/images/icon-medal-grey.png" class="w-100 active-hide"/><img src="../../../assets/images/icon-medal-red.png" class="w-100 active-show"/></div> {{LanguageText.txt_profile_myrewards}}</a></li>
+</ul>
+</div>

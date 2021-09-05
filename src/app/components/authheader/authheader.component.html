@@ -1,0 +1,242 @@
+<header *ngIf="isLanguageLoaded" class="header" id="header">
+<div class="container mobile">
+<div class="row">
+<div class="col-2 col-sm-3">
+<a class="menu-btn" (click)="openmenu()"><img src="../../../assets/images/icon-openmenu-red.png" class="w-100"/></a>
+</div>
+<div class="col-8 col-sm-6">
+  <!-- <div class="logo"><a href="" routerLink="/"><img src="../../../assets/images/logo.jpg" class="w-100"/></a></div> -->
+  <div class="locationform text-center" (click)="setaddress()" *ngIf="currentUrl!=''&&currentUrl!='/en'&&currentUrl!='/th'" >
+    <button class="locatef_text mb-0 btn_mapheader" data-toggle="modal" data-target="#pinlocationaddress" (click)="openMap()">
+      <p class="mb-0 p_loc_head" *ngIf="currentUrl!=''">{{LanguageText.txt_header_your_location}} <i class="fa fa-angle-down mb_lochead" aria-hidden="true"></i></p>
+      <span>{{getaddress()}}&nbsp;&nbsp;</span>
+    </button>
+  </div>
+</div>
+<div class="col-2 col-sm-3 text-right pl-0 resp_headlast">
+<a class="search-btn">
+  <img src="../../../assets/images/icon-search-red.png" class="w-100"/>
+</a>
+<input type="checkbox" class="checksearch"/>
+<a class="doc-btn position-relative" routerLink="/checkout">
+<span *ngIf=hasOrder() class="count">{{cartcount}}</span>
+<img src="../../../assets/images/order_here.png" class="w-100"/></a>
+</div>
+</div>
+<div>
+  <input type="checkbox" class="checksearch" style="right: 49px;"/>
+  <div class="mobilesearchbar">
+    <div class="searchfrom">
+      <form>
+      <div class="searchicon"><i class="fa fa-search"></i></div>
+      <input type="text" placeholder="{{LanguageText.txt_home_searchplchldr}}" [(ngModel)]="searchText" (change)="checkfield()" (keyup)="checkfield()" (keydown)="checkfield()"   [ngModelOptions]="{standalone: true}"/>
+      <button type="submit" (click)="searchResto(searchText)">{{searchbtntext}}</button>
+      <div class="filter" (click)="filteropen()"><img src="../../../assets/images/filter.png" class="w-100 active-hide"/>
+      <img src="../../../assets/images/filter-red.png" class="w-100 active-show"/>
+      </div>
+      </form>
+      <div class="searchtype-box" *ngIf="searchresultlist.length != 0">
+        <ul class="searchtypelist">
+          <li (click)="searchResto(textitem.text)" *ngFor="let textitem of searchresultlist">{{textitem.text}}</li>
+
+
+        </ul>
+      </div>
+      <div class="filter-box">
+        <div class="top">
+        <div class="row">
+        <div class="col-8"><div class="title">{{LanguageText.txt_header_filter}}</div></div>
+
+        <div class="col-4 text-right"><a style="cursor: pointer;"  (click)="clearFilter()">x {{LanguageText.txt_header_clear}}</a></div>
+        </div>
+        </div>
+        <div class="bottom">
+        <div class="box">
+        <div class="lable">{{LanguageText.txt_header_budget}}</div>
+        <div class="row">
+        <div class="col-4"> <div class="round-btn">
+        <div class="selection-tick custom-radio">
+        <input type="radio"  name="pricerangeval" [value]="'1'" [ngModel]="pricerange" (click)="onRadioChange('1')">
+        <span class="checkmark"></span>
+        </div>
+        <span class="lable">$0 {{LanguageText.txt_header_to}} $100</span>
+        </div></div>
+        <div class="col-4"> <div class="round-btn">
+        <div class="selection-tick custom-radio">
+        <input type="radio"  name="pricerangeval"  [value]="'2'" [ngModel]="pricerange"  (click)="onRadioChange('2')">
+        <span class="checkmark"></span>
+        </div>
+        <span class="lable">$100 {{LanguageText.txt_header_to}} $1000</span>
+        </div></div>
+        <div class="col-4"> <div class="round-btn">
+        <div class="selection-tick custom-radio">
+        <input type="radio"  name="pricerangeval"  [value]="'3'" [ngModel]="pricerange"  (click)="onRadioChange('3')" >
+        <span class="checkmark"></span>
+        </div>
+        <span class="lable">$1000 {{LanguageText.txt_header_to}} $5000</span>
+        </div></div>
+        </div>
+        </div>
+        <div class="box">
+        <div class="lable">{{LanguageText.txt_header_offers}}</div>
+        <div class="row">
+        <div class="col-4 pr-0"> <div class="round-btn">
+        <div class="selection-tick custom-checkbox">
+        <input type="checkbox"  name="offers" name="hasvoucher" [value]="hasvoucher" [ngModel]="hasvoucher" (change)="onCheckboxChange2($event,'voucher')" >
+        <span class="checkmark"></span>
+        </div>
+        <span class="lable">{{LanguageText.txt_header_acceptsvouchers}}</span>
+        </div></div>
+        <div class="col-4"> <div class="round-btn">
+        <div class="selection-tick custom-checkbox">
+        <input type="checkbox"  name="offers" name="freedelivery" [value]="freedelivery" [ngModel]="freedelivery" (change)="onCheckboxChange2($event,'delivery')" >
+        <span class="checkmark"></span>
+        </div>
+        <span class="lable">{{LanguageText.txt_header_freedelivery}}</span>
+        </div></div>
+        <div class="col-4"> <div class="round-btn">
+        <div class="selection-tick custom-checkbox">
+        <input type="checkbox"  name="offers" name="hasdiscount" [value]="hasdiscount" [ngModel]="hasdiscount" (change)="onCheckboxChange2($event,'discount')" >
+        <span class="checkmark"></span>
+        </div>
+        <span class="lable">{{LanguageText.txt_header_hasdiscount}}</span>
+        </div></div>
+        </div>
+        </div>
+        <div class="box">
+          <div class="lable">{{LanguageText.txt_header_cuisines}}</div>
+          <div class="row">
+
+            <div class="col-4" *ngFor="let item of categorylist"> <div class="round-btn">
+              <div class="selection-tick custom-checkbox">
+              <input type="checkbox"  id="checkbox-{{item.category_id}}" [value]="item.category_id"  [checked]="isFilterSeected(item.category_id)" (change)="onCheckboxChange($event)">
+              <span class="checkmark"></span>
+              </div>
+              <span class="lable">{{item.category_name}}</span>
+              </div></div>
+          </div>
+          </div>
+        </div>
+        </div>
+      </div>
+  </div>
+</div>
+<!-- MOBILE SEARCHBAR -->
+
+<!-- END MOBILE SEARCHBAR -->
+<div id="mobilesidebar" class="menu-sidebar">
+<a class="close-btn" (click)="closemenu()"><i class="fas fa-times"></i></a>
+<div class="logo"><a style="cursor:pointer" (click)="clearcity()" ><img src="../../../assets/images/logo.jpg" class="w-100"/></a></div>
+<div class="lang" hidden>
+<a (click)="setFil()" style="cursor: pointer;" class="{{isLangSelected('th')}}">TL</a><a (click)="setEN()" style="cursor: pointer;" class="{{isLangSelected('en')}}">EN</a>
+</div>
+<div class="menu">
+<ul>
+  <li><a href="#" class="{{isActive('')}} homenavs">{{LanguageText.txt_header_home}}</a></li>
+  <li><a href="#" class="{{isActive('favorites')}} profilenavs" routerLink="/favorites">{{LanguageText.txt_header_myprofile}}</a></li>
+  <li><a href="#" class="{{isActive('orders')}} myordersnavs" routerLink="/orders">{{LanguageText.txt_header_myorders}}</a></li>
+  <li><a href="#" class="{{isActive('addresses')}} myaddressnavs" routerLink="/addresses">{{LanguageText.txt_header_myaddresses}}</a></li>
+  <li><a href="#" class="{{isActive('reviews')}} myreviewsnavs" routerLink="/reviews">{{LanguageText.txt_profile_myreviews}}</a></li>
+  <li><a href="#" class="{{isActive('rewards')}} myrewardsnavs" routerLink="/rewards">{{LanguageText.txt_profile_myrewards}}</a></li>
+  <li><a href="#" class="{{isActive('referafriend')}} referfriendnavs" routerLink="/referafriend">{{LanguageText.txt_header_referafriend}}</a></li>
+  <li><a href="#" class="{{isActive('faq')}} helpcenternavs" routerLink="/faq">{{LanguageText.txt_header_helpcenter}}</a></li>
+</ul>
+</div>
+<div class="auth-btn"><a  (click)="logout()" href="">{{LanguageText.txt_header_signout}}</a></div>
+</div>
+</div>
+<div class="container desktop">
+<div class="row">
+<div class="col-4 col-sm-6 col-md-2 col-lg-2 col-xl-2">
+  <div class="logo"><a style="cursor:pointer" (click)="clearcity()" ><img src="../../../assets/images/logo.jpg" class="w-100"/></a></div>
+</div>
+<!-- <div class="col-12 col-md-5 col-lg-6 col-xl-6 order-3 order-md-2 nopadresp">
+  <div class="locationform" (click)="setaddress()">
+    <button class="locatef_text mb-0 btn_mapheader" *ngIf="currentUrl!=''&&currentUrl!='/en'&&currentUrl!='/th'" data-toggle="modal" data-target="#pinlocationaddress" (click)="openMap()">{{LanguageText.txt_header_delivering_to}} : <span>{{getaddress()}}&nbsp;&nbsp;</span><i class="fas fa-chevron-down" style="color:#EA7826;" aria-hidden="true"></i> </button>
+  </div>
+</div> -->
+<div class="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-4 order-2 order-md-3 text-right nopadleft">
+<div class="btn-box">
+<div class="login-btn"><div class="dropdown "><a href="#" class="dropdown-toggle whenlogged" role="button" id="userdropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <div class="icon"><img src="../../../assets/images/login-user.png" class="w-100 hover-hide"/><img src="../../../assets/images/login-user-hover.png" class="w-100 hover-show"/></div>{{username}}</a>
+<div class="dropdown-menu" aria-labelledby="userdropdown">
+    <a class="dropdown-item" href="#" routerLink="/favorites">{{LanguageText.txt_header_myprofile}}</a>
+    <a class="dropdown-item" href="#" routerLink="/orders">{{LanguageText.txt_header_myorders}}</a>
+    <a class="dropdown-item" href="#" routerLink="/addresses">{{LanguageText.txt_header_myaddresses}}</a>
+    <a class="dropdown-item" href="#" routerLink="/reviews">{{LanguageText.txt_profile_myreviews}}</a>
+    <a class="dropdown-item" href="#" routerLink="/rewards">{{LanguageText.txt_profile_myrewards}}</a>
+    <a class="dropdown-item" href="#" routerLink="/referafriend">{{LanguageText.txt_header_referafriend}}</a>
+    <a class="dropdown-item" href="#" routerLink="/faq">{{LanguageText.txt_header_helpcenter}}</a>
+     <a class="logout-btn" (click)="logout()" href="">{{LanguageText.txt_header_signout}}</a>
+  </div>
+</div></div>
+<div class="language" hidden>
+<ul>
+<li><a (click)="setFil()"  style="cursor: pointer;" class="{{isLangSelected('th')}}">TL</a></li>
+<li ><a (click)="setEN()" style="cursor: pointer;" class="eng_lang {{isLangSelected('en')}}">EN</a></li>
+</ul>
+</div>
+<div class="doc-menu" style="top:-3px;"><a class="doc-btn" routerLink="/checkout"><span *ngIf=hasOrder() class="count">{{cartcount}}</span><img  src="../../../assets/images/order_here.png" class="w-100"></a></div>
+</div>
+</div>
+</div>
+</div>
+<div class="codeform" routerLink="/voucher">
+  <p class="mb-0">{{LanguageText.txt_header_promocode}}</p>
+</div>
+
+</header>
+
+<div class="modal fade" id="pinlocationaddress" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    <div class="modal-body modalbodypinlocation">
+      <button type="button" class="close btnclosemodal2" id="closeModalLocation"
+        data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h5 class="title_modalcheckout2 text-center">Let us know where you are</h5>
+
+
+
+      <!-- START -->
+      <form id="msform">
+
+        <fieldset>
+          <div class="form-card">
+            <form>
+              <div class="modal_search_sec">
+                <input type="text" class="form-control search_location" (keydown.enter)="$event.preventDefault()"
+                  placeholder="Enter your exact location" autocorrect="off" autocapitalize="off" id="searchlocation2" spellcheck="off"
+                  type="text" #search>
+                <i class="fa fa-map-pin location_icon" aria-hidden="true"></i>
+              </div>
+
+              <div class="pinlocation_map">
+                <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" [mapTypeControl]='true'
+                  (centerChange)="centerChange($event)" (boundsChange)="boundsChange($event)"
+                  (mapReady)="mapReady($event)">
+                  <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+                    (dragEnd)="markerDragEnd($event)"></agm-marker>
+                </agm-map>
+
+
+              </div>
+
+            </form>
+          </div>
+          <h5 class="text-left" style="cursor: pointer;color: brown;" (click)="setCurrentLocation()"><i
+              class="fa fa-location-arrow" aria-hidden="true"></i> Set to my current location</h5>
+
+          <input (click)="gotohomepage()"  data-dismiss="modal"  type="button"  name="next" class="btn next red-btn action-button"
+            value="Save my location!" />
+
+        </fieldset>
+
+
+      </form>
+      <!-- END -->
+    </div>
+  </div>
+</div>
+</div>

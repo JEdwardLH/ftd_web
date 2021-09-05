@@ -1,0 +1,37 @@
+<app-header></app-header>
+<main *ngIf="isLanguageLoaded" class="authpages loginpage">
+<div class="container">
+<div class="form-box">
+<div class="title">{{LanguageText.txt_login_login}}</div>
+ <form action="#" #form="ngForm">
+  <div class="form-group icon-left">
+    <div class="icon"><img class="w-100"src="../../../assets/images/icon-mail-grey.png"/></div>
+    <input type="email" class="form-control" placeholder="Email" id="email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}">
+
+  </div>
+  <div class="form-group icon-left">
+  <div class="icon"><img class="w-100" src="../../../assets/images/icon-key-grey.png"/></div>
+    <input type="password" class="form-control" placeholder="Password" id="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
+    <div class="text-danger" *ngIf="invalidcreds">{{LanguageText.txt_login_error}}.</div>
+  </div>
+  <div class="">
+    <div class="selection-tick custom-checkbox checkbox_inputlogin">
+      <input type="checkbox" checked>
+      <span class="checkmark"></span>
+    </div>
+    <span class="lable label_loginremember">{{LanguageText.txt_login_remember}}</span>
+  </div>
+  <button type="submit" class="btn btn-primary" (click)="login()">Login</button>
+  <a class="forgot-btn" href="/forgotpassword">{{LanguageText.txt_login_forgotpw}}?</a>
+</form>
+<div class="social-box">
+<div class="label">{{LanguageText.txt_login_loginwth}}</div>
+<a class="facebook btn mr-2" (click)="signInWithFB()"><span class="icon"><img src="../../../assets/images/social-facebook-white.png" class="w-100"/></span> {{LanguageText.txt_login_facebook}}</a>
+<a class="google btn" (click)="signInWithGoogle()"><span class="icon"><img src="../../../assets/images/social-google-white.png" class="w-100"/></span> {{LanguageText.txt_login_google}}</a>
+</div>
+<div class="new-user-box">{{LanguageText.txt_login_newuser}}? <a href="/register">{{LanguageText.txt_login_signup}}</a>
+</div>
+</div>
+</div>
+</main>
+<app-footer *ngIf="isLanguageLoaded"></app-footer>

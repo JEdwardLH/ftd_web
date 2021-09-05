@@ -1,0 +1,354 @@
+<app-header class="riderheader"></app-header>
+<main *ngIf="isLanguageLoaded" class="riderbody merchantbody">
+<section class="signupform section">
+<div class="container">
+<div class="row">
+<div class="col-md-6 col-lg-6 col-xl-6">
+
+</div>
+<div class="col-md-6  col-lg-6 col-xl-6">
+<div class="form-box">
+<div class="title">
+<span>{{LanguageText.txt_merchant_ttl1}}.</span>
+{{LanguageText.txt_merchant_ttl2}}.
+</div>
+ <form action="#">
+  <div class="row">
+    <div class="col-6 pr-2">
+    <div class="form-group icon-left">
+     <div class="icon"><img src="../../../assets/images/icon-user-grey.png"  class="w-100"/></div>
+     <input type="text" class="form-control" placeholder="{{LanguageText.txt_register_placeholderfname}}" (focusout)="firstnamechange()" id="fname" [(ngModel)]="fname" [ngModelOptions]="{standalone: true}">
+
+     <!-- <div class="text-danger font12" *ngIf="firstnameerror()||firstnameerrorshow">{{LanguageText.txt_register_firstmissing}}</div> -->
+   </div>
+   </div>
+   <div class="col-6 pl-2">
+    <div class="form-group icon-left">
+     <div class="icon"><img src="../../../assets/images/icon-user-grey.png"  class="w-100"/></div>
+     <input type="text" class="form-control" placeholder="{{LanguageText.txt_register_placeholderlname}}"  (focusout)="lastnamechange()" (change)="lastnamechange()" id="lname" [(ngModel)]="lname" [ngModelOptions]="{standalone: true}">
+
+     <!-- <div class="text-danger font12" *ngIf="lastnameerror()||lastnameerrorshow">{{LanguageText.txt_register_lastmissing}}</div> -->
+   </div>
+   </div>
+   </div>
+  <div class="form-group icon-left">
+    <div class="icon"><img src="../../../assets/images/icon-mail-grey.png"  class="w-100"/></div>
+    <input type="email" class="form-control" placeholder="{{LanguageText.txt_register_placeholderemail}}" id="email" [(ngModel)]="email" (focusout)="emailchange(email)" (change)="emailchange(email)" [ngModelOptions]="{standalone: true}">
+    <div class="text-danger font12" *ngIf="invalidemailaddress">{{LanguageText.txt_rider_email_required}}</div>
+  </div>
+  <div class="form-group icon-left">
+    <div class="icon"><img src="../../../assets/images/icon-phone-grey.png"  class="w-100"/></div>
+    <input type="text" class="form-control" placeholder="{{LanguageText.txt_merchant_mobile_number}}" id="mobilenumber"  (focusout)="phoneNumberChange(cus_phone1)"  (change)="phoneNumberChange(cus_phone1)" [(ngModel)]="cus_phone1" [ngModelOptions]="{standalone: true}">
+    <div class="errortriangle" *ngIf="invalidPhone"><img src="../../../assets/images/error.png" class="w-100"/> </div>
+    <div class="text-danger" *ngIf="invalidPhone">{{LanguageText.txt_register_invalidphonenumber}}</div>
+    <div class="dropdown">
+  <a class="dropdown-toggle" data-toggle="dropdown">
+    {{cus_phone_code}}<i class="fas fa-angle-down"></i>
+  </a>
+  <div class="dropdown-menu menu-item-scroll" style="height: 300px;overflow-y: auto;">
+    <a class="dropdown-item" style="height: 50px;" target="_self"  ><div class="icon insearch"><img src="../../../assets/images/icon-search-red.png"  class="w-100"/></div><input type="text"  (keyup)="checkfield()" (keydown)="checkfield()"  class="form-control" placeholder="Search" id="search"  [(ngModel)]="searchcode" [ngModelOptions]="{standalone: true}" maxlength="6"></a>
+    <a class="dropdown-item" target="_self"  [hidden]="isMatched(country)" (click)="selectCode(country.country_dial)" *ngFor="let country of countryCodeList; let i = index;"><span class="pull-left" style="width: 50px;">{{country.country_dial}} </span> <span class="pull-left">{{country.country_name}}</span></a>
+
+  </div>
+</div>
+    <!-- <a class="border-btn">{{LanguageText.txt_rider_verify}}</a> -->
+  </div>
+  <div class="form-group selectarrow icon-left">
+  <div class="icon"><img src="../../../assets/images/icon-pin-grey.png" class="w-100"/></div>
+  <select class="form-control selectbox" [(ngModel)]="areacover"  [ngModelOptions]="{standalone: true}">
+    <option value="" >{{LanguageText.txt_rider_servicearea}}</option>
+  <option value="{{area.name}}" *ngFor="let area of areaList; let i = index;">{{area.name}}</option>
+  </select>
+  </div>
+  <div class="form-group input-group">
+    <span class="captcha" id="captcha_mer" style="background-color: cornsilk;" #captcha_mer></span>
+    <button type="button" class="btn " (click)="createCaptcha('mer')"><i class="fa fa-refresh" id="refresh"></i></button>
+  </div>
+  <div class="form-group icon-left">
+    <div class="icon otpicon"><img style="opacity: 0.66;" src="../../../assets/images/otp.png" class="w-100"/></div>
+    <input type="text" class="form-control" placeholder="Please Enter Captcha" id="verification code"  [(ngModel)]="captcha" [ngModelOptions]="{standalone: true}" >
+    <div class="text-danger" *ngIf="invalidcaptcha">Wrong Captcha</div>
+  </div>
+  <button type="submit" class="btn btn-primary" (click)="signUp()">{{LanguageText.txt_merchant_next}}</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="signupdetail section">
+<div class="container">
+<p class="merchantinfottl">{{LanguageText.txt_merchant_merchantttlinfo}}? </p>
+<h2 class="head center"><div class="bgicon"><img src="../../../assets/images/location.png" class="w-100"></div><div class="name">{{LanguageText.txt_merchant_howtosignup}}</div></h2>
+<div class="row">
+<div class="col-md-12">
+<div class="">
+  <!-- <ul>
+    <li class="signupcolumn2 active"></li>
+    <li class="signupcolumn2"></li>
+    <li class="signupcolumn2"></li>
+  </ul>
+  <div class="row">
+    <div class="col-4 col-md-4 col-lg-4 col-sm-12">
+      <div class="title">{{LanguageText.txt_merchant_submitapplication}}</div>
+      <div class="subtitle">( {{LanguageText.txt_merchant_easy}} )</div>
+    </div>
+    <div class="col-4 col-md-4 col-lg-4 col-sm-12">
+      <div class="title">{{LanguageText.txt_merchant_completesignup}}</div>
+      <div class="subtitle">( {{LanguageText.txt_merchant_fast}} )</div>
+    </div>
+    <div class="col-4 col-md-4 col-lg-4 col-sm-12">
+      <div class="title">{{LanguageText.txt_merchant_youcookwedeliver}}</div>
+      <div class="subtitle">( {{LanguageText.txt_merchant_safe}} )</div>
+    </div>
+  </div> -->
+
+  <div class="row justify-content-center mt-4">
+    <div class="col-md-12 col-lg-4">
+        <div class="vrtwiz">
+            <ul class="verticalwiz part3">
+                <li class="active">
+                    <a href="#tab1" data-toggle="tab" class="active d-flex">
+                    <span class="step mr-3">1</span>
+                    <div class="title">
+                      <h5>{{LanguageText.txt_merchant_submitapplication}}</h5>
+                      <h6>{{LanguageText.txt_merchant_easy}}.</h6>
+                    </div>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="#tab2" data-toggle="tab" class="d-flex">
+                    <span class="step mr-3">1</span>
+                    <div class="title">
+                      <h5>{{LanguageText.txt_merchant_completesignup}}</h5>
+                      <h6>{{LanguageText.txt_merchant_fast}}.</h6>
+                    </div>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="#tab3" data-toggle="tab" class="d-flex">
+                      <span class="step mr-3">1</span>
+                    <div class="title">
+                      <h5>{{LanguageText.txt_merchant_youcookwedeliver}}</h5>
+                      <h6>{{LanguageText.txt_merchant_safe}}.</h6>
+                    </div>
+                    </a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="helpsbusiness section">
+  <div class="container">
+    <h2 class="head center"><div class="bgicon"><img src="../../../assets/images/location.png" class="w-100"></div><div class="name">{{LanguageText.txt_merchant_helpbusiness}}</div></h2>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-xl-6 col-xs-12 borderrightrespo">
+        <div class="helpbsnsbox">
+          <h3 class="helpbnttl">{{LanguageText.txt_merchant_reachnewcustomers}}</h3>
+          <p>{{LanguageText.txt_merchant_reachnewcustomersdesc}}.</p>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-xl-6 col-xs-12">
+        <div class="helpbsnsbox">
+          <h3 class="helpbnttl">{{LanguageText.txt_merchant_increasebrand}}</h3>
+          <p>{{LanguageText.txt_merchant_increasebranddesc}}.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+
+<section class="benefits section">
+<div class="container">
+<h2 class="head center"><div class="bgicon"><img src="../../../assets/images/location.png" class="w-100"></div><div class="name">{{LanguageText.txt_merchant_merchantbenefits}}</div></h2>
+<ul>
+<li><div class="icon"><img src="../../../assets/images/correct-green.png" class="w-100" /></div> <span>{{LanguageText.txt_merchant_buyfood}}</span></li>
+<li><div class="icon"><img src="../../../assets/images/correct-green.png" class="w-100" /></div> <span>{{LanguageText.txt_merchant_helphoto}}</span></li>
+<li><div class="icon"><img src="../../../assets/images/correct-green.png" class="w-100" /></div> <span>{{LanguageText.txt_merchant_lowcommission}}</span></li>
+<li><div class="icon"><img src="../../../assets/images/correct-green.png" class="w-100" /></div> <span>{{LanguageText.txt_merchant_nostartup}}</span></li>
+<li><div class="icon"><img src="../../../assets/images/correct-green.png" class="w-100" /></div> <span>{{LanguageText.txt_merchant_thaieng}}</span></li>
+<li><div class="icon"><img src="../../../assets/images/correct-green.png" class="w-100" /></div> <span>{{LanguageText.txt_merchant_nomonthly}}</span></li>
+</ul>
+</div>
+</section>
+<section class="riderfeature" hidden>
+<div class="feature-1">
+<div class="container">
+<div class="row">
+<div class="col-md-3">
+<h2 class="head">
+<div class="bgicon"><img src="../../../assets/images/location.png" class="w-100" /></div>
+<div class="name">{{LanguageText.txt_merchant_merkalanbanga}}</div>
+</h2>
+</div>
+<div class="col-md-7">
+<div class="img">
+<a href="#" class="play-btn"><i class="far fa-play-circle"></i></a>
+<img src="../../../assets/images/foundationvideobg.jpg" class="w-100"/></div>
+</div>
+<div class="col-md-2">
+<div class="logo"><img src="../../../assets/images/funfact-logo.jpg" class="w-100"/></div>
+</div>
+</div>
+</div>
+</div>
+
+</section>
+<section class="feature-3" hidden>
+<div class="container">
+<div class="row">
+<div class="col-md-6"></div>
+<div class="col-md-6">
+<div class="box">
+<div class="icon"><img src="../../../assets/images/quate.png" class="w-100"/></div>
+<div class="title">{{LanguageText.txt_merchant_explore}}
+<span>{{LanguageText.txt_merchant_yourbusiness}}</span></div>
+<div class="btn-box"><a href="#" class="red-btn">{{LanguageText.txt_merchant_registernow}}!</a></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="downloadapp" hidden>
+<div class="container">
+<h2 class="head center"><div class="name">{{LanguageText.txt_merchant_download}}!</div></h2>
+<div class="box">
+<div class="row">
+<div class="col-md-6">
+<div class="label"> {{LanguageText.txt_merchant_scan}}</div>
+<div class="qr"><img src="../../../assets/images/qrcode.png" class="w-100"/></div>
+</div>
+<div class="col-md-6">
+<div class="label"> {{LanguageText.txt_merchant_downloadapp}}</div>
+<div class="store-btn">
+<a><img src="../../../assets/images/googleplay.png" class="w-100"/></a>
+<a><img src="../../../assets/images/appstore.png" class="w-100"/></a>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</section>
+<section class="signupdetail section pb-5" hidden>
+  <div class="container">
+  <h2 class="head center"><div class="bgicon"><img src="../../../assets/images/location.png" class="w-100"></div><div class="name">{{LanguageText.txt_merchant_howitwork}}</div></h2>
+
+  <!-- NEW -->
+  <div class="row mt-5" hidden>
+    <div class="col-md-12 col-lg-5">
+        <div class="rightab mb-3 mb-md-0">
+            <div class="tab-content">
+              <div class="tab-pane in active" id="tab1">
+                <img src="../../../assets/images/mer1.png" *ngIf="iconVisible">
+                <img src="../../../assets/images/mer2.png" *ngIf="iconVisible2">
+                <img src="../../../assets/images/mer3.png" *ngIf="iconVisible3">
+                <img src="../../../assets/images/mer4.png" *ngIf="iconVisible4">
+              </div>
+            </div>
+         </div>
+    </div>
+    <div class="col-md-12 col-lg-7">
+        <div class="vrtwiz">
+            <ul class="verticalwiz part2">
+                <li class="active">
+                    <a href="#tab1" data-toggle="tab" class="active d-flex" (mouseenter)="mouseEnter()">
+                    <span class="step mr-3">1</span>
+                    <div class="title">
+                      <h5>{{LanguageText.txt_merchant_signup}}</h5>
+                      <h6>{{LanguageText.txt_merchant_signupdesc}}.</h6>
+                    </div>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="#tab2" data-toggle="tab" class="d-flex" (mouseenter)="mouseEnter2()">
+                    <span class="step mr-3">1</span>
+                    <div class="title">
+                      <h5>{{LanguageText.txt_merchant_waitforapproval}}</h5>
+                      <h6>{{LanguageText.txt_merchant_waitforapprovaldesc}}.</h6>
+                    </div>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="#tab3" data-toggle="tab" class="d-flex" (mouseenter)="mouseEnter3()">
+                      <span class="step mr-3">1</span>
+                    <div class="title">
+                      <h5>{{LanguageText.txt_merchant_uploadyourmenu}}</h5>
+                      <h6>{{LanguageText.txt_merchant_uploadyourmenudesc}}.</h6>
+                    </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#tab4" data-toggle="tab" class="d-flex" (mouseenter)="mouseEnter4()">
+                      <span class="step mr-3">1</span>
+                    <div class="title">
+                      <h5>{{LanguageText.txt_merchant_startserving}}</h5>
+                      <h6>{{LanguageText.txt_merchant_startservingdesc}}.</h6>
+                    </div>
+                    </a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+  </div>
+  </div>
+  </section>
+<section class="riderfaq">
+<div class="container">
+<h2 class="head center mb-0"><div class="bgicon"><img src="../../../assets/images/location.png" class="w-100"></div><div class="name">{{LanguageText.txt_merchant_faqs}}</div></h2>
+<div class="slider">
+  <div class="panel panel-primary mt-5">
+    <div class="row">
+      <div class="col-md-5 col-lg-5 col-xl-5">
+        <div class=" tab-menu-heading p-0">
+          <div class="tabs-menu1 ">
+            <!-- Tabs -->
+            <ul class="faqquation nav panel-tabs">
+              <li class="box "><a href="#rider1" target="_self" data-toggle="tab">How does a KalanBanga partnership work? <a class="more-btn"><i class="fas fa-arrow-right"></i></a></a></li>
+              <li class="box"><a href="#rider2" target="_self" data-toggle="tab">How can KalanBanga help my business? <a class="more-btn"><i class="fas fa-arrow-right"></i></a></a></li>
+              <li class="box"><a href="#rider3" target="_self" data-toggle="tab">Why should I partner with KalanBanga? <a class="more-btn"><i class="fas fa-arrow-right"></i></a></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-7  col-lg-7 col-xl-7">
+        <div class="panel-body tabs-menu-body">
+          <div class="tab-content">
+            <div class="tab-pane active " id="rider1">
+              <div class="answer">
+                <div class="name">{{LanguageText.txt_faqs_mer_f1}}</div>
+                <p>{{LanguageText.txt_faqs_mer_f1_q}}</p>
+              </div>
+            </div>
+            <div class="tab-pane " id="rider2">
+              <div class="answer">
+                <div class="name">{{LanguageText.txt_faqs_mer_f2}}?</div>
+                <p>{{LanguageText.txt_faqs_mer_f2_q}}!</p>
+              </div>
+            </div>
+            <div class="tab-pane " id="rider3">
+              <div class="answer">
+                <div class="name">{{LanguageText.txt_faqs_mer_f3}}?</div>
+                <p>{{LanguageText.txt_faqs_mer_f3_q}}.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+</section>
+</main>
+<app-footer *ngIf="isLanguageLoaded"></app-footer>

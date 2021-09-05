@@ -1,0 +1,413 @@
+<app-authheader *ngIf="isUserMode()" class="header-without-search hometrans"></app-authheader>
+<app-header *ngIf="!isUserMode()" id="home" class="header-without-search hometrans"></app-header>
+<main *ngIf="isLanguageLoaded&&false">
+    <section class="banner-sec">
+        <div class="row rowidth100 align-items-md-center justify-content-center">
+          <div class="banner-img">
+            <div class="container p-relative">
+              <div class="search_locs_sec">
+                <div class="search_locs">
+                  <h3>{{LanguageText.txt_kalanbanga_tastiestfood}}</h3>
+                  <div class="search_input_box_sh">
+                    <div class="form-group mb-0 icon-left inconright">
+                      <div class="icon" style="top: 15px;">
+                        <img (click)="openMap()" [lazyLoad]="'../../../assets/images/icon-pin-red.png'" class="w-100">
+                      </div>
+                      <button id="newaddress" [hidden]="true" data-toggle="modal" data-target="#pinlocationaddress"></button>
+                      <input type="text" placeholder="{{LanguageText.txt_index_enter_delivery_address}}" [(ngModel)]="Address" [ngModelOptions]="{standalone:true}" id="searchlocation" class="form-control">
+                      <div class="text-danger font12" *ngIf="errormessageshow">{{errormessage}}</div>
+                      <div class="lds-ellipsis landingpge" *ngIf="!loadmoreshow" ><div></div><div></div><div></div><div></div></div>
+                      <div class="crosshairs_pin">
+
+                        <a style="cursor: pointer;" *ngIf="loadmoreshow" (click)="getcurrentlocation()"><i class="fa fa-crosshairs" aria-hidden="true"></i></a>
+
+                      </div>
+                      <div class="btn_search_lp">
+                        <a (click)="gotohomepage()" ><i class="fas fa-chevron-right" aria-hidden="true"></i></a>
+                      </div>
+                    </div>
+                    <!-- <p>Area supported&nbsp;&nbsp;</p> -->
+                    <div class="form-group mb-0 icon-left inconright" hidden>
+                      <div class="icon" style="top: 15px;">
+                        <img  [lazyLoad]="'../../../assets/images/icon-pin-red.png'" class="w-100">
+                      </div>
+
+                      <input type="text" (click)="gotocalamba()" value="Pattaya, Bang Lamung District, Chon Buri, Thailand" id="pattatya" class="form-control" readonly style="color: rgb(160, 52, 52);background-color: white;cursor:pointer;">
+
+
+
+                    </div>
+                  </div>
+                  <span _ngcontent-bky-c99="" (click)="gotohomecalamba()" class="btnpopsearch" style="cursor: pointer;color: rgb(94, 93, 93);background-color: white;border-color: white;border-radius: 5px;box-shadow: wheat;margin-top: 20px;"><strong>{{LanguageText.txt_index_calamba}}</strong></span>
+                  <div class="calambabanner_btn" style="cursor: pointer;">
+
+                    <a  class="calamba_bnbtn" (click)="gotohomecalamba()">
+                      <!-- <img src="../../../assets/images/calambabanner.jpg" class="w-100" (click)="gotohomecalamba()"/> -->
+                      <!-- <div class="calamba_title" style="">{{LanguageText.txt_index_calamba}}</div> -->
+
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="">
+        <div class="container">
+            <div class="row mt-5">
+              <div class="col-12 text-center">
+                <h2 class="head center">
+                <div class="bgicon"><img [lazyLoad]="'../../../assets/images/location.png'" class="w-100" /></div>
+                <div class="name">{{LanguageText.txt_index_howtouse}}<br> {{LanguageText.txt_index_kalanbanga}}?</div>
+                </h2>
+              </div>
+              <div class="col-sm-12">
+                <div class="row">
+                  <div class="col-md-12 col-lg-5">
+                      <div class="rightab mb-3 mb-md-0">
+                          <div class="tab-content">
+                            <div class="tab-pane in active" id="tab1">
+                              <!-- <img [lazyLoad]="'../../../assets/images/index1.jpg'" *ngIf="iconVisible">
+                              <img [lazyLoad]="'../../../assets/images/index2.jpg'" *ngIf="iconVisible2">
+                              <img [lazyLoad]="'../../../assets/images/index3.jpg'" *ngIf="iconVisible3">
+                              <img [lazyLoad]="'../../../assets/images/index4.jpg'" *ngIf="iconVisible4">
+                              <img [lazyLoad]="'../../../assets/images/index5.jpg'" *ngIf="iconVisible5"> -->
+                            </div>
+                          </div>
+                       </div>
+                  </div>
+                  <div class="col-md-12 col-lg-7">
+                      <div class="vrtwiz">
+                          <ul class="verticalwiz part2">
+                              <li class="active">
+                                  <a href="#tab1" data-toggle="tab" class="active d-flex" (mouseenter)="mouseEnter()">
+                                  <span class="step mr-3">1</span>
+                                  <div class="title">
+                                    <h5>{{LanguageText.txt_index_pinlocation}}</h5>
+                                    <h6>{{LanguageText.txt_index_enterfoodelivery}}.</h6>
+                                  </div>
+                                  </a>
+                              </li>
+                              <li class="">
+                                  <a href="#tab2" data-toggle="tab" class="d-flex" (mouseenter)="mouseEnter2()">
+                                  <span class="step mr-3">1</span>
+                                  <div class="title">
+                                    <h5>{{LanguageText.txt_index_easyordering}}</h5>
+                                    <h6>{{LanguageText.txt_index_easyordering1}}.</h6>
+                                  </div>
+                                  </a>
+                              </li>
+                              <li class="">
+                                  <a href="#tab3" data-toggle="tab" class="d-flex" (mouseenter)="mouseEnter3()">
+                                    <span class="step mr-3">1</span>
+                                  <div class="title">
+                                    <h5>{{LanguageText.txt_index_selectyourfood}}</h5>
+                                    <h6>{{LanguageText.txt_index_selectyourfood1}}.</h6>
+                                  </div>
+                                  </a>
+                              </li>
+                              <!-- <li>
+                                  <a href="#tab4" data-toggle="tab" class="d-flex" (mouseenter)="mouseEnter4()">
+                                    <span class="step mr-3">1</span>
+                                  <div class="title">
+                                    <h5>{{LanguageText.txt_index_safepayment}}</h5>
+                                    <h6>{{LanguageText.txt_index_safepayment1}}.</h6>
+                                  </div>
+                                  </a>
+                              </li> -->
+                              <li>
+                                  <a href="#tab5" data-toggle="tab" class="d-flex" (mouseenter)="mouseEnter5()">
+                                    <span class="step mr-3">1</span>
+                                  <div class="title">
+                                    <h5>{{LanguageText.txt_index_realtimeorder}}</h5>
+                                    <h6>{{LanguageText.txt_index_realtimeorder1}}.</h6>
+                                  </div>
+                                  </a>
+                              </li>
+                          </ul>
+                          <div class="clearfix"></div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </section>
+
+      <section class="pt-5 pb-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4 col-12 mt-3 mb-3 d-flex align-items-center justify-content-center">
+                <h2 class="head">
+                <div class="bgicon"><img [lazyLoad]="'../../../assets/images/location.png'" class="w-100" /></div>
+                <div class="name">{{LanguageText.txt_index_how}}<br>{{LanguageText.txt_index_itworks}}</div></h2>
+            </div>
+            <div class="col-md-8 col-12 mt-3 mb-3">
+              <img [lazyLoad]="'../../../assets/images/lp_how-its-work.png'" class="w-100 d-none d-md-block">
+              <ul class="how_itworks_list">
+                <li>{{LanguageText.txt_index_find_restaurant}}</li>
+                <li>{{LanguageText.txt_index_order_food}}</li>
+                <li>{{LanguageText.txt_index_get_food}}</li>
+              </ul>
+              <img [lazyLoad]="'../../../assets/images/lp_mob-work.png'" class="w-100 d-block d-md-none">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="marketing p-0 pt-5" hidden>
+        <div class="container container_hand_now">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="app-box pb-0">
+                <div class="row">
+                  <div class="col-md-5 text-center order-md-1 order-2">
+                    <div class="hand-now">
+                      <img [lazyLoad]="'./../../assets/images/hand_en.gif'" *ngIf="isEnglish" class="w-100 app-img">
+                      <img [lazyLoad]="'../../../assets/images/hand_th.gif'" *ngIf="!isEnglish" class="w-100 app-img">
+                    </div>
+                  </div>
+                  <div class="col-md-7 mb-3 mb-md-0 order-md-2 order-1">
+                    <div class="text_dl_secs">
+                      <h3 class="text-white font-weight-bold dl_ttl">{{LanguageText.txt_index_downloadkalanbanga}}!</h3>
+                      <div class="app-content text-center">
+                        <div class="icon-title" *ngIf="isEnglish">
+                          <div class="play-btn">
+                            <a href="https://kalanbanga.onelink.me/AHAB/KalanBanga" target="_blank"><img [lazyLoad]="'../../../assets/images/app_en.png'" class="w-100"></a>
+                          </div>
+                          <div class="play-btn p-0">
+                            <a href="https://kalanbanga.onelink.me/AHAB/KalanBanga" target="_blank"><img class="w-100" [lazyLoad]="'../../../assets/images/google_en.png'"></a>
+                          </div>
+                        </div>
+                        <div class="icon-title" *ngIf="!isEnglish">
+                          <div class="play-btn">
+                            <a href="https://kalanbanga.onelink.me/AHAB/KalanBanga" target="_blank"><img [lazyLoad]="'../../../assets/images/app_th.png'" class="w-100"></a>
+                          </div>
+                          <div class="play-btn p-0">
+                            <a href="https://kalanbanga.onelink.me/AHAB/KalanBanga" target="_blank"><img class="w-100" [lazyLoad]="'../../../assets/images/google_th.png'"></a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="pt-0">
+        <div class="container">
+            <div class="row">
+              <div class="col-md-2 col-12 ourvaluettlsec d-flex align-items-center">
+                <h2 class="head">
+                    <div class="bgicon"><img [lazyLoad]="'../../../assets/images/location.png'" class="w-100" /></div>
+                    <div class="name">{{LanguageText.txt_index_ourvalue1}}<br>{{LanguageText.txt_index_ourvalue2}}</div></h2>
+              </div>
+
+              <div class="col-md-9 mb-3 ourvaluesection mb-md-0 pl-md-5 d-flex">
+                <div class="app-content text-justify">
+                  <div class="vrtwiz">
+                    <ul class="verticalwiz part2">
+                        <li class="active" data-target="#step1">
+                            <a href="#tab1" data-toggle="tab" class="active d-flex">
+                            <span class="step mr-3">1</span>
+                            <div class="title">
+                              <h5>{{LanguageText.txt_index_toourcustomers}}</h5>
+                              <h6>{{LanguageText.txt_index_toourcustomers1}}.</h6>
+                            </div>
+                            </a>
+                        </li>
+                        <li data-target="#step2" class="">
+                            <a href="#tab2" data-toggle="tab" class="d-flex">
+                            <span class="step mr-3">1</span>
+                            <div class="title">
+                              <h5>{{LanguageText.txt_index_toourmerchants}}</h5>
+                              <h6>{{LanguageText.txt_index_toourmerchants1}}.</h6>
+                            </div>
+                            </a>
+                        </li>
+                        <li data-target="#step3" class="">
+                            <a href="#tab3" data-toggle="tab" class="d-flex">
+                              <span class="step mr-3">1</span>
+                            <div class="title">
+                              <h5>{{LanguageText.txt_index_toourriders}}</h5>
+                              <h6>{{LanguageText.txt_index_toourriders1}}.</h6>
+                            </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </section>
+
+      <section class="faq pt-5 pb-5">
+        <div class="container">
+          <div class="row mt-5">
+            <div class="col-12 text-center">
+                <h2 class="head center">
+                <div class="bgicon"><img [lazyLoad]="'../../../assets/images/location.png'" class="w-100" /></div>
+                <div class="name">{{LanguageText.txt_index_howtouse}}<br>{{LanguageText.txt_index_kalanbanga}}?</div>
+                </h2>
+            </div>
+          </div>
+          <div class="accordion" id="faq">
+            <div class="row">
+                <div class="col-md-6">
+                  <div class="card">
+                      <div class="card-header" id="faqhead1">
+                          <a class="btn btn-header-link collapsed" data-toggle="collapse" data-target="#faq1"
+                          aria-expanded="true" aria-controls="faq1">{{LanguageText.txt_index_whattime}}?</a>
+                      </div>
+                      <div id="faq1" class="collapse" aria-labelledby="faqhead1" data-parent="#faq">
+                          <div class="card-body">
+                              {{LanguageText.txt_index_whattime1}}
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="card">
+                      <div class="card-header" id="faqhead2">
+                          <a class="btn btn-header-link collapsed" data-toggle="collapse" data-target="#faq2"
+                          aria-expanded="true" aria-controls="faq2">{{LanguageText.txt_index_wherekalanbanga}}</a>
+                      </div>
+
+                      <div id="faq2" class="collapse" aria-labelledby="faqhead2" data-parent="#faq">
+                          <div class="card-body">
+                              {{LanguageText.txt_index_wherekalanbanga1}}!
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="card">
+                      <div class="card-header" id="faqhead3">
+                          <a href="#" class="btn btn-header-link collapsed" data-toggle="collapse" data-target="#faq3"
+                          aria-expanded="true" aria-controls="faq3">{{LanguageText.txt_index_howtousekalanbanga}}?</a>
+                      </div>
+
+                      <div id="faq3" class="collapse" aria-labelledby="faqhead3" data-parent="#faq">
+                          <div class="card-body pl-5">
+                              <ul>
+                                <li>{{LanguageText.txt_index_howtousekalanbanga1}}</li>
+                                <li>{{LanguageText.txt_index_howtousekalanbanga2}}</li>
+                                <li>{{LanguageText.txt_index_howtousekalanbanga3}}</li>
+                                <li>{{LanguageText.txt_index_howtousekalanbanga4}}</li>
+                                <li>{{LanguageText.txt_index_howtousekalanbanga5}}</li>
+                                <li>{{LanguageText.txt_index_howtousekalanbanga6}}.</li>
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="card">
+                      <div class="card-header" id="faqhead4">
+                          <a href="#" class="btn btn-header-link collapsed" data-toggle="collapse" data-target="#faq4"
+                          aria-expanded="true" aria-controls="faq4">{{LanguageText.txt_index_howmuchdoeshn}}?</a>
+                      </div>
+
+                      <div id="faq4" class="collapse" aria-labelledby="faqhead4" data-parent="#faq">
+                          <div class="card-body">
+                              {{LanguageText.txt_index_howmuchdoeshn1}}.
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="card">
+                      <div class="card-header" id="faqhead5">
+                          <a href="#" class="btn btn-header-link collapsed" data-toggle="collapse" data-target="#faq5"
+                          aria-expanded="true" aria-controls="faq5">{{LanguageText.txt_index_howcanpay}}?</a>
+                      </div>
+
+                      <div id="faq5" class="collapse" aria-labelledby="faqhead5" data-parent="#faq">
+                          <div class="card-body">
+                              {{LanguageText.txt_index_howcanpay1}}.
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="card">
+                      <div class="card-header" id="faqhead6">
+                          <a href="#" class="btn btn-header-link collapsed" data-toggle="collapse" data-target="#faq6"
+                          aria-expanded="true" aria-controls="faq6">{{LanguageText.txt_index_whocancontact}}?</a>
+                      </div>
+
+                      <div id="faq6" class="collapse" aria-labelledby="faqhead6" data-parent="#faq">
+                          <div class="card-body">
+                              {{LanguageText.txt_index_whocancontact1}}: <a href="https://kalanbanga.co.th/support">https://kalanbanga.co.th/support</a> {{LanguageText.txt_index_whocancontact2}}
+                          </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </section>
+       <!-- Modal Pin Location-->
+  <div class="modal fade" id="pinlocationaddress" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body modalbodypinlocation">
+        <button type="button" class="close btnclosemodal2" id="closeModalLocation" (click)="closeLocationModal()"
+          data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h5 class="title_modalcheckout2 text-center">{{LanguageText.txt_kalanbanga_setdeladdress}} </h5>
+
+
+
+        <!-- START -->
+        <form id="msform">
+
+          <fieldset>
+            <div class="form-card">
+              <form>
+                <div class="modal_search_sec">
+                  <input type="text" class="form-control search_location" (keydown.enter)="$event.preventDefault()"
+                    placeholder="Enter your exact location" autocorrect="off" autocapitalize="off" id="searchlocation2" spellcheck="off"
+                    type="text" #search>
+                  <i class="fa fa-map-pin location_icon" aria-hidden="true"></i>
+                </div>
+
+                <div class="pinlocation_map">
+                  <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" [mapTypeControl]='true'
+                    (centerChange)="centerChange($event)" (boundsChange)="boundsChange($event)"
+                    (mapReady)="mapReady($event)">
+                    <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+                      (dragEnd)="markerDragEnd($event)"></agm-marker>
+                  </agm-map>
+
+
+                </div>
+
+              </form>
+            </div>
+            <h5 class="text-left" style="cursor: pointer;color: brown;" (click)="setCurrentLocation()"><i
+                class="fa fa-location-arrow" aria-hidden="true"></i> Set to my current location</h5>
+
+            <input (click)="gotohomepage()" type="button"  name="next" class="btn next red-btn action-button"
+              value="Save my location" />
+
+          </fieldset>
+
+
+        </form>
+        <!-- END -->
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+<app-footer *ngIf="isLanguageLoaded"></app-footer>

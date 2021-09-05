@@ -1,0 +1,350 @@
+<app-header class="riderheader"></app-header>
+<main *ngIf="isLanguageLoaded" class="riderbody">
+<section class="main processpage">
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="horizontal-process text-center">
+      <div class=" tab-menu-heading p-0">
+        <div class="tabs-menu1 "> <!-- Tabs -->
+          <ul class="panel-tabs">
+            <li class=""><a href="#tab5" id="tabbannermenu" class="active" target="_self" data-toggle="tab"><div class="icon"><img src="../../../assets/images/icon-worker-grey.png" class="w-100 active-hide"/><img src="../../../assets/images/icon-worker-white.png" class="w-100 active-show"/></div>
+              <div class="name">{{LanguageText.txt_rider_gnrlinfo}}</div></a></li>
+            <li><a href="#tab6" data-toggle="tab" class="" target="_self"><div class="icon"><img src="../../../assets/images/icon-personal-grey.png" class="w-100 active-hide"/><img src="../../../assets/images/icon-personal-white.png" class="w-100 active-show"/></div>
+              <div class="name">{{LanguageText.txt_rider_prsnlinfo}}</div></a></li>
+            <li><a href="#tab7" data-toggle="tab" class="" target="_self"><div class="icon"><img src="../../../assets/images/icon-add-grey.png" class="w-100 active-hide"/><img src="../../../assets/images/icon-add-white.png" class="w-100 active-show"/></div>
+              <div class="name">{{LanguageText.txt_rider_cntctprsondetails}}</div></a></li>
+            <li><a href="#tabads" data-toggle="tab" class="" target="_self"><div class="icon"><img src="../../../assets/images/icon-list-grey.png" class="w-100 active-hide"/><img src="../../../assets/images/icon-list-white.png" class="w-100 active-show"/></div>
+              <div class="name">{{LanguageText.txt_rider_uplddocu}}</div></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="panel-body tabs-menu-body">
+      <div class="tab-content">
+        <div class="tab-pane nopad active" id="tab5">
+          <form>
+            <div class="step-1">
+              <div class="red-title">{{LanguageText.txt_rider_gnrlinfo}}</div>
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xl-4">
+                <div class="form-group selectarrow">
+                    <label>{{LanguageText.txt_rider_whatcity}}?</label>
+                    <select class="form-control selectbox" [(ngModel)]="whatcity" [ngModelOptions]="{standalone: true}">
+                    <option value="">ex. Calamba</option>
+                    <option value="Calamba">Calamba</option>
+
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-4">
+                <div class="form-group">
+                    <label>{{LanguageText.txt_rider_howlong}}?</label>
+                    <input type="text" class="form-control" placeholder="ex.  5 years" [(ngModel)]="yearslive"
+                    [ngModelOptions]="{standalone: true}"/>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-4">
+                <div class="form-group">
+                    <label>{{LanguageText.txt_rider_howmanyyears}}?</label>
+                    <input type="text" class="form-control" placeholder="ex.  5 years" [(ngModel)]="yearsrider"
+                    [ngModelOptions]="{standalone: true}"/>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-4">
+                <div class="form-group">
+                    <label>{{LanguageText.txt_rider_whereworkingbefore}}:</label>
+                    <input type="text" class="form-control" placeholder="ex. foodpanda, grab"  [(ngModel)]="lastcompany"
+                    [ngModelOptions]="{standalone: true}"/>
+                  </div>
+                </div>
+                <div class="col-12 col-xl-12 btn-box text-center">
+                <a href="#tab6" target="_self" data-toggle="tab">{{LanguageText.txt_merchant_next}}</a>
+                </div>
+              </div>
+              </div>
+            </form>
+        </div>
+        <div class="tab-pane nopad" id="tab6">
+          <form>
+            <div class="step-1">
+              <div class="red-title">{{LanguageText.txt_rider_personal_information}}</div>
+              <div class="row">
+                <div class="col-md-12 col-lg-12 col-xl-12">
+                  <div class="form-group">
+                    <label>{{LanguageText.txt_rider_profile_image}}</label>
+                    <div class="custom-upload">
+                      <div class="icon"><i class="fa fa-cloud-upload" aria-hidden="true"></i></div>
+                      <div class="label">{{showfilename(profileImage)}}</div>
+                      <input type="file" class="inputfile_invi" id="profileimage" (change)="handleFileInput($event.target.files,'profileimage')">
+
+                    </div>
+                   <label *ngIf="hasfileprofileImage" for="profileimage" style="color: brown;cursor: pointer;">{{LanguageText.txt_rider_change}}</label>
+                  </div>
+
+                </div>
+
+                <div class="col-md-6 col-lg-4 col-xl-4">
+                <div class="form-group selectarrow">
+                    <label>{{LanguageText.txt_rider_gender}}</label>
+                    <select class="form-control selectbox" [(ngModel)]="gender" [ngModelOptions]="{standalone: true}">
+                      <option value="0" selected>{{LanguageText.txt_rider_select_gender}}</option>
+                      <option value="1">{{LanguageText.txt_rider_male}}</option>
+                      <option value="2">{{LanguageText.txt_rider_female}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-4">
+                  <div class="form-group">
+                    <label>{{LanguageText.txt_rider_age}}</label>
+                    <input type="number" class="form-control" placeholder="ex. 15" [(ngModel)]="age"
+                    [ngModelOptions]="{standalone: true}"/>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-4">
+                  <div class="form-group">
+                    <label>{{LanguageText.txt_rider_device}}</label>
+                    <select class="form-control selectbox" [(ngModel)]="device" [ngModelOptions]="{standalone: true}">
+                      <option value="Android">{{LanguageText.txt_rider_android}}</option>
+                      <option value="iOS">iOS</option>
+                    </select>
+
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-6">
+                  <div class="form-group">
+                    <label>{{LanguageText.txt_rider_motorbike}}</label>
+                    <input type="text" class="form-control" placeholder="ex. Yamaha" [(ngModel)]="motorbike"
+                    [ngModelOptions]="{standalone: true}"/>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-6">
+                  <div class="form-group">
+                    <label>{{LanguageText.txt_rider_registration_number}}</label>
+                    <input type="text" class="form-control" placeholder="Enter Registration number" [(ngModel)]="regnumber"
+                    [ngModelOptions]="{standalone: true}"/>
+                  </div>
+                </div>
+
+                <div class="col-12 col-xl-12 btn-box text-center">
+                <a href="#tab7" target="_self" data-toggle="tab">{{LanguageText.txt_merchant_next}}</a>
+                </div>
+              </div>
+              </div>
+            </form>
+        </div>
+        <div class="tab-pane nopad" id="tab7">
+          <form>
+            <div class="step-1">
+              <div class="red-title">{{LanguageText.txt_rider_cntctprsondetails}}</div>
+              <div class="row">
+                <div class="col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group">
+                    <label>{{LanguageText.txt_rider_phone_number}}</label>
+                    <input type="text" class="form-control" placeholder="Enter your Phone Number" [(ngModel)]="phonenumber"
+                    [ngModelOptions]="{standalone: true}"/>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-6">
+                  </div>
+                <div class="col-md-6 col-lg-6 col-xl-6">
+                <div class="form-group selectarrow">
+                    <label>{{LanguageText.txt_rider_contact_person}}</label>
+                    <input type="text" class="form-control" placeholder="Enter Contact Person" [(ngModel)]="contactperson"
+                    [ngModelOptions]="{standalone: true}"/>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-6">
+                  <div class="form-group">
+                    <label>{{LanguageText.txt_rider_contact_number}}</label>
+                    <input type="text" class="form-control" placeholder="Enter Contact Number" [(ngModel)]="contactnumber"
+                    [ngModelOptions]="{standalone: true}"/>
+                  </div>
+                </div>
+                <div class="col-md-12 col-lg-12 col-xl-12">
+                  <div class="form-group">
+                    <label>{{LanguageText.txt_rider_home_address}}</label>
+                    <textarea class="form-control" style="height: 100px;" placeholder="Enter your Home address" [(ngModel)]="address"
+                    [ngModelOptions]="{standalone: true}"></textarea>
+                  </div>
+                </div>
+                <div class="col-12 col-xl-12 btn-box text-center">
+                <a href="#tabads" target="_self" data-toggle="tab">{{LanguageText.txt_merchant_next}}</a>
+                </div>
+              </div>
+              </div>
+            </form>
+        </div>
+        <div class="tab-pane nopad" id="tabads">
+          <form>
+            <div class="step-1">
+              <div class="red-title">{{LanguageText.txt_rider_uplddocu}}</div>
+              <div class="row">
+                <div class="col-md-6 col-lg-6 col-xl-6">
+
+                  <div class="form-group">
+                    <label>License</label>
+                    <div class="custom-upload">
+                      <div class="icon"><i class="fa fa-cloud-upload" aria-hidden="true"></i></div>
+                      <div class="label">{{showfilename(license)}}</div>
+                      <input type="file" class="inputfile_invi" id="license" (change)="handleFileInput($event.target.files,'license')">
+
+                    </div>
+                   <label *ngIf="hasfilelicense" for="license" style="color: brown;cursor: pointer;">{{LanguageText.txt_rider_change}}</label>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-6">
+                  <div class="form-group">
+                    <label>Valid ID</label>
+                    <div class="custom-upload">
+                      <div class="icon"><i class="fa fa-cloud-upload" aria-hidden="true"></i></div>
+                      <div class="label">{{showfilename(validId)}}</div>
+                      <input type="file" class="inputfile_invi" id="validId" (change)="handleFileInput($event.target.files,'validId')">
+
+                    </div>
+                   <label *ngIf="hasfilevalidId" for="validId" style="color: brown;cursor: pointer;">{{LanguageText.txt_rider_change}}</label>
+                  </div>
+                </div>
+                <div class="col-12 col-xl-12 btn-box text-center mt-4">
+                  <a (click)="updateRiderRecords()">{{LanguageText.txt_resetpw_submit}}</a>
+                </div>
+              </div>
+             </div>
+            </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+<!-- <div class="horizontal-process text-center">
+<ul>
+<li class="active"><a><div class="icon"><img src="../../../assets/images/icon-worker-grey.svg" class="w-100 active-hide"/><img src="../../../assets/images/icon-worker-white.svg" class="w-100 active-show"/></div>
+<div class="name">{{LanguageText.txt_rider_gnrlinfo}}</div>
+</a>
+</li>
+<li><a><div class="icon"><img src="../../../assets/images/icon-personal-grey.svg" class="w-100 active-hide"/><img src="../../../assets/images/icon-personal-white.svg" class="w-100 active-show"/></div>
+<div class="name">{{LanguageText.txt_rider_prsnlinfo}}</div>
+</a>
+</li>
+<li><a><div class="icon"><img src="../../../assets/images/icon-add-grey.svg" class="w-100 active-hide"/><img src="../../../assets/images/icon-add-white.svg" class="w-100 active-show"/></div>
+<div class="name">{{LanguageText.txt_rider_cntctprsondetails}}</div>
+</a></li>
+<li><a><div class="icon"><img src="../../../assets/images/icon-list-grey.svg" class="w-100 active-hide"/><img src="../../../assets/images/icon-list-white.svg" class="w-100 active-show"/></div>
+<div class="name">{{LanguageText.txt_rider_uplddocu}}</div>
+</a></li>
+</ul>
+</div> -->
+
+</div>
+<div class="bike"><img src="../../../assets/images/bigmotorcycle.png" class="w-100"/></div>
+</section>
+<section class="riderfaq">
+<div class="container">
+<h2 class="head center"><div class="bgicon"><img src="../../../assets/images/location.png" class="w-100"></div><div class="name">{{LanguageText.txt_rider_faqs}}</div></h2>
+<div class="slider">
+  <div class="panel panel-primary mt-5">
+    <owl-carousel [options]="riderfaqOptions" [carouselClasses]="['owl-theme riderfaqslist', 'sliding']">
+        <div class="row">
+          <div class="col-md-5 col-lg-5 col-xl-5">
+            <div class=" tab-menu-heading p-0">
+              <div class="tabs-menu1 ">
+                <!-- Tabs -->
+                <ul class="faqquation nav panel-tabs">
+                  <li class="box active"><a href="#rider1" target="_self" data-toggle="tab">{{LanguageText.txt_faqs_r_f1}}? <a class="more-btn"><i class="fas fa-arrow-right"></i></a></a></li>
+                  <li class="box"><a href="#rider2" target="_self" data-toggle="tab">{{LanguageText.txt_faqs_r_f2}}? <a class="more-btn"><i class="fas fa-arrow-right"></i></a></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-7  col-lg-7 col-xl-7">
+            <div class="panel-body tabs-menu-body">
+              <div class="tab-content">
+                <div class="tab-pane active " id="rider1">
+                  <div class="answer">
+                    <div class="name">{{LanguageText.txt_faqs_r_f1}}?</div>
+                    <p>{{LanguageText.txt_faqs_r_f1_q}}.</p>
+                  </div>
+                </div>
+                <div class="tab-pane " id="rider2">
+                  <div class="answer">
+                    <div class="name">{{LanguageText.txt_faqs_r_f2}}?</div>
+                    <p>{{LanguageText.txt_faqs_r_f2_q}}. </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-5 col-lg-5 col-xl-5">
+            <div class=" tab-menu-heading p-0">
+              <div class="tabs-menu1 ">
+                <!-- Tabs -->
+                <ul class="faqquation nav panel-tabs">
+                  <li class="box active"><a href="#rider3" target="_self" data-toggle="tab">{{LanguageText.txt_faqs_r_f3}}? <a class="more-btn"><i class="fas fa-arrow-right"></i></a></a></li>
+                  <li class="box"><a href="#rider4" target="_self" data-toggle="tab">{{LanguageText.txt_faqs_r_f4}}? <a class="more-btn"><i class="fas fa-arrow-right"></i></a></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-7  col-lg-7 col-xl-7">
+            <div class="panel-body tabs-menu-body">
+              <div class="tab-content">
+                <div class="tab-pane active" id="rider3">
+                  <div class="answer">
+                    <div class="name">{{LanguageText.txt_faqs_r_f3}}?</div>
+                    <p>{{LanguageText.txt_faqs_r_f4_q}}!</p>
+                  </div>
+                </div>
+                <div class="tab-pane " id="rider4">
+                  <div class="answer">
+                    <div class="name">{{LanguageText.txt_faqs_r_f4}}?</div>
+                    <p>{{LanguageText.txt_faqs_r_f5_q}}.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-5 col-lg-5 col-xl-5">
+            <div class=" tab-menu-heading p-0">
+              <div class="tabs-menu1 ">
+                <!-- Tabs -->
+                <ul class="faqquation nav panel-tabs">
+                  <li class="box active"><a href="#rider5" target="_self" data-toggle="tab">{{LanguageText.txt_faqs_r_f6}}? <a class="more-btn"><i class="fas fa-arrow-right"></i></a></a></li>
+                  <li class="box"><a href="#rider6" target="_self" data-toggle="tab">{{LanguageText.txt_faqs_r_f7}}? <a class="more-btn"><i class="fas fa-arrow-right"></i></a></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-7  col-lg-7 col-xl-7">
+            <div class="panel-body tabs-menu-body">
+              <div class="tab-content">
+                <div class="tab-pane active" id="rider5">
+                  <div class="answer">
+                    <div class="name">{{LanguageText.txt_faqs_r_f6}}?</div>
+                    <p>{{LanguageText.txt_faqs_r_f6_q}}.</p>
+                  </div>
+                </div>
+                <div class="tab-pane " id="rider6">
+                  <div class="answer">
+                    <div class="name">{{LanguageText.txt_faqs_r_f7}}?</div>
+                    <p>{{LanguageText.txt_faqs_r_f7_q}}:</p>
+                    <p>
+                      {{LanguageText.txt_faqs_r_f7_q1}}<br>
+                      {{LanguageText.txt_faqs_r_f7_q2}}<br>
+                      {{LanguageText.txt_faqs_r_f7_q3}}.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </owl-carousel>
+    </div>
+</div>
+</div>
+</section>
+</main>
+<app-footer *ngIf="isLanguageLoaded"></app-footer>
