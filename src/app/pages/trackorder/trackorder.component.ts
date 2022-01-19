@@ -16,6 +16,8 @@ import { FdatabaseService } from '../../service/firebase/fdatabase.service';
 export class TrackorderComponent implements OnInit {
   // LANGUAGE
   LanguageText: any;
+  table = 0
+  guest = 0
   isLanguageLoaded = false;
   smurf = false
   params: string
@@ -386,6 +388,8 @@ export class TrackorderComponent implements OnInit {
           this.restolongitude = Number(data.data.restaurant_details.restaurant_longitude)
           this.latitude = Number(data.data.customer_details.cus_latitude)
           this.longitude = Number(data.data.customer_details.cus_longitude)
+          this.table = data.data.table
+          this.guest = data.data.guest
           if (this.focuslatitude == 0.0) {
             this.focuslatitude = Number(data.data.customer_details.cus_latitude)
             this.focuslongitude = Number(data.data.customer_details.cus_longitude)
@@ -393,9 +397,9 @@ export class TrackorderComponent implements OnInit {
           this.orderStatus = data.data.order_status_details
           this.deliverytime = data.data.restaurant_details.delivery_time
           if (!(this.isActiveStatus(8) == "active" || this.isActiveStatus(9) == "active")) {
-            setTimeout(() => {
-              this.BGgetOrderTracking()
-            }, 2000);
+            // setTimeout(() => {
+            //   this.BGgetOrderTracking()
+            // }, 2000);
           }
           this.estimated_time = data.data.restaurant_details.estimated_time
           this.estimatedmin = data.data.restaurant_details.estimated_mins

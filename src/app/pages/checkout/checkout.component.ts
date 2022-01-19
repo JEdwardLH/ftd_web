@@ -53,6 +53,8 @@ export class CheckoutComponent implements OnInit {
   discountValue: string;
   lang: string;
   hasCart = false
+  numberofguest = "2";
+  selectednumberofguest= "2"
   private geoCoder;
   isLanguageLoaded = false
   LanguageText: any;
@@ -99,6 +101,8 @@ export class CheckoutComponent implements OnInit {
   firstname = ""
   lastname = ""
   email = ""
+  tablenumber = "1"
+  selectedtableno = "1"
   checkoutphonenumber = ""
   checkoutemail = ""
   checkoutfirstname = ""
@@ -230,6 +234,14 @@ export class CheckoutComponent implements OnInit {
   openAddressModalUser() {
 
     document.getElementById("openModalUser").click();
+  }
+  openAddressModalUser2() {
+
+    document.getElementById("openModalUser2").click();
+  }
+  openAddressModalUser3() {
+
+    document.getElementById("openModalUser3").click();
   }
   closeLocationModal() {
 
@@ -1059,10 +1071,10 @@ export class CheckoutComponent implements OnInit {
 
   }
   PlaceOrder() {
-    if(this.deliveryAddressList.length == 0){
-      this.openDialog("Please set your delivery address!")
-      return
-    }
+    // if(this.deliveryAddressList.length == 0){
+    //   this.openDialog("Please set your delivery address!")
+    //   return
+    // }
     document.getElementById("showloading").click();
     var headers = {};
 
@@ -1180,7 +1192,9 @@ export class CheckoutComponent implements OnInit {
         use_wallet: 0,
         use_coupon: 0,
         rest_id: this.restoid,
-        cardID: this.selectedPaymentRadio
+        cardID: this.selectedPaymentRadio,
+        guest:this.selectednumberofguest,
+        table:this.selectedtableno
       }
     }
 
@@ -1188,8 +1202,12 @@ export class CheckoutComponent implements OnInit {
     this.CartService.placeOrder(body, headers).subscribe((data: any) => {
       document.getElementById("closeloading").click();
       if (data.code == 200) {
+        if(data.hasOwnProperty("bux")){
+          window.location.href = data.bux.checkout_url
+        }else{
+          this.openDialog("error")
+        }
 
-        window.location.href = '/trackorder/' + data.transaction_id;
       } else {
         this.openDialog(data.message)
       }
@@ -1197,6 +1215,12 @@ export class CheckoutComponent implements OnInit {
 
     })
 
+  }
+  selectpax(){
+      this.selectednumberofguest = this.numberofguest
+  }
+  selecttable(){
+      this.selectedtableno = this.tablenumber
   }
   removeItemOnCart(cartid) {
     //this.selectedProduct = [];

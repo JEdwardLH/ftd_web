@@ -45,23 +45,73 @@
 <button id="openAddcardModal" [hidden]="true" data-toggle="modal" data-target="#addcard">{{LanguageText.txt_checkout_openmodal}}</button>
 <!-- MODAL -->
 </li>
-<li>
+<li class="active">
+  <div class="process-icon">
+  <img src="../../../assets/images/icon-iphone-grey.png" class="w-100 active-hide"/>
+  <img src="../../../assets/images/icon-iphone-white.png" class="w-100 active-show"/>
+  </div>
+  <div class="top">
+    <span class="name">Dine In Information</span>
+    <span class="subname">Number of guest & table number?</span>
+    <!-- <a class="toggle-btn" [ngClass]="showcontactinfo ? '' : 'hide'" (click)=" toggleContactinfo()"><i class="fas fa-angle-down"></i></a> -->
+  </div>
+  <button id="showloading" [hidden]="true" data-toggle="modal" data-target="#loadingmodal"></button>
+  <div class="sec_contact_box"  style="cursor: pointer;" (click)="openAddressModalUser2()">
+    <div class="row">
+      <div class="col-4 col-md-4 col-sm-4">
+        <span class="txt_checkouttitle">Number of Person</span>
+      </div>
+      <div class="col-8 col-md-8 col-sm-8">
+
+        <button id="openModalUser2" [hidden]="true" data-toggle="modal" data-target="#modal_contactinfo2">{{LanguageText.txt_checkout_openmodal}}</button>
+
+        <span class="txt_phonenumber" style="font-size: 13px;">{{selectednumberofguest}}&nbsp;</span>
+        <span class="txt_phonenumber">&nbsp;Person</span>
+        <div class="btn-box2">
+          <a href="#" target="_self" data-toggle="modal" data-target="#modal_contactinfo2"><i class="far fa-edit"></i></a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sec_contact_box"  style="cursor: pointer;" (click)="openAddressModalUser3()">
+    <div class="row">
+      <div class="col-4 col-md-4 col-sm-4">
+        <span class="txt_checkouttitle">Table Number</span>
+      </div>
+      <div class="col-8 col-md-8 col-sm-8">
+
+        <button id="openModalUser3" [hidden]="true" data-toggle="modal" data-target="#modal_contactinfo3">{{LanguageText.txt_checkout_openmodal}}</button>
+
+        <span class="txt_phonenumber" style="font-size: 13px;">Table #&nbsp;</span>
+        <span class="txt_phonenumber">&nbsp;{{selectedtableno}}</span>
+        <div class="btn-box2">
+          <a href="#" target="_self" data-toggle="modal" data-target="#modal_contactinfo3"><i class="far fa-edit"></i></a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <button id="openAddcardModal" [hidden]="true" data-toggle="modal" data-target="#addcard">{{LanguageText.txt_checkout_openmodal}}</button>
+  <!-- MODAL -->
+  </li>
+<li [hidden]="true">
 <div class="process-icon"><img src="../../../assets/images/icon-pin-grey.png" class="w-100 active-hide"/>
 <img src="../../../assets/images/icon-pin-white.png" class="w-100 active-show"/>
 </div>
-<div class="top">
+<div class="top" hidden>
   <span class="name">{{LanguageText.txt_checkout_deliveryaddress}}</span>
   <span class="subname">{{LanguageText.txt_checkout_delivery_par}}.</span>
   <!-- <a class="toggle-btn"  (click)="toggleDelivery()"><i class="fas fa-angle-down"></i></a> -->
 </div>
 <input type="button" (click)="addnewaddress()" *ngIf="!iseditingaddress" name="next" class="btnaddnewaddress_co" value="+ Add New Address" />
 <input type="button" name="next"  (click)="canceladdress()" *ngIf="iseditingaddress" class="btnaddnewaddress_co" value="Cancel" />
-<agm-map style="height: 200px;" [latitude]="displaylatitude" [longitude]="displaylongitude" [zoom]="18" [mapTypeControl]='false'
+<agm-map style="height: 200px;" [hidden]="true" [latitude]="displaylatitude" [longitude]="displaylongitude" [zoom]="18" [mapTypeControl]='false'
                   (mapReady)="mapReady($event)">
                     <agm-marker [iconUrl]="usermarker" [latitude]="displaylatitude" [longitude]="displaylongitude" [markerDraggable]="false"
                      ></agm-marker>
                   </agm-map>
-<div class="bottom" *ngIf="showdelivery">
+<div class="bottom" *ngIf="false">
   <fieldset class="pb-0" *ngIf="iseditingaddress" >
     <div class="form-card">
       <div class="row mt-2">
@@ -201,41 +251,14 @@
 
 </div>
 </li>
-<li>
-<div class="process-icon"><img src="../../../assets/images/icon-payment-grey.png" class="w-100 active-hide"/>
-<img src="../../../assets/images/icon-payment-white.png" class="w-100 active-show"/>
-</div>
-<div class="top">
-  <span class="name">{{LanguageText.txt_checkout_paymentmethod}}</span>
-  <span class="subname">{{LanguageText.txt_checkout_payment_par}}?</span>
-  <!-- <a class="toggle-btn" (click)="togglePaymentmethod()"><i class="fas fa-angle-down"></i></a> -->
-</div>
-<div class="bottom" *ngIf="showpaymentmethod" style="cursor: pointer;"  (click)="openPaymentModal()">
 
-  <div class="payment-box">
-    <div class="row">
-      <div class="col-8 col-md-8 col-sm-8">
-        <button id="openModalPayment" [hidden]="true" data-toggle="modal" data-target="#paymentmethod">{{LanguageText.txt_checkout_openmodal}}</button>
-        <span class="txt_method">{{selectedPaymentMethod}}</span>
-      </div>
-      <div class="col-4 col-md-4 col-sm-4">
-
-        <div class="btn-box">
-          <a href="#" target="_self" data-toggle="modal" data-target="#paymentmethod"><i class="fas fa-angle-right"></i></a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-</li>
-<li>
+<li [hidden]="true">
 <div class="process-icon"><img src="../../../assets/images/icon-history-grey.png" class="w-100 active-hide"/>
 <img src="../../../assets/images/icon-history-white.png" class="w-100 active-show"/>
 </div>
 <div class="top">
-  <span class="name">{{LanguageText.txt_checkout_deliverytime}}</span>
-  <div class="time float-right">{{deliverytime}}</div>
+  <span class="name">Date & Time</span>
+  <div class="time float-right">December 1, 2021 12:PM</div>
 </div>
 </li>
 </ul>
@@ -265,7 +288,7 @@
         <div class="extra_delete" (click)="removeItemOnCart(cartItem.cart_id)"><i class="fas fa-trash"></i></div>
       </div>
     </div>
-  <div class="box">
+  <div class="box" hidden>
       <div class="mb-1 overflow-hidden">
         <div class="label text-primary voucherlabel" (click)="inputVoucher()" *ngIf="!hasDiscout">{{LanguageText.txt_product_doyouhaveavoucher}}</div>
 
@@ -577,102 +600,101 @@
   </div>
 </div>
 
-<!-- MODAL FOR PAYMENT METHOD -->
-<div class="modal fade" id="paymentmethod" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-body modalbodypinlocation">
-        <div class="btnbutton_modals">
-          <a href="" target="_self" data-dismiss="modal" class="btn_modal_cancel">{{LanguageText.txt_checkout_cancel}}</a>
+<div class="modal fade" id="modal_contactinfo2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    <div class="modal-body modalbodypinlocation">
+      <div class="btnbutton_modals">
+        <a href="" target="_self" data-dismiss="modal" class="btn_modal_cancel">Cancel</a>
+        <a href="" target="_self" class="btn_modal_apply" (click)="selectpax()" data-dismiss="modal">Apply</a>
+      </div>
+      <h5 class="title_modalcheckout text-center">Select Number of Guest</h5>
+      <div class="bottom">
+        <div class="checkout_infos row">
+          <div class="col-md-6">
+            <div class="form-group icon-left">
+              <select class="form-control selectbox" [(ngModel)]="numberofguest" [ngModelOptions]="{standalone: true}">
+
+                <option value="1">1 Person</option>
+                <option value="2">2 Person</option>
+                <option value="3">3 Person</option>
+                <option value="4">4 Person</option>
+                <option value="5">5 Person</option>
+                <option value="6">6 Person</option>
+                <option value="7">7 Person</option>
+                <option value="8">8 Person</option>
+                <option value="9">9 Person</option>
+                <option value="10">10 Person</option>
+                <option value="11">11 Person</option>
+                <option value="12">12 Person</option>
+                <option value="13">13 Person</option>
+                <option value="14">14 Person</option>
+                <option value="15">15 Person</option>
+                <option value="0">Morethan 15</option>
+              </select>
+            </div>
+          </div>
+
+
+
         </div>
-        <h5 class="title_modalcheckout text-center">{{LanguageText.txt_checkout_paymentmethod}}</h5>
-        <div class="mdl_payment row">
-          <div class="col-md-12 mb-4">
-            <div class="round-btn" style="cursor: pointer;" (click)="selectPayment('cod')">
-              <div class="selection-tick custom-radio">
-                <input type="radio"  name="paymentmethod" [value]="'cod'" [ngModel]="selectedPaymentRadio">
-                <span class="checkmark"></span>
-              </div>
-              <span><img src="../../../assets/images/icon-money-grey.png"/></span>
-              <span class="lable">{{LanguageText.txt_checkout_cod}}</span>
-            </div>
-          </div>
-          <div class="col-md-12" *ngIf="cardlist.length>0">
-            <p class="paymentmodal_ttl">{{LanguageText.txt_checkout_creditdebit}}</p>
-          </div>
-
-          <div class="col-md-12 mb-3"   *ngFor="let card of cardlist; let i = index;" style="cursor: pointer;" (click)="selectPayment(card.id)">
-            <div class="round-btn">
-              <div class="selectmodal_card selection-tick custom-radio">
-                <input type="radio"  name="paymentmethod" [value]="card.id" [ngModel]="selectedPaymentRadio" >
-                <span class="checkmark"></span>
-              </div>
-              <img class="cardpaymentimg" src="../../../assets/images/payment-master-icon.png"/>
-              <span class="lable">{{card.number}}</span><br>
-              <span class="namebank">{{card.brand}}</span>
-              <a style="cursor: pointer;" (click)="deleteCard(card.id)" class="icon_paymentdelete"><i class="fa fa-trash-o"></i></a>
-            </div>
-          </div>
-
-          <!-- ADD NEW CARD FORM -->
-          <!-- <div class="col-md-12 mt-3">
-            <div class="box">
-              <form>
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label>Cardholder Name</label>
-                      <input type="text" class="form-control" placeholder="Card holder name">
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                  <div class="form-group">
-                      <label>Card Number</label>
-                      <input type="text" class="form-control" placeholder="Card number">
-                    </div>
-                  </div>
-                  <div class="col-7 col-md-7">
-                    <div class="form-group">
-                        <label>Expiration Date</label>
-                        <input type="text" class="form-control" placeholder="Expiration date">
-                      </div>
-                    </div>
-                  <div class="col-5 col-md-5">
-                  <div class="form-group">
-                      <label>CVV</label>
-                      <input type="number" class="form-control" placeholder="CVV">
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div> -->
-
-          <div class="col-md-12 text-center mt-3">
-            <button class="btn red-btn"  (click)="AddNewCard()">{{LanguageText.txt_checkout_addnewcard}}</button>
-          </div>
-        </div>
-
       </div>
     </div>
   </div>
 </div>
+</div>
+
+<div class="modal fade" id="modal_contactinfo3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    <div class="modal-body modalbodypinlocation">
+      <div class="btnbutton_modals">
+        <a href="" target="_self" data-dismiss="modal" class="btn_modal_cancel">Cancel</a>
+        <a href="" target="_self" class="btn_modal_apply" (click)="selecttable()" data-dismiss="modal">Apply</a>
+      </div>
+      <h5 class="title_modalcheckout text-center">Select Table Number</h5>
+      <div class="bottom">
+        <div class="checkout_infos row">
+          <div class="col-md-6">
+            <div class="form-group icon-left">
+              <select class="form-control selectbox" [(ngModel)]="tablenumber" [ngModelOptions]="{standalone: true}">
+
+                <option value="1">Table 1 </option>
+                <option value="2">Table 2 </option>
+                <option value="3">Table 3 </option>
+                <option value="4">Table 4 </option>
+                <option value="5">Table 5 </option>
+                <option value="6">Table 6 </option>
+                <option value="7">Table 7 </option>
+                <option value="8">Table 8 </option>
+                <option value="9">Table 9 </option>
+                <option value="10">Table 10 </option>
+                <option value="11">Table 11 </option>
+                <option value="12">Table 12 </option>
+                <option value="13">Table 13 </option>
+                <option value="14">Table 14 </option>
+                <option value="15">Table 15 </option>
+
+              </select>
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- MODAL FOR PAYMENT METHOD -->
+
 
 <!-- MODAL FOR Add Card METHOD -->
-<div class="modal fade" id="addcard" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-body modalbodypinlocation">
-        <div class="btnbutton_modals">
-          <a href="" target="_self" data-dismiss="modal" class="btn_modal_cancel">{{LanguageText.txt_checkout_cancel}}</a>
-        </div>
-        <h5 class="title_modalcheckout text-center">{{LanguageText.txt_checkout_addcard}}</h5>
-        <iframe [hidden]="iframestate=='ready'" [src]="iframesrc" frameBorder="0" (load)="currentUrl()" id="ifff" height="500px" width="100%" title="Iframe Example"></iframe>
 
-      </div>
-    </div>
-  </div>
-</div>
 
 
 </main>

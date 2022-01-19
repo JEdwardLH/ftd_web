@@ -7,7 +7,7 @@
 <div class="col-8 col-sm-6">
   <!-- <div class="logo"><a href="" routerLink="/"><img src="../../../assets/images/logo.jpg" class="w-100"/></a></div> -->
   <div class="locationform text-center" (click)="setaddress()" *ngIf="currentUrl!=''&&currentUrl!='/en'&&currentUrl!='/th'" >
-    <button class="locatef_text mb-0 btn_mapheader" data-toggle="modal" data-target="#pinlocationaddress" (click)="openMap()">
+    <button class="locatef_text mb-0 btn_mapheader" (click)="openMap()">
       <p class="mb-0 p_loc_head" *ngIf="currentUrl!=''">{{LanguageText.txt_header_your_location}} <i class="fa fa-angle-down mb_lochead" aria-hidden="true"></i></p>
       <span>{{getaddress()}}&nbsp;&nbsp;</span>
     </button>
@@ -150,11 +150,11 @@
 <div class="col-4 col-sm-6 col-md-2 col-lg-2 col-xl-2">
   <div class="logo"><a style="cursor:pointer" (click)="clearcity()" ><img src="../../../assets/images/logo.jpg" class="w-100"/></a></div>
 </div>
-<!-- <div class="col-12 col-md-5 col-lg-6 col-xl-6 order-3 order-md-2 nopadresp">
-  <div class="locationform" (click)="setaddress()">
-    <button class="locatef_text mb-0 btn_mapheader" *ngIf="currentUrl!=''&&currentUrl!='/en'&&currentUrl!='/th'" data-toggle="modal" data-target="#pinlocationaddress" (click)="openMap()">{{LanguageText.txt_header_delivering_to}} : <span>{{getaddress()}}&nbsp;&nbsp;</span><i class="fas fa-chevron-down" style="color:#EA7826;" aria-hidden="true"></i> </button>
+<div class="col-12 col-md-5 col-lg-6 col-xl-6 order-3 order-md-2 nopadresp">
+  <div class="locationform" >
+    <button class="locatef_text mb-0 btn_mapheader" >DINE IN NOW! <span></span><i class="fas fa-chevron-down" style="color:#EA7826;" aria-hidden="true"></i> </button>
   </div>
-</div> -->
+</div>
 <div class="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-4 order-2 order-md-3 text-right nopadleft">
 <div class="btn-box">
 <div class="login-btn"><div class="dropdown "><a href="#" class="dropdown-toggle whenlogged" role="button" id="userdropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <div class="icon"><img src="../../../assets/images/login-user.png" class="w-100 hover-hide"/><img src="../../../assets/images/login-user-hover.png" class="w-100 hover-show"/></div>{{username}}</a>
@@ -186,57 +186,4 @@
 
 </header>
 
-<div class="modal fade" id="pinlocationaddress" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered">
-  <div class="modal-content">
-    <div class="modal-body modalbodypinlocation">
-      <button type="button" class="close btnclosemodal2" id="closeModalLocation"
-        data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      <h5 class="title_modalcheckout2 text-center">Let us know where you are</h5>
 
-
-
-      <!-- START -->
-      <form id="msform">
-
-        <fieldset>
-          <div class="form-card">
-            <form>
-              <div class="modal_search_sec">
-                <input type="text" class="form-control search_location" (keydown.enter)="$event.preventDefault()"
-                  placeholder="Enter your exact location" autocorrect="off" autocapitalize="off" id="searchlocation2" spellcheck="off"
-                  type="text" #search>
-                <i class="fa fa-map-pin location_icon" aria-hidden="true"></i>
-              </div>
-
-              <div class="pinlocation_map">
-                <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" [mapTypeControl]='true'
-                  (centerChange)="centerChange($event)" (boundsChange)="boundsChange($event)"
-                  (mapReady)="mapReady($event)">
-                  <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
-                    (dragEnd)="markerDragEnd($event)"></agm-marker>
-                </agm-map>
-
-
-              </div>
-
-            </form>
-          </div>
-          <h5 class="text-left" style="cursor: pointer;color: brown;" (click)="setCurrentLocation()"><i
-              class="fa fa-location-arrow" aria-hidden="true"></i> Set to my current location</h5>
-
-          <input (click)="gotohomepage()"  data-dismiss="modal"  type="button"  name="next" class="btn next red-btn action-button"
-            value="Save my location!" />
-
-        </fieldset>
-
-
-      </form>
-      <!-- END -->
-    </div>
-  </div>
-</div>
-</div>

@@ -2,40 +2,7 @@
 <app-header *ngIf="!isUserMode()&&!smurf" id="home" class="header-show-search"></app-header>
 <main *ngIf="isLanguageLoaded" class="trackorder">
 
-  <div class="process">
-    <div class="container">
-      <div class="horizontal-process text-center">
-        <div class="stagevideos stagevideo1">
-          <img src="https://gexpress.ph/imahe/trackordergif/waiting.gif" *ngIf="isActiveStatus(1)=='active'&&isActiveStatus(2)!='active'">
-          <img src="https://gexpress.ph/imahe/trackordergif/preparing.gif" *ngIf="isActiveStatus(2)=='active'&&isActiveStatus(5)!='active'">
-          <img src="https://gexpress.ph/imahe/trackordergif/dispatch.gif" *ngIf="isActiveStatus(5)=='active'&&isActiveStatus(6)!='active'">
-          <img src="https://gexpress.ph/imahe/trackordergif/ontheway.gif" *ngIf="isActiveStatus(6)=='active'&&isActiveStatus(7)!='active'">
 
-          <div class="mapagm" *ngIf="isActiveStatus(7)=='active'&&isActiveStatus(8)!='active'">
-            <agm-map #AgmMap id="trackmap" [latitude]="focuslatitude" [longitude]="focuslongitude" [zoom]="zoom"
-            [mapTypeControl]='true'>
-            <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="false" [iconUrl]="usermarker">
-            </agm-marker>
-            <agm-marker [agmFitBounds]="true" [latitude]="restolatitude" [longitude]="restolongitude" [markerDraggable]="false"
-              [iconUrl]="merchantmarker"></agm-marker>
-            <agm-marker [agmFitBounds]="true" [latitude]="riderlatitude" [longitude]="riderlongitude" [markerDraggable]="false"
-              [iconUrl]="ridermarker"></agm-marker>
-
-            <agm-polyline *ngFor="let point of points;let i = index;" [strokeColor]="point.speed < 50 ? '#2196f3': 'red'">
-              <agm-polyline-point [latitude]="point.latitude" [longitude]="point.longitude">
-              </agm-polyline-point>
-              <ng-container *ngIf="points[i+1]">
-                <agm-polyline-point [latitude]="points[i+1].latitude" [longitude]="points[i+1].longitude">
-                </agm-polyline-point>
-              </ng-container>
-            </agm-polyline>
-            </agm-map>
-          </div>
-          <img src="https://gexpress.ph/imahe/trackordergif/delivered.gif" *ngIf="isActiveStatus(8)=='active'">
-        </div>
-      </div>
-    </div>
-  </div>
 
   <div class="container time" *ngIf="acceptedTime!=''">
     <div class="cancelorder_timer" >
@@ -81,6 +48,8 @@
         </div>
         <div class="col-12 col-sm-12 col-md-12">
           <div class="location">{{storename}}</div>
+          <div class="location">Table Number: {{table}}</div>
+          <div class="location">Numnber of guest: {{guest}}</div>
           <div class="location">{{orderid}}</div>
           <div class="location">{{customerAddress1}}</div>
         </div>
@@ -121,12 +90,9 @@
         </tr>
         <tr class="totalstrack">
           <td class="totalttl first">{{LanguageText.txt_trackorder_discountoffer}}</td>
-          <td class="totalamounts first">- {{currency}} {{coupon_used}}</td>
+          <td class="totalamounts first">{{currency}} {{coupon_used}}</td>
         </tr>
-        <tr class="totalstrack">
-          <td class="totalttl">{{LanguageText.txt_trackorder_deliveryfee}}</td>
-          <td class="totalamounts">{{currency}} {{delivery_fee}}</td>
-        </tr>
+
         <tr class="totalstrack">
           <td class="totalttl">{{LanguageText.txt_trackorder_grandtotal}}</td>
           <td class="totalamounts">{{currency}} {{grand_total}}</td>
@@ -134,8 +100,8 @@
 
         <!-- PAYMENT -->
         <tr class="totalstrack">
-          <td class="totalttl">{{LanguageText.txt_track_payment_type}}</td>
-          <td class="totalamounts">{{paytype}}</td>
+          <td class="totalttl">Payment Status</td>
+          <td class="totalamounts">PAID</td>
         </tr>
         <!-- <tr>
           <td class="text-left to_paymentfont">Payment ID</td>
